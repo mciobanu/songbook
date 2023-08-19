@@ -35,12 +35,13 @@ src/setupTests.ts	f	2023-08-19T07:21:22Z
 src/widgets/ChordConfig.tsx	f	2023-08-19T13:36:59Z
 src/widgets/FontConfigurator.tsx	f	2023-08-19T13:36:59Z
 src/widgets/GoTo.tsx	f	2023-08-19T13:36:59Z
+src/widgets/Hamburger.tsx	f	2023-08-19T18:36:52Z
 src/widgets/Help.tsx	f	2023-08-19T14:15:43Z
 src/widgets/IndexSelector.tsx	f	2023-08-19T13:36:59Z
 src/widgets/Loader.tsx	f	2023-08-19T12:58:17Z
 src/widgets/Menu.tsx	f	2023-08-19T13:36:59Z
 src/widgets/Navigation.tsx	f	2023-08-19T13:33:01Z
-src/widgets/RootMenu.tsx	f	2023-08-19T13:34:14Z
+src/widgets/RootMenu.tsx	f	2023-08-19T18:36:52Z
 src/widgets/Search.tsx	f	2023-08-19T13:36:59Z
 src/widgets/Song.tsx	f	2023-08-19T13:39:01Z
 tsconfig.json	f	2023-08-19T07:21:28Z
