@@ -1,6 +1,6 @@
 import React from "react";
 
-import './legacy.css';
+import '../legacy.css';
 
 export const LoaderWidget = () => {
     return (

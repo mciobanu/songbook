@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {IntroductionWidget} from "./Introduction";
-import {LoaderWidget} from "./Loader";
+import {IntroductionWidget} from "./widgets/Introduction";
+import {LoaderWidget} from "./widgets/Loader";
 
 function App() {
     return (
