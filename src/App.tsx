@@ -4,6 +4,7 @@ import './App.css';
 import {IntroductionWidget} from "./widgets/Introduction";
 import {LoaderWidget} from "./widgets/Loader";
 import {RootMenuWidget} from "./widgets/RootMenu";
+import Main from "./Main";
 
 function App() {
     return (
@@ -23,12 +24,13 @@ function App() {
                     </a>
                 </header>
             </div>*/
-            <div id="mainContent" > {/*onClick="onMainClick();"*/}
-                {/*ttt1 close button is over the scroll bar on desktop*/}
-                <LoaderWidget />
-                <IntroductionWidget />
-                <RootMenuWidget />
-            </div>
+            // <div id="mainContent" > {/*onClick="onMainClick();"*/}
+            //     {/*ttt1 close button is over the scroll bar on desktop*/}
+            //     <LoaderWidget />
+            //     <IntroductionWidget />
+            //     <RootMenuWidget />
+            // </div>
+            <Main></Main>
     );
 }
 
