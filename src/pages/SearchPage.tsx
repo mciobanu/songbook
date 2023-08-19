@@ -1,12 +1,12 @@
 import React from "react";
 
 import '../legacy.css';
-import {RootMenuWidget} from "../widgets/RootMenu";
+import {NonNavigatingRootMenuWidget} from "../widgets/NonNavigatingRootMenu";
 
 export const SearchPage = () => {
     return (
             <div>
-                <RootMenuWidget />
+                <NonNavigatingRootMenuWidget />
                 <span className="songTitle">SearchPage</span>
             </div>
     );

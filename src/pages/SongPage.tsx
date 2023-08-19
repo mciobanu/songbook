@@ -3,8 +3,8 @@ import React from "react";
 import { useParams } from 'react-router-dom';
 
 import '../legacy.css';
-import {RootMenuWidget} from "../widgets/RootMenu";
-import {SortType} from "../Common";
+import {NavigatingRootMenuWidget} from "../widgets/NavigatingRootMenu";
+import {ReactSetter2, SortType} from "../Common";
 
 /*export const SongPage = ({pos}: {pos: number}) => {
     return (
@@ -17,14 +17,14 @@ type SongParams = {
 };
 
 
-export const SongPage = ({sortType}: {sortType: SortType}) => {
+export const SongPage = ({sortType, songNumber, setSongNumber} : {sortType: SortType, songNumber: number, setSongNumber: ReactSetter2<number>}) => {
 
     const { songPos } = useParams<SongParams>();
     const numSngPos = Number(songPos);
 
     return (
             <div>
-                <RootMenuWidget />
+                <NavigatingRootMenuWidget songNumber={songNumber} setSongNumber={setSongNumber}/>
                 <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
             </div>
     );

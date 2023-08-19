@@ -1,13 +1,13 @@
 import React from "react";
 
 import '../legacy.css';
-import {RootMenuWidget} from "../widgets/RootMenu";
+import {NonNavigatingRootMenuWidget} from "../widgets/NonNavigatingRootMenu";
 import {SortType} from "../Common";
 
 export const IndexPage = ({sortType}: {sortType: SortType}) => {
     return (
             <div>
-                <RootMenuWidget />
+                <NonNavigatingRootMenuWidget />
                 <span className="songTitle">IndexPage, by {sortType}</span>
             </div>
     );

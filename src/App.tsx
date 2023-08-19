@@ -1,12 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {HelpWidget} from "./widgets/Help";
-import {LoaderWidget} from "./widgets/Loader";
-import {RootMenuWidget} from "./widgets/RootMenu";
 import RouteDefinition from "./RouteDefinition";
+//import {TestWidget} from "./widgets/Test";
 
 function App() {
+    const [songNumber, setSongNumber] = React.useState<number>(20);
     return (
             /*<div className="App">
                 <header className="App-header">
@@ -30,7 +29,7 @@ function App() {
             //     <HelpWidget />
             //     <RootMenuWidget />
             // </div>
-            <RouteDefinition></RouteDefinition>
+            <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} />
     );
 }
 
