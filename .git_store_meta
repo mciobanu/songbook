@@ -2,8 +2,10 @@
 <file>	<type>	<mtime>
 .gitignore	f	2023-08-19T07:21:22Z
 .idea/.gitignore	f	2023-08-19T07:20:22Z
+.idea/inspectionProfiles/Project_Default.xml	f	2023-08-19T07:26:11Z
 .idea/misc.xml	f	2023-08-19T07:20:18Z
 .idea/modules.xml	f	2023-08-19T07:20:18Z
+.idea/vcs.xml	f	2023-08-19T07:26:11Z
 package.json	f	2023-08-19T07:21:29Z
 package-lock.json	f	2023-08-19T07:21:29Z
 public/favicon.ico	f	2023-08-19T07:21:22Z
