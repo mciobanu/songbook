@@ -32,7 +32,7 @@ const RouteDefinition = () => {
                 <Routes>
                     <Route path='/' element={<LoaderPage/>}/>
                     <Route path='/help' element={<HelpPage/>}/>
-                    <Route path='/song' element={<SongPage/>}/>
+                    <Route path='/song/:songPos' element={<SongPage />}/>
                 </Routes>
             </React.Suspense>
     );
