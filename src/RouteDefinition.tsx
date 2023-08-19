@@ -1,15 +1,18 @@
 import React from 'react';
 
-import {Routes, Route} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {HelpPage} from "./pages/HelpPage";
 import {LoaderPage} from "./pages/LoaderPage";
 import {SongPage} from "./pages/SongPage";
+import {SortType} from "./Common";
+import {IndexPage} from "./pages/IndexPage";
+import {SearchPage} from "./pages/SearchPage";
 
 const RouteDefinition = () => {
 
     /*
     Routes:
-    / - main page, normally same as /index-by-position, except the first time
+    / - main page, normally same as /index-by-position, except the first time  //ttt0: implement "except"
     /help
     /index-by-position
     /index-by-title
@@ -30,9 +33,24 @@ const RouteDefinition = () => {
     return (
             <React.Suspense fallback={<LoaderPage/>}>
                 <Routes>
-                    <Route path='/' element={<LoaderPage/>}/>
+                    {/*<Route path='/' element={<LoaderPage/>}/>*/}
+                    <Route path='/' element={<IndexPage sortType={SortType.position} />}/>
+
                     <Route path='/help' element={<HelpPage/>}/>
-                    <Route path='/song/:songPos' element={<SongPage />}/>
+
+                    <Route path='/index-by-position' element={<IndexPage sortType={SortType.position} />}/>
+                    <Route path='/index-by-title' element={<IndexPage sortType={SortType.title} />}/>
+                    <Route path='/index-by-singer' element={<IndexPage sortType={SortType.singer} />}/>
+                    <Route path='/index-by-writer' element={<IndexPage sortType={SortType.writer} />}/>
+                    <Route path='/index-by-verse' element={<IndexPage sortType={SortType.verse} />}/>
+
+                    <Route path='/song-by-position/:songPos' element={<SongPage sortType={SortType.position} />}/>
+                    <Route path='/song-by-title/:songPos' element={<SongPage sortType={SortType.title} />}/>
+                    <Route path='/song-by-singer/:songPos' element={<SongPage sortType={SortType.singer} />}/>
+                    <Route path='/song-by-writer/:songPos' element={<SongPage sortType={SortType.writer} />}/>
+                    <Route path='/song-by-verse/:songPos' element={<SongPage sortType={SortType.verse} />}/>
+
+                    <Route path='/search' element={<SearchPage />}/>
                 </Routes>
             </React.Suspense>
     );

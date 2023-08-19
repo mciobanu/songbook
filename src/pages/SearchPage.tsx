@@ -1,9 +1,13 @@
 import React from "react";
 
 import '../legacy.css';
+import {RootMenuWidget} from "../widgets/RootMenu";
 
 export const SearchPage = () => {
     return (
-            <span className="songTitle">SearchPage</span>
+            <div>
+                <RootMenuWidget />
+                <span className="songTitle">SearchPage</span>
+            </div>
     );
 }
