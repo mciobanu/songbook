@@ -2,7 +2,8 @@ import React from "react";
 
 import '../legacy.css';
 
-export const IntroductionWidget = () => {
+
+export const HelpWidget = () => {
     return (
             <div id="helpOuter" className="helpDivOuter helpFont">
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {IntroductionWidget} from "./widgets/Introduction";
+import {HelpWidget} from "./widgets/Help";
 import {LoaderWidget} from "./widgets/Loader";
 import {RootMenuWidget} from "./widgets/RootMenu";
 import Main from "./Main";
@@ -27,7 +27,7 @@ function App() {
             // <div id="mainContent" > {/*onClick="onMainClick();"*/}
             //     {/*ttt1 close button is over the scroll bar on desktop*/}
             //     <LoaderWidget />
-            //     <IntroductionWidget />
+            //     <HelpWidget />
             //     <RootMenuWidget />
             // </div>
             <Main></Main>
