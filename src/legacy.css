@@ -1,0 +1,462 @@
+html {
+    /*font-size: 162.5%; moved to JS*/
+}
+
+body {
+    font-family: Verdana, Geneva, sans-serif;
+    /*font-family: Courier;*/
+    font-size: 1rem;
+    background: #ffe;
+    /*color: #000;*/
+
+    border: 0rem;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+hr { /* ttt2 maybe create a class rather than change things globally */
+    font-size: 0.4rem;
+}
+
+.menuHr {
+    width: 11rem; /* this is related to the scrolling of the menu when it's too large to fit on the screen */
+}
+
+.menuDiv {
+    position: fixed;
+    top: 0rem;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    /*
+    overflow-y:scroll;
+    overflow-x:auto;
+    */
+}
+
+.menuDivExtended {
+    /* !!! this is an issue with Chrome and related (e.g. system browser in Android 2.3 to 5.0 and probably up)
+    We want "bottom:0rem" in order to get the menu to scroll.
+    The problem with setting bottom is that it assumes the menu is always expanded to the bottom, so any buttons that are considered covered cannot be clicked
+    ///ttt1 related issue: if menu is expanded in Chrome but doesn't fill the screen vertically, touching below it won't close it
+     */
+    bottom: 0rem;
+}
+
+.menuDivLeft {
+    left: 0rem;
+}
+
+.menuDivRight {
+    right: 0rem;
+}
+
+
+.menuP {
+    clear: both;
+    background: #eed;
+    margin: 0;
+    padding: 0.2rem 0.4rem 0.35rem !important;
+    text-align: center;
+    line-height: 1.3rem;
+}
+
+
+.indexParagraph, .indexEntry, .indexEntryHighlight, .songNormalVerse, .songNote, .songLastVerse, .songNormalVerseTbl, .songLastVerseTbl, .suggestion, .searchResult, .searchSummary, .crtAnchor, .songTitle, .toolBtnNormal, .editGoto, .editSmallNumber, .editVoiceRangeNormal, .editVoiceRangeShort, .editSearch, .editSearch2, .chkBox, .testChromeAlignment, .dropDown, .textNormal, .menuP, .capoTable, .chordTable, .helpFont {
+    /*font-family: Verdana, Geneva, sans-serif;*/
+    /*font-family: Courier;*/
+    /*color: #aaa;*/
+    color: #000;
+}
+
+.btnNormal {
+}
+
+.capoTable {
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    border: 0;
+}
+
+.chordTable {
+    font-size: 0.9rem;
+    padding: 0rem;
+    border: 0;
+    border-spacing: 0px;
+    margin-left: 0.7rem;
+    /*
+    border-spacing: 0rem;
+    padding-left: 0.7rem;
+    */
+    border-collapse: collapse;
+}
+
+/*
+padding-left: 0rem;
+padding: 0rem;
+text-indent: 0rem;
+*/
+
+.chordCellChord, .chordCellText {
+    padding: 0rem;
+    /*
+    white-space: nowrap;
+    */
+    white-space: pre;
+}
+
+.chordCellChord {
+    color: #228;
+    font-style: italic;
+    padding-top: 0.2rem;
+}
+
+.chordRow {
+    /*
+    padding-left: 0.7rem;
+    margin-left: 0.7rem;
+    */
+}
+
+.singleLine {
+    padding: 0rem;
+    /*
+    white-space: pre;
+    */
+    white-space: nowrap;
+}
+
+
+.indexParagraph, .indexEntry, .indexEntryHighlight, .songNormalVerse, .songNote, .songLastVerse, .songNormalVerseTbl, .songLastVerseTbl, .suggestion, .searchResult, .searchSummary, .crtAnchor, .songTitle, .chkBox {
+    background: #ffe;
+    border: 0rem;
+    margin: 0rem;
+    padding: 0rem;
+}
+
+.indexParagraph, .indexEntry, .indexEntryHighlight, .songNormalVerse, .songNote, .songLastVerse, .songNormalVerseTbl, .songLastVerseTbl, .suggestion, .searchResult, .searchSummary, .crtAnchor, .chkBox, .dropDown, .helpFont, .measureSpan {
+    font-size: 0.9rem;
+    padding-right: 0.5rem;
+}
+
+.indexParagraph {
+    padding-left: 2rem;
+    text-indent: -1.5rem;
+}
+
+.indexEntryHighlight {
+    background: #ddc;
+}
+
+.searchMatch {
+    /*background: #ddc;*/
+    background: #ee7;
+}
+
+
+.songNormalVerse, .songNote, .songLastVerse, .searchResult, .searchSummary {
+    padding-left: 2.2rem;
+    text-indent: -1.5rem;
+}
+
+.songLastVerse {
+    padding-bottom: 0.5rem;
+}
+
+.songLastVerseTbl {
+    padding-bottom: 1.2rem;
+}
+
+.songNote {
+    padding-bottom: 0.2rem;
+}
+
+.suggestion {
+    padding-left: 0.7rem;
+    padding-bottom: 0.5rem;
+}
+
+.searchSeparator {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.searchSummary {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.searchResult {
+    padding-bottom: 0.1rem;
+}
+
+.searchResultHighlight {
+    /*background: #eed;*/
+    background: #ddc;
+}
+
+.crtAnchor {
+    padding-top: 2.7rem;
+}
+
+
+.songTitle {
+    font-size: 1.2rem;
+
+    padding-top: 0rem;
+    padding-left: 2.5rem;
+    text-indent: -1rem;
+    padding-bottom: 0.8rem;
+}
+
+
+.menuNormal {
+    padding: 0rem;
+    margin: 0rem;
+}
+
+.menuCurrent {
+    font-weight: bold;
+}
+
+.toolBtnNormal {
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+    /*
+    height: 2rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    */
+}
+
+.btnNormal {
+    font-size: 0.9rem;
+    height: 1.7rem;
+    margin-right: 0.2rem;
+    margin-bottom: 0.2rem;
+    /*
+    height: 2rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    */
+}
+
+/*.btnNormal-disabled {
+color: #888;
+}*/
+
+.btnNormal:disabled {
+    /*color: #888;*/
+    /*color: #ccc;*/
+    /*color: #888;
+    background: #eed;*/
+
+    /* this looks pretty bad on Galaxy S 4.0.4 */
+    /*color: #888;
+    border: none;
+    background: none;
+    */
+    /* mix-blend-mode: difference; */ /* nice but doesn't work in Android up to 4.4.4 */
+}
+
+/*.btnNormal[disabled] { //ttt3 see if needed on old browsers instead of .btnNormal:disabled
+color: #888;
+}*/
+
+
+.editGoto {
+    font-size: 1rem;
+    width: 5rem;
+}
+
+.editSmallNumber {
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    width: 2rem;
+}
+
+.testChromeAlignment {
+    margin-top: 0.3rem;
+    font-size: 1rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+
+.editVoiceRangeNormal, .editVoiceRangeShort {
+    font-size: 1rem;
+    width: 3.7rem;
+    margin-top: 0.1rem;
+}
+
+.editVoiceRangeShort {
+    width: 2rem;
+}
+
+.editSearch {
+    font-size: 1rem;
+    width: 6rem;
+}
+
+.editSearch2 {
+    font-size: 1rem;
+    width: 7rem;
+    padding-left: 0.1rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.zoom {
+    width: 7rem;
+}
+
+.dropDown {
+    width: 4rem;
+    padding-left: 0.1rem;
+    height: 1.5rem;
+}
+
+.outsideRange {
+    background: #e88;
+}
+
+
+/*
+.helpDivOuter {
+z-index: 10;
+position:fixed;
+background: #eed;
+border: 3px solid #000;
+box-shadow: 0rem 0rem 4rem #000;
+left:1rem;
+right:1rem;
+top:1rem;
+bottom:1rem;
+}
+
+.helpDivInner {
+overflow-y:auto;
+padding-left:0rem;
+position:absolute;
+left:0.5rem;
+right:0.5rem;
+top:0rem;
+bottom:0rem;
+}
+
+.helpCloseBtn {
+z-index: 20;
+position:absolute;
+right:0.2rem;
+top:0.2rem;
+}
+
+.helpTopSpace { / * ttt2 perhaps use the same in main page * /
+padding-top:2rem;
+}
+*/
+
+
+.helpDivOuter {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin: 0rem;
+}
+
+
+.helpDivInner {
+}
+
+.helpTopSpace {
+    padding-top: 0rem;
+    margin: 0rem;
+}
+
+.helpHighlight {
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+
+.measureSpan { /* http://stackoverflow.com/questions/1216759/knowing-how-wide-a-text-line-will-be-in-html-for-word-wrap-and-other-application */
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    visibility: hidden;
+    width: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* hide spinner - http://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29 */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input[type="checkbox"] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    margin-top: 0.2rem; /* needed on Note 3*/
+    /* ttt2 checkbox doesn't zoom, and these didn't help with FF, while Chrome needed changes:
+        http://stackoverflow.com/questions/13778963/html-css-how-can-i-make-the-checkboxes-grow-when-zooming-in-and-shrink-when-zoo
+        http://stackoverflow.com/questions/306924/checkbox-size-in-html-css
+    */
+}
+
+a:link {
+    color: #007;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #007;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #007;
+    text-decoration: none;
+}
+
+a:active {
+    color: #007;
+    text-decoration: none;
+}
+
+/* ttt3 review text-decoration */
+
+a.visitedLink:link {
+    color: #007;
+    text-decoration: none;
+}
+
+a.visitedLink:visited {
+    color: #007;
+    text-decoration: none;
+}
+
+a.visitedLink:hover {
+    color: #007;
+    text-decoration: none;
+}
+
+a.visitedLink:active {
+    color: #007;
+    text-decoration: none;
+}
+
+.outsideRange, .insideRange {
+    /*margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;*/
+}
+
