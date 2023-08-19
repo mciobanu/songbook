@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import {IntroductionWidget} from "./widgets/Introduction";
 import {LoaderWidget} from "./widgets/Loader";
+import {RootMenuWidget} from "./widgets/RootMenu";
 
 function App() {
     return (
@@ -26,7 +27,7 @@ function App() {
                 {/*ttt1 close button is over the scroll bar on desktop*/}
                 <LoaderWidget />
                 <IntroductionWidget />
-
+                <RootMenuWidget />
             </div>
     );
 }

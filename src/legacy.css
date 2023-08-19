@@ -24,7 +24,7 @@ hr { /* ttt2 maybe create a class rather than change things globally */
 
 .menuDiv {
     position: fixed;
-    top: 0rem;
+    top: 0;
 
     overflow-y: auto;
     overflow-x: hidden;
@@ -44,11 +44,11 @@ hr { /* ttt2 maybe create a class rather than change things globally */
 }
 
 .menuDivLeft {
-    left: 0rem;
+    left: 0;
 }
 
 .menuDivRight {
-    right: 0rem;
+    right: 0;
 }
 
 
