@@ -4,7 +4,7 @@ import './App.css';
 import {HelpWidget} from "./widgets/Help";
 import {LoaderWidget} from "./widgets/Loader";
 import {RootMenuWidget} from "./widgets/RootMenu";
-import Main from "./Main";
+import RouteDefinition from "./RouteDefinition";
 
 function App() {
     return (
@@ -30,7 +30,7 @@ function App() {
             //     <HelpWidget />
             //     <RootMenuWidget />
             // </div>
-            <Main></Main>
+            <RouteDefinition></RouteDefinition>
     );
 }
 
