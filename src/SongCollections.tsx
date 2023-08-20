@@ -1,6 +1,8 @@
-import {SortType} from "./Common";
-import {getFullTitle, getFullTitleLyricistRemoved, getFullTitlePerformerRemoved, Song} from "./Song";
-import {TestSongs} from "./Songs";
+import {SortType} from './Common';
+import {
+    getFullTitle, getFullTitleLyricistRemoved, getFullTitlePerformerRemoved, Song,
+} from './Song';
+import {TestSongs} from './Songs';
 
 export type SortedSong = {
     index: number,
@@ -11,6 +13,7 @@ export type SortedSong = {
 function sortSongs(songs: SortedSong[]): void {
     songs.sort((s1, s2) => s1.displayString.localeCompare(s2.displayString));
     for (let i = 0; i < songs.length; i++) {
+        // eslint-disable-next-line no-param-reassign
         songs[i].index = i + 1;
     }
 }
@@ -25,8 +28,8 @@ function getSongsByPosition(): SortedSong[] {
             songsByPosition.push({
                 index: i,
                 displayString: getFullTitle(song),
-                song: song,
-            })
+                song,
+            });
         }
         //sortSongs(songsByPosition); //!!! We don't want to sort
     }
@@ -38,12 +41,12 @@ let songsByTitle : SortedSong[];
 function getSongsByTitle(): SortedSong[] {
     if (!songsByTitle) {
         songsByTitle = [];
-        for (let song of TestSongs) {
+        for (const song of TestSongs) {
             songsByTitle.push({
                 index: -1,
                 displayString: getFullTitle(song),
-                song: song,
-            })
+                song,
+            });
         }
         sortSongs(songsByTitle);
     }
@@ -55,13 +58,13 @@ let songsByPerformer : SortedSong[];
 function getSongsByPerformer(): SortedSong[] {
     if (!songsByPerformer) {
         songsByPerformer = [];
-        for (let song of TestSongs) {
+        for (const song of TestSongs) {
             if (song.p) {
-                for (let performer of song.p) {
+                for (const performer of song.p) {
                     songsByPerformer.push({
                         index: -1,
-                        displayString: performer + ' - ' + getFullTitlePerformerRemoved(song, performer),
-                        song: song,
+                        displayString: `${performer} - ${getFullTitlePerformerRemoved(song, performer)}`,
+                        song,
                     });
                 }
             }
@@ -76,14 +79,14 @@ let songsByLyricist : SortedSong[];
 function getSongsByLyricist(): SortedSong[] {
     if (!songsByLyricist) {
         songsByLyricist = [];
-        for (let song of TestSongs) {
+        for (const song of TestSongs) {
             if (song.l) {
-                for (let lyricist of song.l) {
+                for (const lyricist of song.l) {
                     songsByLyricist.push({
                         index: -1,
-                        displayString: lyricist + ' - ' + getFullTitleLyricistRemoved(song, lyricist),
-                        song: song,
-                    })
+                        displayString: `${lyricist} - ${getFullTitleLyricistRemoved(song, lyricist)}`,
+                        song,
+                    });
                 }
             }
         }
@@ -97,14 +100,15 @@ let songsByVerse : SortedSong[];
 function getSongsByVerse(): SortedSong[] {
     if (!songsByVerse) {
         songsByVerse = [];
-        for (let song of TestSongs) {
+        for (const song of TestSongs) {
             if (song.v) {
-                for (let verse of song.v) {
+                for (const verse of song.v) {
+                //song.v.forEach((verse) => {
                     songsByVerse.push({
                         index: -1,
-                        displayString: verse + ' - ' + getFullTitle(song),
-                        song: song,
-                    })
+                        displayString: `${verse} - ${getFullTitle(song)}`,
+                        song,
+                    });
                 }
             }
         }
@@ -115,15 +119,17 @@ function getSongsByVerse(): SortedSong[] {
 
 export function getSortedSongs(sortType: SortType): SortedSong[] {
     switch (sortType) {
-        case SortType.position:
-            return getSongsByPosition();
-        case SortType.title:
-            return getSongsByTitle();
-        case SortType.performer:
-            return getSongsByPerformer();
-        case SortType.lyricist:
-            return getSongsByLyricist();
-        case SortType.verse:
-            return getSongsByVerse();
+    case SortType.position:
+        return getSongsByPosition();
+    case SortType.title:
+        return getSongsByTitle();
+    case SortType.performer:
+        return getSongsByPerformer();
+    case SortType.lyricist:
+        return getSongsByLyricist();
+    case SortType.verse:
+        return getSongsByVerse();
+    default:
+        throw Error(`Unknown sort type: ${sortType}`);
     }
 }

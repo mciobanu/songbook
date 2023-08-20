@@ -1,11 +1,11 @@
-import React from "react";
+import React from 'react';
 
 import '../legacy.css';
-import {FontConfiguratorWidget} from "./FontConfigurator";
-import {SearchWidget} from "./Search";
-import {GoToWidget} from "./GoTo";
-import {IndexSelectorWidget} from "./IndexSelector";
-import {ChordConfigWidget} from "./ChordConfig";
+import {FontConfiguratorWidget} from './FontConfigurator';
+import {SearchWidget} from './Search';
+import {GoToWidget} from './GoTo';
+import {IndexSelectorWidget} from './IndexSelector';
+import {ChordConfigWidget} from './ChordConfig';
 
 export const MenuWidget = () => {
     return (<div>
@@ -15,4 +15,4 @@ export const MenuWidget = () => {
         <IndexSelectorWidget></IndexSelectorWidget>
         <ChordConfigWidget></ChordConfigWidget>
     </div>);
-}
+};

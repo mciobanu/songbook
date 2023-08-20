@@ -52,7 +52,7 @@ function removeElement(element?: string, list?: string[]): string[] | undefined 
     if (k === -1) {
         return list;
     }
-    let a: string[] = [...list];
+    const a: string[] = [...list];
     a.splice(k, 1);
     return a.length ? a : undefined;
 }
@@ -65,7 +65,7 @@ function listAsString(list?: string[]): string | undefined {
     if (!list) {
         return undefined;
     }
-    return list.join(", ");
+    return list.join(', ');
 }
 
 /**

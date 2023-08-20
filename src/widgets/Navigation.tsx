@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 
 import '../legacy.css';
-import {ReactSetter2} from "../Common";
+import {ReactSetter2} from '../Common';
 
-export const NavigationWidget = ({songNumber, setSongNumber} : {songNumber: number, setSongNumber: ReactSetter2<number>}) => {
+export const NavigationWidget = ({songNumber, setSongNumber} :
+            {songNumber: number, setSongNumber: ReactSetter2<number>}) => {
 
     const onPrevious = React.useCallback(() => {
         //console.log(`songNumber=${songNumber}`)
@@ -15,7 +16,7 @@ export const NavigationWidget = ({songNumber, setSongNumber} : {songNumber: numb
         setSongNumber(songNumber + 1);
     }, [songNumber, setSongNumber]);
 
-    console.log(`songNumberEntry=${songNumber}`)
+    console.log(`songNumberEntry=${songNumber}`);
 
     return (<div>
         navigation {songNumber}
