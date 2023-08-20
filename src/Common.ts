@@ -3,8 +3,8 @@ import React from "react";
 export enum SortType {
     position,
     title,
-    singer,
-    writer,
+    performer,
+    lyricist,
     verse,
 }
 
@@ -34,16 +34,76 @@ export type Song = {
     v?: string[], // verses (to be used in search)
 };
 
+/**
+ * @return title like "Cântec de inimă albastră (Adrian Jacota / Mircea Dinescu)"
+ */
 export function getFullTitle(song: Song): string {
-    let additional: string[] = [];
-    if (song.p) {
-        additional.push(...song.p);
+    return getFullTitleSomeRemoved(song);
+}
+
+export function getFullTitleLyricistRemoved(song: Song, removedLyricist: string): string {
+    return getFullTitleSomeRemoved(song, removedLyricist);
+}
+
+export function getFullTitlePerformerRemoved(song: Song, removedPerformer: string): string {
+    return getFullTitleSomeRemoved(song, undefined, removedPerformer);
+}
+
+/**
+ * Creates a copy of a list and removes an element from it.
+ * If the copy becomes empty, returns undefined.
+ * If the element is undefined, returns the original list.
+ * If the list is undefined, returns undefined.
+ */
+function removeElement(element?: string, list?: string[]): string[] | undefined {
+    if (!element) {
+        return list;
     }
-    if (song.l) {
-        additional.push(...song.l);
+    if (!list) {
+        return undefined;
     }
-    if (!additional.length) {
-        return song.t;
+    const k = list.indexOf(element);
+    if (k === -1) {
+        return list;
     }
-    return song.t + ' (' + additional.join(' / ');
+    let a: string[] = [...list];
+    a.splice(k, 1);
+    return a.length ? a : undefined;
+}
+
+/**
+ * Returns the list joined by commas.
+ * Returns undefined if the list is undefined
+ */
+function listAsString(list?: string[]): string | undefined {
+    if (!list) {
+        return undefined;
+    }
+    return list.join(", ");
+}
+
+/**
+ * Basically returns the first list joined by commas, followed by a slash and the second list joined by commas, and all
+ * of this between braces and preceded by a space.
+ *
+ * If both lists are undefined, returns an empty string.
+ * If a single list is undefined, the slash and that list are excluded
+ */
+function listsAsString(list1?: string[], list2?: string[]): string {
+    if (list1) {
+        if (list2) {
+            return ` (${listAsString(list1)} / ${listAsString(list2)})`;
+        }
+        return ` (${listAsString(list1)})`;
+    }
+    if (list2) {
+        return ` (${listAsString(list2)})`;
+    }
+    return '';
+}
+
+function getFullTitleSomeRemoved(song: Song, removedLyricist?: string, removedPerformer?: string): string {
+    const lyricists = removeElement(removedLyricist, song.l);
+    const performers = removeElement(removedPerformer, song.p);
+    return song.t + listsAsString(performers, lyricists);
 }
