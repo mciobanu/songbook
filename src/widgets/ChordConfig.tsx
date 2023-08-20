@@ -1,8 +1,10 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 
 import '../legacy.css';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {ReactSetter2} from '../Common';
+import {Paths} from '../Paths';
 
 export const ChordConfigWidget = ({
     songRenderConfig, setSongRenderConfig,
@@ -27,9 +29,15 @@ export const ChordConfigWidget = ({
         setSongRenderConfig(newConfig);
     }, [setSongRenderConfig, songRenderConfig]);
 
+    const navigate = useNavigate();
+
+    const onHelp = React.useCallback(() => {
+        navigate(Paths.help);
+    }, [navigate]);
+
     return (<div>
         Acorduri <input id="chords" type="checkbox" className="chkBox" onChange={toggleChordVisibility}/>&nbsp;
-        <input id="helpBtn" type="button" className="toolBtnNormal" value="?" /> <br/>
+        <input id="helpBtn" type="button" className="toolBtnNormal" value="?" onClick={onHelp}/> <br/>
         {songRenderConfig.showChords && <div>
             În versuri <input id="embeddedChords" type="checkbox" className="chkBox" /> <br/>
             Sugestii <input id="useSuggestions" type="checkbox" className="chkBox" /> <br/>

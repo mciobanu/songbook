@@ -1,4 +1,7 @@
 export const Paths = {
+    help: '/help',
+    search: '/search',
+
     indexByPosition: '/index-by-position',
     indexByTitle: '/index-by-title',
     indexByPerformer: '/index-by-performer',

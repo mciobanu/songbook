@@ -57,7 +57,7 @@ const RouteDefinition = ({
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
-                <Route path='/help' element={<HelpPage
+                <Route path={Paths.help} element={<HelpPage
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
@@ -98,7 +98,7 @@ const RouteDefinition = ({
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     setSongRenderConfig={setSongRenderConfig}/>}/>
 
-                <Route path='/search' element={<SearchPage
+                <Route path={Paths.search} element={<SearchPage
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
             </Routes>
