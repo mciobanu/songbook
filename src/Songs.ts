@@ -4,7 +4,7 @@
 
 import {Song} from "./Common";
 
-export const TestSongs: Song[] = [
+export const TestSongs: Song[] = [  //ttt0: rename, load from lib
     {
         t: "Așa beu oamenii buni",
         l: [

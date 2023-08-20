@@ -33,3 +33,17 @@ export type Song = {
     b: Stanza[], // body
     v?: string[], // verses (to be used in search)
 };
+
+export function getFullTitle(song: Song): string {
+    let additional: string[] = [];
+    if (song.p) {
+        additional.push(...song.p);
+    }
+    if (song.l) {
+        additional.push(...song.l);
+    }
+    if (!additional.length) {
+        return song.t;
+    }
+    return song.t + ' (' + additional.join(' / ');
+}
