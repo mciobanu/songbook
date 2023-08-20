@@ -35,7 +35,7 @@ src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
 src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
 src/RouteDefinition.tsx	f	2023-08-20T19:42:10Z
 src/setupTests.ts	f	2023-08-19T07:21:22Z
-src/SongCollections.tsx	f	2023-08-20T12:29:34Z
+src/SongCollections.ts	f	2023-08-20T12:29:34Z
 src/SongRenderConfig.ts	f	2023-08-20T12:52:08Z
 src/Songs.ts	f	2023-08-20T12:30:33Z
 src/Song.ts	f	2023-08-20T12:31:18Z
