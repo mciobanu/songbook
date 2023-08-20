@@ -2,7 +2,7 @@
 
 // Temporary song definitions
 
-import {Song} from "./Common";
+import {Song} from "./Song";
 
 export const TestSongs: Song[] = [  //ttt0: rename, load from lib
     {

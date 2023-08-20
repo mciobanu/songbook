@@ -1,4 +1,5 @@
-import {getFullTitle, getFullTitleLyricistRemoved, getFullTitlePerformerRemoved, Song, SortType} from "./Common";
+import {SortType} from "./Common";
+import {getFullTitle, getFullTitleLyricistRemoved, getFullTitlePerformerRemoved, Song} from "./Song";
 import {TestSongs} from "./Songs";
 
 export type SortedSong = {

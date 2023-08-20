@@ -2,10 +2,12 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import RouteDefinition from "./RouteDefinition";
+import {SortType} from "./Common";
 //import {TestWidget} from "./widgets/Test";
 
 function App() {
     const [songNumber, setSongNumber] = React.useState<number>(20);
+    const [sortType, setSortType] = React.useState<SortType>(SortType.position);
     return (
             /*<div className="App">
                 <header className="App-header">
