@@ -18,7 +18,7 @@ public/robots.txt	f	2023-08-19T07:21:22Z
 README.md	f	2023-08-19T07:21:22Z
 src/App.css	f	2023-08-19T07:21:22Z
 src/App.test.tsx	f	2023-08-20T12:42:16Z
-src/App.tsx	f	2023-08-20T12:35:20Z
+src/App.tsx	f	2023-08-20T13:10:33Z
 src/Common.ts	f	2023-08-20T13:15:40Z
 src/index.css	f	2023-08-19T07:21:22Z
 src/index.tsx	f	2023-08-20T12:40:53Z
@@ -28,12 +28,13 @@ src/pages/HelpPage.tsx	f	2023-08-20T12:41:19Z
 src/pages/IndexPage.tsx	f	2023-08-20T12:40:32Z
 src/pages/LoaderPage.tsx	f	2023-08-20T12:40:00Z
 src/pages/SearchPage.tsx	f	2023-08-20T12:37:32Z
-src/pages/SongPage.tsx	f	2023-08-20T12:36:42Z
+src/pages/SongPage.tsx	f	2023-08-20T13:06:32Z
 src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
 src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
-src/RouteDefinition.tsx	f	2023-08-20T12:33:09Z
+src/RouteDefinition.tsx	f	2023-08-20T13:08:58Z
 src/setupTests.ts	f	2023-08-19T07:21:22Z
 src/SongCollections.tsx	f	2023-08-20T12:29:34Z
+src/SongRenderConfig.ts	f	2023-08-20T12:52:08Z
 src/Songs.ts	f	2023-08-20T12:30:33Z
 src/Song.ts	f	2023-08-20T12:31:18Z
 src/widgets/ChordConfig.tsx	f	2023-08-20T12:42:16Z
@@ -48,5 +49,5 @@ src/widgets/NavigatingRootMenu.tsx	f	2023-08-20T12:39:34Z
 src/widgets/Navigation.tsx	f	2023-08-20T12:39:10Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-20T12:33:21Z
 src/widgets/Search.tsx	f	2023-08-20T12:37:46Z
-src/widgets/Song.tsx	f	2023-08-20T12:37:00Z
+src/widgets/Song.tsx	f	2023-08-20T13:18:29Z
 tsconfig.json	f	2023-08-19T07:21:28Z

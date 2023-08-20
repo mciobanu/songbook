@@ -3,11 +3,22 @@ import React from 'react';
 import './App.css';
 import RouteDefinition from './RouteDefinition';
 import {SortType} from './Common';
+import {SongRenderConfig} from './SongRenderConfig';
 //import {TestWidget} from "./widgets/Test";
 
 function App() {
+    const defaultSongRenderConfig: SongRenderConfig = {  //ttt0: Use local storage
+        fontSize: 10,
+        inlineChords: true,
+        maxCapo: 5,
+        maxSuggestions: 6,
+        minNote: 'C',
+        maxNote: 'D',
+        showChords: false,
+    };
     const [songNumber, setSongNumber] = React.useState<number>(20);
     const [sortType, setSortType] = React.useState<SortType>(SortType.position);
+    const [songRenderConfig, setSongRenderConfig] = React.useState<SongRenderConfig>(defaultSongRenderConfig);
     return (
         /*<div className="App">
             <header className="App-header">
@@ -31,7 +42,7 @@ function App() {
         //     <HelpWidget />
         //     <RootMenuWidget />
         // </div>
-        <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} />
+        <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig} />
     );
 }
 
