@@ -1,0 +1,70 @@
+.menuHr {
+    width: 11rem; /* this is related to the scrolling of the menu when it's too large to fit on the screen */
+}
+
+.menuDiv {
+    position: fixed;
+    top: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    /*
+    overflow-y:scroll;
+    overflow-x:auto;
+    */
+}
+
+.menuDivExtended {
+    /* !!! this is an issue with Chrome and related (e.g. system browser in Android 2.3 to 5.0 and probably up)
+    We want "bottom:0rem" in order to get the menu to scroll.
+    The problem with setting bottom is that it assumes the menu is always expanded to the bottom, so any buttons that are considered covered cannot be clicked
+    ///ttt1 related issue: if menu is expanded in Chrome but doesn't fill the screen vertically, touching below it won't close it
+     */
+    bottom: 0;
+}
+
+.menuDivLeft {
+    left: 0;
+}
+
+.menuDivRight {
+    right: 0;
+}
+
+
+.menuP {
+    clear: both;
+    background: #eed;
+    margin: 0;
+    padding: 0.2rem 0.4rem 0.35rem !important;
+    text-align: center;
+    line-height: 1.3rem;
+    color: #000;
+}
+
+.menuNormal {
+    padding: 0;
+    margin: 0;
+}
+
+.menuCurrent {
+    font-weight: bold;
+}
+
+.navRootMenuContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nonNavRootMenuContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navAlign {
+    align-self: flex-start;
+}
+
+.hamburgerAlign {
+    align-self: flex-end;
+}

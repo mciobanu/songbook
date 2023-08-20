@@ -18,51 +18,7 @@ hr { /* ttt2 maybe create a class rather than change things globally */
     font-size: 0.4rem;
 }
 
-.menuHr {
-    width: 11rem; /* this is related to the scrolling of the menu when it's too large to fit on the screen */
-}
-
-.menuDiv {
-    position: fixed;
-    top: 0;
-
-    overflow-y: auto;
-    overflow-x: hidden;
-    /*
-    overflow-y:scroll;
-    overflow-x:auto;
-    */
-}
-
-.menuDivExtended {
-    /* !!! this is an issue with Chrome and related (e.g. system browser in Android 2.3 to 5.0 and probably up)
-    We want "bottom:0rem" in order to get the menu to scroll.
-    The problem with setting bottom is that it assumes the menu is always expanded to the bottom, so any buttons that are considered covered cannot be clicked
-    ///ttt1 related issue: if menu is expanded in Chrome but doesn't fill the screen vertically, touching below it won't close it
-     */
-    bottom: 0rem;
-}
-
-.menuDivLeft {
-    left: 0;
-}
-
-.menuDivRight {
-    right: 0;
-}
-
-
-.menuP {
-    clear: both;
-    background: #eed;
-    margin: 0;
-    padding: 0.2rem 0.4rem 0.35rem !important;
-    text-align: center;
-    line-height: 1.3rem;
-}
-
-
-.indexParagraph, .indexEntry, .indexEntryHighlight, .songNormalVerse, .songNote, .songLastVerse, .songNormalVerseTbl, .songLastVerseTbl, .suggestion, .searchResult, .searchSummary, .crtAnchor, .songTitle, .toolBtnNormal, .editGoto, .editSmallNumber, .editVoiceRangeNormal, .editVoiceRangeShort, .editSearch, .editSearch2, .chkBox, .testChromeAlignment, .dropDown, .textNormal, .menuP, .capoTable, .chordTable, .helpFont {
+.indexParagraph, .indexEntry, .indexEntryHighlight, .songNormalVerse, .songNote, .songLastVerse, .songNormalVerseTbl, .songLastVerseTbl, .suggestion, .searchResult, .searchSummary, .crtAnchor, .songTitle, .toolBtnNormal, .editGoto, .editSmallNumber, .editVoiceRangeNormal, .editVoiceRangeShort, .editSearch, .editSearch2, .chkBox, .testChromeAlignment, .dropDown, .textNormal, .capoTable, .chordTable, .helpFont {
     /*font-family: Verdana, Geneva, sans-serif;*/
     /*font-family: Courier;*/
     /*color: #aaa;*/
@@ -209,15 +165,6 @@ text-indent: 0rem;
     padding-bottom: 0.8rem;
 }
 
-
-.menuNormal {
-    padding: 0rem;
-    margin: 0rem;
-}
-
-.menuCurrent {
-    font-weight: bold;
-}
 
 .toolBtnNormal {
     font-size: 1rem;

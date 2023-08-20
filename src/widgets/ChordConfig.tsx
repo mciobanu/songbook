@@ -15,7 +15,7 @@ export const ChordConfigWidget = () => {
     /* eslint max-len: off */
 
     return (<div>
-        Acorduri <input id="chords" type="checkbox" className="chkBox" />
+        Acorduri <input id="chords" type="checkbox" className="chkBox" />&nbsp;
         <input id="helpBtn" type="button" className="toolBtnNormal" value="?" /> <br/>
         În versuri <input id="embeddedChords" type="checkbox" className="chkBox" /> <br/>
         Sugestii <input id="useSuggestions" type="checkbox" className="chkBox" /> <br/>

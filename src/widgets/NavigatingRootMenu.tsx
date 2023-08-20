@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../legacy.css';
+import '../css/Menu.css';
 import {MenuWidget} from './Menu';
 import {NavigationWidget} from './Navigation';
 import {HamburgerWidget} from './Hamburger';
@@ -8,8 +8,8 @@ import {SortType} from '../Common';
 
 export const NavigatingRootMenuWidget = ({songNumber, sortType} :
             {songNumber: number, sortType: SortType}) => {
-    return (<div className="menuDiv menuDivRight">
-        <div>
+    return (<div className="menuDiv menuDivRight menuP">
+        <div className="navRootMenuContainer">
             <NavigationWidget songNumber={songNumber} sortType={sortType}/>
             <HamburgerWidget />
         </div>

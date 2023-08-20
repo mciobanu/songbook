@@ -6,7 +6,7 @@ import {Paths} from '../Paths';
 
 export const IndexSelectorWidget = () => {
     return (<div>
-        Ordonare după: <br/>
+        Ordonare după: <br/>      {/*ttt0 have the current index in bold */}
         <Link to={Paths.indexByPosition}>Număr</Link> <br/>
         <Link to={Paths.indexByTitle}>Titlu</Link> <br/>
         <Link to={Paths.indexByPerformer}>Interpret</Link> <br/>

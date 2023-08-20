@@ -1,6 +1,5 @@
 import React from 'react';
 
-import '../legacy.css';
 import {useNavigate} from 'react-router-dom';
 import {SortType} from '../Common';
 import {getSortedSongs} from '../SongCollections';
@@ -24,11 +23,12 @@ export const NavigationWidget = ({songNumber, sortType} :
         navigate(`${extraPath}${songNumber + 1}`);
     }, [extraPath, navigate, songNumber]);
 
-    return (<div>
-        navigation {songNumber}
+    return (<span className="menuNormal navAlign">
+        {/*navigation {songNumber}*/}
         <input id="prevBtn" type="button" className="toolBtnNormal"
             disabled={songNumber <= 1} value="&larr;" onClick={onPrevious} />
+        &nbsp;
         <input id="nextBtn" type="button" className="toolBtnNormal"
             disabled={songNumber >= songCount} value="&rarr;" onClick={onNext} />
-    </div>);
+    </span>);
 };

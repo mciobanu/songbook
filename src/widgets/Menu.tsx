@@ -1,6 +1,6 @@
 import React from 'react';
 
-import '../legacy.css';
+import '../css/Menu.css';
 import {FontConfiguratorWidget} from './FontConfigurator';
 import {SearchWidget} from './Search';
 import {GoToWidget} from './GoTo';

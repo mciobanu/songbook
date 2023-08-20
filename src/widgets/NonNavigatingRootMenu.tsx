@@ -1,12 +1,14 @@
 import React from 'react';
 
-import '../legacy.css';
+import '../css/Menu.css';
 import {MenuWidget} from './Menu';
 import {HamburgerWidget} from './Hamburger';
 
 export const NonNavigatingRootMenuWidget = () => {
-    return (<div className="menuDiv menuDivRight">
-        <HamburgerWidget />
+    return (<div className="menuDiv menuDivRight menuP">
+        <div className="nonNavRootMenuContainer">
+            <HamburgerWidget />
+        </div>
         <MenuWidget />
     </div>);
 };
