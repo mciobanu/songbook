@@ -10,4 +10,7 @@ export const Paths = {
     songByPerformer: '/song-by-performer',
     songByLyricist: '/song-by-lyricist',
     songByVerse: '/song-by-verse',
+    //songBySearch: '/song-by-search',  //ttt1: Perhaps implement this, but keep in mind that the search string
+    // would need to be passed as well in order for the URL to be meaningful. Or, simpler: from Search,
+    // pass the /song-by-position URL
 } as const;
