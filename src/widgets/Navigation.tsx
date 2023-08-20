@@ -1,26 +1,34 @@
 import React from 'react';
 
 import '../legacy.css';
-import {ReactSetter2} from '../Common';
+import {useNavigate} from 'react-router-dom';
+import {SortType} from '../Common';
+import {getSortedSongs} from '../SongCollections';
 
-export const NavigationWidget = ({songNumber, setSongNumber} :
-            {songNumber: number, setSongNumber: ReactSetter2<number>}) => {
+export const NavigationWidget = ({songNumber, sortType} :
+        {songNumber: number, sortType: SortType}) => {
+
+    const songCount = getSortedSongs(sortType).length;
+
+    const navigate = useNavigate();
+
+    const fullPath = window.location.pathname;
+    const k = fullPath.lastIndexOf('/');
+    const extraPath = fullPath.substring(0, k + 1);
 
     const onPrevious = React.useCallback(() => {
-        //console.log(`songNumber=${songNumber}`)
-        setSongNumber(songNumber - 1);
-    }, [songNumber, setSongNumber]);
+        navigate(`${extraPath}${songNumber - 1}`);
+    }, [extraPath, navigate, songNumber]);
 
     const onNext = React.useCallback(() => {
-        //console.log(`songNumber=${songNumber}`)
-        setSongNumber(songNumber + 1);
-    }, [songNumber, setSongNumber]);
-
-    console.log(`songNumberEntry=${songNumber}`);
+        navigate(`${extraPath}${songNumber + 1}`);
+    }, [extraPath, navigate, songNumber]);
 
     return (<div>
         navigation {songNumber}
-        <input id="prevBtn" type="button" className="toolBtnNormal" value="&larr;" onClick={onPrevious} />
-        <input id="nextBtn" type="button" className="toolBtnNormal" value="&rarr;" onClick={onNext} />
+        <input id="prevBtn" type="button" className="toolBtnNormal"
+            disabled={songNumber <= 1} value="&larr;" onClick={onPrevious} />
+        <input id="nextBtn" type="button" className="toolBtnNormal"
+            disabled={songNumber >= songCount} value="&rarr;" onClick={onNext} />
     </div>);
 };

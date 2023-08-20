@@ -30,13 +30,17 @@ export const SongPage = ({
     }) => {
 
     const {songPos} = useParams<SongParams>();
-    const numSngPos = Number(songPos);
+    const numSngPos = Number(songPos); //ttt0 adjust URL if this is invalid (123000, -10, abc, ...)
     const sortedSongs = getSortedSongs(sortType);
-    const sortedSong = sortedSongs[numSngPos];
+    const sortedSong = sortedSongs[numSngPos - 1]; // Subtract 1 so the URLs are friendlier to manual change
+
+    React.useEffect(() => {
+        setSongNumber(numSngPos);
+    }, [numSngPos, setSongNumber]);
 
     return (
         <div>
-            <NavigatingRootMenuWidget songNumber={songNumber} setSongNumber={setSongNumber}/>
+            <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}/>
             <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig}/>
         </div>

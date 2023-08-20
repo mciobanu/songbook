@@ -4,13 +4,13 @@ import '../legacy.css';
 import {MenuWidget} from './Menu';
 import {NavigationWidget} from './Navigation';
 import {HamburgerWidget} from './Hamburger';
-import {ReactSetter2} from '../Common';
+import {SortType} from '../Common';
 
-export const NavigatingRootMenuWidget = ({songNumber, setSongNumber} :
-            {songNumber: number, setSongNumber: ReactSetter2<number>}) => {
+export const NavigatingRootMenuWidget = ({songNumber, sortType} :
+            {songNumber: number, sortType: SortType}) => {
     return (<div className="menuDiv menuDivRight">
         <div>
-            <NavigationWidget songNumber={songNumber} setSongNumber={setSongNumber}/>
+            <NavigationWidget songNumber={songNumber} sortType={sortType}/>
             <HamburgerWidget />
         </div>
         <MenuWidget />

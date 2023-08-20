@@ -28,7 +28,7 @@ src/pages/HelpPage.tsx	f	2023-08-20T12:41:19Z
 src/pages/IndexPage.tsx	f	2023-08-20T12:40:32Z
 src/pages/LoaderPage.tsx	f	2023-08-20T12:40:00Z
 src/pages/SearchPage.tsx	f	2023-08-20T12:37:32Z
-src/pages/SongPage.tsx	f	2023-08-20T13:06:32Z
+src/pages/SongPage.tsx	f	2023-08-20T14:04:52Z
 src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
 src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
 src/RouteDefinition.tsx	f	2023-08-20T13:08:58Z
@@ -45,8 +45,8 @@ src/widgets/Help.tsx	f	2023-08-20T12:33:35Z
 src/widgets/IndexSelector.tsx	f	2023-08-20T12:40:21Z
 src/widgets/Loader.tsx	f	2023-08-20T12:40:09Z
 src/widgets/Menu.tsx	f	2023-08-20T12:39:45Z
-src/widgets/NavigatingRootMenu.tsx	f	2023-08-20T12:39:34Z
-src/widgets/Navigation.tsx	f	2023-08-20T12:39:10Z
+src/widgets/NavigatingRootMenu.tsx	f	2023-08-20T13:58:57Z
+src/widgets/Navigation.tsx	f	2023-08-20T14:17:36Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-20T12:33:21Z
 src/widgets/Search.tsx	f	2023-08-20T12:37:46Z
 src/widgets/Song.tsx	f	2023-08-20T13:18:29Z
