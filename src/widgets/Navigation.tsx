@@ -27,8 +27,9 @@ export const NavigationWidget = ({songNumber, sortType} :
         {/*navigation {songNumber}*/}
         <input id="prevBtn" type="button" className="toolBtnNormal"
             disabled={songNumber <= 1} value="&larr;" onClick={onPrevious} />
-        &nbsp;
+        &nbsp; {/*ttt1 perhaps use margin*/}
         <input id="nextBtn" type="button" className="toolBtnNormal"
             disabled={songNumber >= songCount} value="&rarr;" onClick={onNext} />
+        &nbsp;
     </span>);
 };

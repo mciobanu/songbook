@@ -19,6 +19,7 @@ function App() {
     const [songNumber, setSongNumber] = React.useState<number>(20);
     const [sortType, setSortType] = React.useState<SortType>(SortType.position);
     const [songRenderConfig, setSongRenderConfig] = React.useState<SongRenderConfig>(defaultSongRenderConfig);
+    const [expandedMenu, setExpandedMenu] = React.useState<boolean>(false);
     return (
         /*<div className="App">
             <header className="App-header">
@@ -42,7 +43,8 @@ function App() {
         //     <HelpWidget />
         //     <RootMenuWidget />
         // </div>
-        <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig} />
+        <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
+            expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
     );
 }
 

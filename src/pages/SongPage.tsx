@@ -9,25 +9,26 @@ import {SongWidget} from '../widgets/Song';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {getSortedSongs} from '../SongCollections';
 
-/*export const SongPage = ({pos}: {pos: number}) => {
-    return (
-            <span className="songTitle">SongPage: {pos}</span>
-    );
-}*/
-
 type SongParams = {
     songPos: string;
 };
 
 
 export const SongPage = ({
-    sortType, songNumber, setSongNumber, songRenderConfig,
+    sortType,
+    songNumber,
+    setSongNumber,
+    songRenderConfig,
+    expandedMenu,
+    setExpandedMenu,
 } : {
-        sortType: SortType,
-        songNumber: number,
-        setSongNumber: ReactSetter2<number>,
-        songRenderConfig: SongRenderConfig
-    }) => {
+    sortType: SortType,
+    songNumber: number,
+    setSongNumber: ReactSetter2<number>,
+    songRenderConfig: SongRenderConfig,
+    expandedMenu: boolean,
+    setExpandedMenu: ReactSetter2<boolean>,
+}) => {
 
     const {songPos} = useParams<SongParams>();
     const numSngPos = Number(songPos); //ttt0 adjust URL if this is invalid (123000, -10, abc, ...)
@@ -40,7 +41,8 @@ export const SongPage = ({
 
     return (
         <div>
-            <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}/>
+            <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
+                expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
             <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig}/>
         </div>

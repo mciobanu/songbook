@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../legacy.css';
 import {NonNavigatingRootMenuWidget} from '../widgets/NonNavigatingRootMenu';
-import {SortType} from '../Common';
+import {ReactSetter2, SortType} from '../Common';
 import {getSortedSongs, SortedSong} from '../SongCollections';
 
 
@@ -14,11 +14,15 @@ function render(sortedSongs: SortedSong[]) {
     //return (<div>aaa</div>);
 }
 
-export const IndexPage = ({sortType}: {sortType: SortType}) => {
+export const IndexPage = ({
+    sortType, expandedMenu, setExpandedMenu,
+}: {
+    sortType: SortType, expandedMenu: boolean, setExpandedMenu: ReactSetter2<boolean>,
+}) => {
     const songs = getSortedSongs(sortType);
     return (
         <div>
-            <NonNavigatingRootMenuWidget />
+            <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
             <span className="songTitle">IndexPage, by {sortType}</span>
             {render(songs)}
         </div>
