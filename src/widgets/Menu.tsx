@@ -9,10 +9,15 @@ import {ChordConfigWidget} from './ChordConfig';
 
 export const MenuWidget = () => {
     return (<div>
-        <FontConfiguratorWidget></FontConfiguratorWidget>
-        <GoToWidget></GoToWidget>
-        <SearchWidget></SearchWidget>
-        <IndexSelectorWidget></IndexSelectorWidget>
-        <ChordConfigWidget></ChordConfigWidget>
+        <hr className="menuHr" />
+        <FontConfiguratorWidget />
+        <hr className="menuHr" />
+        <GoToWidget />
+        <hr className="menuHr" />
+        <SearchWidget />
+        <hr className="menuHr" />
+        <IndexSelectorWidget />
+        <hr className="menuHr" />
+        <ChordConfigWidget />
     </div>);
 };

@@ -8,6 +8,7 @@ import {ReactSetter2, SortType} from './Common';
 import {IndexPage} from './pages/IndexPage';
 import {SearchPage} from './pages/SearchPage';
 import {SongRenderConfig} from './SongRenderConfig';
+import {Paths} from "./Paths";
 
 const RouteDefinition = ({songNumber, setSongNumber, songRenderConfig} :
         {songNumber: number, setSongNumber: ReactSetter2<number>, songRenderConfig: SongRenderConfig}) => {
@@ -42,21 +43,21 @@ const RouteDefinition = ({songNumber, setSongNumber, songRenderConfig} :
 
                 <Route path='/help' element={<HelpPage/>}/>
 
-                <Route path='/index-by-position' element={<IndexPage sortType={SortType.position} />}/>
-                <Route path='/index-by-title' element={<IndexPage sortType={SortType.title} />}/>
-                <Route path='/index-by-performer' element={<IndexPage sortType={SortType.performer} />}/>
-                <Route path='/index-by-lyricist' element={<IndexPage sortType={SortType.lyricist} />}/>
-                <Route path='/index-by-verse' element={<IndexPage sortType={SortType.verse} />}/>
+                <Route path={Paths.indexByPosition} element={<IndexPage sortType={SortType.position} />}/>
+                <Route path={Paths.indexByTitle} element={<IndexPage sortType={SortType.title} />}/>
+                <Route path={Paths.indexByPerformer} element={<IndexPage sortType={SortType.performer} />}/>
+                <Route path={Paths.indexByLyricist} element={<IndexPage sortType={SortType.lyricist} />}/>
+                <Route path={Paths.indexByVerse} element={<IndexPage sortType={SortType.verse} />}/>
 
-                <Route path='/song-by-position/:songPos' element={<SongPage sortType={SortType.position}
+                <Route path={`${Paths.songByPosition}/:songPos`} element={<SongPage sortType={SortType.position}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}/>}/>
-                <Route path='/song-by-title/:songPos' element={<SongPage sortType={SortType.title}
+                <Route path={`${Paths.songByTitle}/:songPos`} element={<SongPage sortType={SortType.title}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}/>}/>
-                <Route path='/song-by-performer/:songPos' element={<SongPage sortType={SortType.performer}
+                <Route path={`${Paths.songByPerformer}/:songPos`} element={<SongPage sortType={SortType.performer}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}/>}/>
-                <Route path='/song-by-lyricist/:songPos' element={<SongPage sortType={SortType.lyricist}
+                <Route path={`${Paths.songByLyricist}/:songPos`} element={<SongPage sortType={SortType.lyricist}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}/>}/>
-                <Route path='/song-by-verse/:songPos' element={<SongPage sortType={SortType.verse}
+                <Route path={`${Paths.songByVerse}/:songPos`} element={<SongPage sortType={SortType.verse}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}/>}/>
 
                 <Route path='/search' element={<SearchPage />}/>
