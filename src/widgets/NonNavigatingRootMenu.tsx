@@ -4,16 +4,23 @@ import '../css/Menu.css';
 import {MenuWidget} from './Menu';
 import {HamburgerWidget} from './Hamburger';
 import {ReactSetter2} from '../Common';
+import {SongRenderConfig} from '../SongRenderConfig';
 
 export const NonNavigatingRootMenuWidget = ({
-    expandedMenu, setExpandedMenu,
+    expandedMenu,
+    setExpandedMenu,
+    songRenderConfig,
+    setSongRenderConfig
 } : {
-    expandedMenu: boolean, setExpandedMenu: ReactSetter2<boolean>,
+    expandedMenu: boolean,
+    setExpandedMenu: ReactSetter2<boolean>,
+    songRenderConfig: SongRenderConfig,
+    setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
     return (<div className="menuDiv menuDivRight menuP">
         <div className="nonNavRootMenuContainer">
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
-        {expandedMenu && <MenuWidget/>}
+        {expandedMenu && <MenuWidget songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}
     </div>);
 };

@@ -19,6 +19,7 @@ export const SongPage = ({
     songNumber,
     setSongNumber,
     songRenderConfig,
+    setSongRenderConfig,
     expandedMenu,
     setExpandedMenu,
 } : {
@@ -26,6 +27,7 @@ export const SongPage = ({
     songNumber: number,
     setSongNumber: ReactSetter2<number>,
     songRenderConfig: SongRenderConfig,
+    setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
 }) => {
@@ -42,7 +44,8 @@ export const SongPage = ({
     return (
         <div>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
-                expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
+                expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig}/>
         </div>

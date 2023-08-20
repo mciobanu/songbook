@@ -14,12 +14,14 @@ const RouteDefinition = ({
     songNumber,
     setSongNumber,
     songRenderConfig,
+    setSongRenderConfig,
     expandedMenu,
     setExpandedMenu,
 } : {
     songNumber: number,
     setSongNumber: ReactSetter2<number>,
     songRenderConfig: SongRenderConfig,
+    setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
 }) => {
@@ -52,40 +54,53 @@ const RouteDefinition = ({
             <Routes>
                 {/*<Route path='/' element={<LoaderPage/>}/>*/}
                 <Route path='/' element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path='/help' element={<HelpPage
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path={Paths.indexByPosition} element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByTitle} element={<IndexPage sortType={SortType.title}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByPerformer} element={<IndexPage sortType={SortType.performer}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByLyricist} element={<IndexPage sortType={SortType.lyricist}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByVerse} element={<IndexPage sortType={SortType.verse}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path={`${Paths.songByPosition}/:songPos`} element={<SongPage sortType={SortType.position}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={`${Paths.songByTitle}/:songPos`} element={<SongPage sortType={SortType.title}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={`${Paths.songByPerformer}/:songPos`} element={<SongPage sortType={SortType.performer}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={`${Paths.songByLyricist}/:songPos`} element={<SongPage sortType={SortType.lyricist}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={`${Paths.songByVerse}/:songPos`} element={<SongPage sortType={SortType.verse}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path='/search' element={<SearchPage
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>}/>
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
             </Routes>
         </React.Suspense>
     );

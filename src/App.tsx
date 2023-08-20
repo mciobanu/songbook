@@ -44,7 +44,7 @@ function App() {
         //     <RootMenuWidget />
         // </div>
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
-            expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
+            expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}/>
     );
 }
 
