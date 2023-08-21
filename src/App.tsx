@@ -4,48 +4,35 @@ import './App.css';
 import RouteDefinition from './RouteDefinition';
 import {SortType} from './Common';
 import {SongRenderConfig} from './SongRenderConfig';
-//import {TestWidget} from "./widgets/Test";
+import {initAsciiForAccidentals} from './RangeProcessor';
 
 function App() {
-    const defaultSongRenderConfig: SongRenderConfig = {  //ttt0: Use local storage
+    const defaultSongRenderConfig: SongRenderConfig = {
         fontSize: 10,
-        inlineChords: true,
-        maxCapo: 5,
-        maxSuggestions: 6,
+        showChords: true,
+        inlineChords: false,
+        useSuggestions: true,
         minNote: 'C',
         maxNote: 'D',
-        showChords: false,
+        noteRange: 14,
+        maxSuggestions: 6,
+        maxCapo: 5,
     };
     const [songNumber, setSongNumber] = React.useState<number>(20);
     const [sortType, setSortType] = React.useState<SortType>(SortType.position);
     const [songRenderConfig, setSongRenderConfig] = React.useState<SongRenderConfig>(defaultSongRenderConfig);
     const [expandedMenu, setExpandedMenu] = React.useState<boolean>(false);
+
+    /*React.useEffect(() => { //ttt0: Use local storage to persist all settings
+        persist(songNumber);
+    }, [songNumber]);*/
+
     return (
-        /*<div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a
-                        className="App-link"
-                        href="https://reactjs.org"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                >
-                    Learn React  2
-                </a>
-            </header>
-        </div>*/
-        // <div id="mainContent" > {/*onClick="onMainClick();"*/}
-        //     {/*ttt1 close button is over the scroll bar on desktop*/}
-        //     <LoaderWidget />
-        //     <HelpWidget />
-        //     <RootMenuWidget />
-        // </div>
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
             expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}/>
     );
 }
+
+initAsciiForAccidentals();  //ttt0: Review using this approach. We don't want to keep calling this function
 
 export default App;
