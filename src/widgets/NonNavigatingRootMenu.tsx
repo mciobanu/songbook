@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../css/Menu.css';
-import {MenuWidget} from './Menu';
+import {NonNavigatingMenuWidget} from './Menu';
 import {HamburgerWidget} from './Hamburger';
 import {ReactSetter2} from '../Common';
 import {SongRenderConfig} from '../SongRenderConfig';
@@ -10,7 +10,7 @@ export const NonNavigatingRootMenuWidget = ({
     expandedMenu,
     setExpandedMenu,
     songRenderConfig,
-    setSongRenderConfig
+    setSongRenderConfig,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
@@ -21,6 +21,7 @@ export const NonNavigatingRootMenuWidget = ({
         <div className="nonNavRootMenuContainer">
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
-        {expandedMenu && <MenuWidget songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}
+        {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
+            setSongRenderConfig={setSongRenderConfig}/>}
     </div>);
 };

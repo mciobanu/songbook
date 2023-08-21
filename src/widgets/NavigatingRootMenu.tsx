@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../css/Menu.css';
-import {MenuWidget} from './Menu';
+import {NavigatingMenuWidget} from './Menu';
 import {NavigationWidget} from './Navigation';
 import {HamburgerWidget} from './Hamburger';
 import {ReactSetter2, SortType} from '../Common';
@@ -27,7 +27,8 @@ export const NavigatingRootMenuWidget = ({
             <NavigationWidget songNumber={songNumber} sortType={sortType}/>
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
-        {expandedMenu && <MenuWidget songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}
+        {expandedMenu && <NavigatingMenuWidget songRenderConfig={songRenderConfig}
+            setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>}
     </div>);
     /* ttt0 review why there are both menuDivRight and menuDivLeft */
 };

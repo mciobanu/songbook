@@ -1,8 +1,13 @@
 import React from 'react';
 
 import '../legacy.css';
+import {SortType} from '../Common';
 
-export const GoToWidget = () => {
+export const GoToWidget = ({
+    sortType,
+} : {
+    sortType: SortType,
+}) => {
     // onKeyDown="if (event.keyCode == 13) document.getElementById('gotoBtn').click();"  //ttt0: make this work
     //  onClick="gotoSong();"  //ttt0: make this work
     return (<div>
