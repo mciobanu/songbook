@@ -1,3 +1,5 @@
+import {SortType} from './Common';
+
 export const Paths = {
     help: '/help',
     search: '/search',
@@ -17,3 +19,20 @@ export const Paths = {
     // would need to be passed as well in order for the URL to be meaningful. Or, simpler: from Search,
     // pass the /song-by-position URL
 } as const;
+
+
+const songPathsForSortType: string[] = [];
+
+function initSongPathsForSortType() {
+    songPathsForSortType[SortType.position] = Paths.songByPosition;
+    songPathsForSortType[SortType.title] = Paths.songByTitle;
+    songPathsForSortType[SortType.performer] = Paths.songByPerformer;
+    songPathsForSortType[SortType.lyricist] = Paths.songByLyricist;
+    songPathsForSortType[SortType.verse] = Paths.songByVerse;
+}
+
+initSongPathsForSortType();  //ttt0: Make sure this is always OK
+
+export function createSongPath(sortType: SortType, songNo: number): string {
+    return `${songPathsForSortType[sortType]}/${songNo}`;
+}

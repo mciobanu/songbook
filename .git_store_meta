@@ -19,7 +19,7 @@ README.md	f	2023-08-19T07:21:22Z
 src/App.css	f	2023-08-19T07:21:22Z
 src/App.test.tsx	f	2023-08-20T12:42:16Z
 src/App.tsx	f	2023-08-21T19:36:03Z
-src/Common.ts	f	2023-08-20T13:15:40Z
+src/Common.ts	f	2023-08-21T20:54:15Z
 src/css/Menu.css	f	2023-08-21T11:36:16Z
 src/index.css	f	2023-08-19T07:21:22Z
 src/index.tsx	f	2023-08-20T12:40:53Z
@@ -30,7 +30,7 @@ src/pages/IndexPage.tsx	f	2023-08-21T19:24:28Z
 src/pages/LoaderPage.tsx	f	2023-08-20T12:40:00Z
 src/pages/SearchPage.tsx	f	2023-08-20T20:24:31Z
 src/pages/SongPage.tsx	f	2023-08-21T19:37:07Z
-src/Paths.ts	f	2023-08-20T20:52:32Z
+src/Paths.ts	f	2023-08-21T20:30:22Z
 src/Persistence.ts	f	2023-08-21T19:18:50Z
 src/RangeProcessor.ts	f	2023-08-21T11:24:07Z
 src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
@@ -44,13 +44,13 @@ src/Song.ts	f	2023-08-20T12:31:18Z
 src/Utils.ts	f	2023-08-21T11:55:39Z
 src/widgets/ChordConfig.tsx	f	2023-08-21T12:02:14Z
 src/widgets/FontConfigurator.tsx	f	2023-08-20T16:46:37Z
-src/widgets/GoTo.tsx	f	2023-08-21T19:48:07Z
+src/widgets/GoTo.tsx	f	2023-08-21T20:52:52Z
 src/widgets/Hamburger.tsx	f	2023-08-20T19:47:51Z
 src/widgets/Help.tsx	f	2023-08-20T12:33:35Z
 src/widgets/IndexSelector.tsx	f	2023-08-20T18:10:35Z
 src/widgets/Loader.tsx	f	2023-08-20T12:40:09Z
-src/widgets/Menu.tsx	f	2023-08-21T20:06:26Z
-src/widgets/NavigatingRootMenu.tsx	f	2023-08-21T20:02:10Z
+src/widgets/Menu.tsx	f	2023-08-21T20:36:58Z
+src/widgets/NavigatingRootMenu.tsx	f	2023-08-21T20:37:24Z
 src/widgets/Navigation.tsx	f	2023-08-21T11:35:24Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-21T20:06:22Z
 src/widgets/Search.tsx	f	2023-08-20T20:03:46Z

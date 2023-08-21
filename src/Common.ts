@@ -12,12 +12,11 @@ export enum SortType {
     verse,
 }
 
-export type ReactGetter<T> = T | undefined;
-export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
+//export type ReactGetter<T> = T | undefined;
+//export type ReactSetter<T> = React.Dispatch<React.SetStateAction<T | undefined>>;
 export type ReactSetter2<T> = React.Dispatch<React.SetStateAction<T>>;  //ttt1: review the need for both ReactSetter and ReactSetter2
 
 export function debugFmt(x: any, multiLine: boolean = false): string {
     const x1: any = (x instanceof Map) ? Object.fromEntries(x) : x;
     return multiLine ? JSON5.stringify(x1, null, 2) : JSON.stringify(x1);
 }
-

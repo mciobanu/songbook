@@ -38,14 +38,16 @@ export const NavigatingMenuWidget = ({
     songRenderConfig,
     setSongRenderConfig,
     sortType,
+    setExpandedMenu,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType,
+    setExpandedMenu: ReactSetter2<boolean>,
 }) => {
     return (<div>
         <MenuWidget1/>
-        <GoToWidget sortType={sortType}/>
+        <GoToWidget sortType={sortType} setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
         <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
     </div>);

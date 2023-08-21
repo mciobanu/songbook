@@ -28,7 +28,7 @@ export const NavigatingRootMenuWidget = ({
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
         {expandedMenu && <NavigatingMenuWidget songRenderConfig={songRenderConfig}
-            setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>}
+            setSongRenderConfig={setSongRenderConfig} sortType={sortType} setExpandedMenu={setExpandedMenu}/>}
     </div>);
     /* ttt0 review why there are both menuDivRight and menuDivLeft */
 };
