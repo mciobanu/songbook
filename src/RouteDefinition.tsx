@@ -17,6 +17,7 @@ const RouteDefinition = ({
     setSongRenderConfig,
     expandedMenu,
     setExpandedMenu,
+    //setLastPath,
 } : {
     songNumber: number,
     setSongNumber: ReactSetter2<number>,
@@ -24,6 +25,7 @@ const RouteDefinition = ({
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
+    //setLastPath: ReactSetter2<string>,
 }) => {
 
     /*
@@ -47,14 +49,14 @@ const RouteDefinition = ({
 
 
     /* eslint max-len: off */
-
+    //ttt0 try again to navigate from app or redirect here
     // ttt0 Make sure React.Suspense works fine here - https://blog.devgenius.io/implementing-react-router-v6-with-code-splitting-in-a-react-typescript-project-14d98e2cab79
     return (
         <React.Suspense fallback={<LoaderPage/>}>
             <Routes>
                 {/*<Route path='/' element={<LoaderPage/>}/>*/}
                 <Route path='/' element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path={Paths.help} element={<HelpPage
@@ -62,19 +64,19 @@ const RouteDefinition = ({
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path={Paths.indexByPosition} element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByTitle} element={<IndexPage sortType={SortType.title}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByPerformer} element={<IndexPage sortType={SortType.performer}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByLyricist} element={<IndexPage sortType={SortType.lyricist}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
                 <Route path={Paths.indexByVerse} element={<IndexPage sortType={SortType.verse}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>}/>
 
                 <Route path={`${Paths.songByPosition}/:songPos`} element={<SongPage sortType={SortType.position}
@@ -104,5 +106,7 @@ const RouteDefinition = ({
             </Routes>
         </React.Suspense>
     );
+    //ttt0: Have some "page not found"
 };
+
 export default RouteDefinition;

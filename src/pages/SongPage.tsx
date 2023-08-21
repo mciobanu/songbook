@@ -8,6 +8,7 @@ import {ReactSetter2, SortType} from '../Common';
 import {SongWidget} from '../widgets/Song';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {getSortedSongs} from '../SongCollections';
+import {persistLastPath} from '../Persistence';
 
 type SongParams = {
     songPos: string;
@@ -31,6 +32,8 @@ export const SongPage = ({
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
 }) => {
+
+    persistLastPath(window.location.pathname);
 
     const {songPos} = useParams<SongParams>();
     const numSngPos = Number(songPos); //ttt0 adjust URL if this is invalid (123000, -10, abc, ...)

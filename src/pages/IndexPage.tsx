@@ -5,6 +5,7 @@ import {NonNavigatingRootMenuWidget} from '../widgets/NonNavigatingRootMenu';
 import {ReactSetter2, SortType} from '../Common';
 import {getSortedSongs, SortedSong} from '../SongCollections';
 import {SongRenderConfig} from '../SongRenderConfig';
+import {persistLastPath} from '../Persistence';
 
 
 function render(sortedSongs: SortedSong[]) {
@@ -21,13 +22,17 @@ export const IndexPage = ({
     setExpandedMenu,
     songRenderConfig,
     setSongRenderConfig,
+    //setLastPath,
 }: {
     sortType: SortType,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    //setLastPath: ReactSetter2<string>,
 }) => {
+    //setLastPath(window.location.pathname);
+    persistLastPath(window.location.pathname);
     const songs = getSortedSongs(sortType);
     return (
         <div>

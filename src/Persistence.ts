@@ -17,3 +17,18 @@ export function retrieve<T>(key: string): T {
     }
     return JSON5.parse(s) as T;
 }
+
+const lastPathKey = 'lastPath';
+
+export function persistLastPath(path: string) {
+    if (path === '/') {
+        console.log(`won't persist last path: ${path}`);
+        return;
+    }
+    console.log(`persisting last path: ${path}`);
+    localStorage.setItem(lastPathKey, path);
+}
+
+export function retrieveLastPath(): string | null {
+    return localStorage.getItem(lastPathKey);
+}
