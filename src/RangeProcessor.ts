@@ -6,18 +6,29 @@ const MIN_SONG_RANGE = 4; // a song is considered to have at least 4 semitones, 
 // C-E+0; if a song really has fewer than 4 semitones, the +0 notation can be used to express this
 
 
-// switches accidentals to either ASCII or Unicode in a string containing chords
-// should never be called on a string containing regular words
-function fixAccidentals(s: string, accidentalUseAscii2: boolean): string {  //ttt0: rename "2"
-    /*if (!isDefined(accidentalUseAscii2)) {
-        accidentalUseAscii2 = accidentalUseAscii;
-    }*/
-    return accidentalUseAscii2
+let accidentalUseAscii: boolean = false;
+
+/**
+ * Converts accidentals to a format that is suitable to be displayed, regardless of how they look like. A sharp
+ * gets converted to '#' or '♯', while a flat gets converted to 'b' or '♭', depending on the current system.
+ *
+ * @param s one (or several) chords; this function should never be called on a string containing regular words
+ */
+function accidentalsToDisplay(s: string): string {
+    return accidentalUseAscii
         ? s.replace(/♯/g, '#').replace(/♭/g, 'b')
         : s.replace(/#/g, '♯').replace(/b/g, '♭');
 }
 
-let accidentalUseAscii: boolean = false;
+/**
+ * Converts accidentals to the internal format, which always uses '♯' or '♭' (while the display format may use '#'
+ * or 'b', depending on the current system.
+ *
+ * @param s one (or several) chords; this function should never be called on a string containing regular words
+ */
+function accidentalsToInternal(s: string): string {
+    return s.replace(/#/g, '♯').replace(/b/g, '♭');
+}
 
 function getAndroidVersion() {
     const androidStr = 'Android';
@@ -141,8 +152,10 @@ function getValidNumericRange(range: string): number[] {
 }
 
 export type SuggestionRangeComputeResult = {
-    minStr: string,
-    maxStr: string,
+    minStrInternal: string,
+    maxStrInternal: string,
+    minStrDisplay: string,
+    maxStrDisplay: string,
     minNum: number,
     maxNum: number,
     alerts: string[],
@@ -167,8 +180,8 @@ export type SuggestionRangeComputeResult = {
 export function computeSuggestionRange(newMin: string, newMax: string, currentValidMin: string,
     currentValidMax: string): SuggestionRangeComputeResult {
 
-    const fixedNewMin = fixAccidentals(upperCaseChord(newMin), false);
-    const fixedNewMax = fixAccidentals(upperCaseChord(newMax), false);
+    const fixedNewMin = accidentalsToInternal(upperCaseChord(newMin));
+    const fixedNewMax = accidentalsToInternal(upperCaseChord(newMax));
     let numRange = getNumericRange(`${fixedNewMin}-${fixedNewMax}`);
     let minNum: number;
     let maxNum: number;
@@ -222,7 +235,7 @@ export function computeSuggestionRange(newMin: string, newMax: string, currentVa
         if (!alertCreated) {
             alerts.push('Nota cea mai înaltă trebuie să fie cu măcar 5 tonuri '
                     + 'mai sus decât nota cea mai joasă. Va fi modificată automat ...');
-            alertCreated = true;
+            //alertCreated = true;
         }
         const k = maxStr.indexOf('+');
         if (k === -1) {
@@ -256,8 +269,10 @@ export function computeSuggestionRange(newMin: string, newMax: string, currentVa
     suggestions = null;
     setupPage(currentHash);*/
     return {
-        minStr,
-        maxStr,
+        minStrInternal: minStr,
+        maxStrInternal: maxStr,
+        minStrDisplay: accidentalsToDisplay(minStr),
+        maxStrDisplay: accidentalsToDisplay(maxStr),
         minNum,
         maxNum,
         alerts,
