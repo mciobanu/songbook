@@ -6,17 +6,13 @@ import {SongRenderConfig} from '../SongRenderConfig';
 import {ReactSetter2} from '../Common';
 import {Paths} from '../Paths';
 import {computeSuggestionRange} from '../RangeProcessor';
+import {convertToInt} from '../Utils';
 
 export const ChordConfigWidget = ({
     songRenderConfig, setSongRenderConfig,
 } : {
     songRenderConfig: SongRenderConfig, setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
-    //ttt0: make these work
-    // onchange="onMaxSuggestionsChanged();"
-    // onchange="onMaxCapoChanged();"
-
-    /* eslint max-len: off */
 
     const toggleChordVisibility = React.useCallback(() => {
         const newConfig = {...songRenderConfig};  //ttt0: Review if this shallow copy
@@ -52,7 +48,8 @@ export const ChordConfigWidget = ({
         const newMin = id === rangeMin ? s : songRenderConfig.minNoteInternal;
         const newMax = id === rangeMax ? s : songRenderConfig.maxNoteInternal;
         const newConfig = {...songRenderConfig};
-        const range = computeSuggestionRange(newMin, newMax, songRenderConfig.minNoteInternal, songRenderConfig.maxNoteInternal);
+        const range = computeSuggestionRange(
+                newMin, newMax, songRenderConfig.minNoteInternal, songRenderConfig.maxNoteInternal);
         newConfig.minNoteInternal = range.minStrInternal;
         newConfig.maxNoteInternal = range.maxStrInternal;
         newConfig.minNoteDisplay = range.minStrDisplay;
@@ -64,25 +61,48 @@ export const ChordConfigWidget = ({
         }
     }, [setSongRenderConfig, songRenderConfig]);
 
+    const onMaxSuggestionsChanged = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+        const s = event.currentTarget.value;
+        const newConfig = {...songRenderConfig};
+        newConfig.maxSuggestions = convertToInt(s, 3, 15, 6);  //ttt1: An invalid value will be
+        // replaced by 6. Perhaps better keep the previous val
+        setSongRenderConfig(newConfig);
+    }, [setSongRenderConfig, songRenderConfig]);
+
+    const onMaxCapoChanged = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
+        const s = event.currentTarget.value;
+        const newConfig = {...songRenderConfig};
+        newConfig.maxCapo = convertToInt(s, 0, 11, 5);  //ttt1: An invalid value will be
+        // replaced by 5. Perhaps better keep the previous val
+        setSongRenderConfig(newConfig);
+    }, [setSongRenderConfig, songRenderConfig]);
+
     return (<div>
         Acorduri &nbsp;
-        <input id="chords" type="checkbox" className="chkBox" checked={songRenderConfig.showChords} onChange={toggleChordVisibility}/>&nbsp;
+        <input id="chords" type="checkbox" className="chkBox" checked={songRenderConfig.showChords}
+            onChange={toggleChordVisibility}/>&nbsp;
         <input id="helpBtn" type="button" className="toolBtnNormal" value="?" onClick={onHelp}/> <br/>
         {songRenderConfig.showChords && <div>
             În versuri &nbsp;
-            <input id="embeddedChords" type="checkbox" className="chkBox" checked={songRenderConfig.inlineChords} onChange={toggleInlineChords}/> <br/>
+            <input id="embeddedChords" type="checkbox" className="chkBox" checked={songRenderConfig.inlineChords}
+                onChange={toggleInlineChords}/> <br/>
             Sugestii &nbsp;
-            <input id="useSuggestions" type="checkbox" className="chkBox" checked={songRenderConfig.useSuggestions} onChange={toggleSuggestions}/> <br/>
+            <input id="useSuggestions" type="checkbox" className="chkBox" checked={songRenderConfig.useSuggestions}
+                onChange={toggleSuggestions}/> <br/>
             <div id="suggestionsContainer">
-                <input id="voiceMin" value={songRenderConfig.minNoteDisplay} className="editVoiceRangeShort" placeholder="min"
-                    spellCheck="false" autoComplete="off" autoCorrect="off" onChange={onRangeChanged}/> {/*ttt2 maybe put in a table*/}
-                <input id="voiceMax" value={songRenderConfig.maxNoteDisplay} className="editVoiceRangeNormal" placeholder="max"
-                    spellCheck="false" autoComplete="off" autoCorrect="off" onChange={onRangeChanged}/>
+                <input id="voiceMin" value={songRenderConfig.minNoteDisplay} className="editVoiceRangeShort"
+                    placeholder="min" spellCheck="false" autoComplete="off" autoCorrect="off"
+                    onChange={onRangeChanged}/> {/*ttt2 maybe put in a table*/}
+                <input id="voiceMax" value={songRenderConfig.maxNoteDisplay} className="editVoiceRangeNormal"
+                    placeholder="max" spellCheck="false" autoComplete="off" autoCorrect="off"
+                    onChange={onRangeChanged}/>
                 <span id="voiceRange"> {songRenderConfig.noteRange} </span>
                 <br/>
-                Max sugestii <input id="maxSuggestions" value={songRenderConfig.maxSuggestions} type="number" className="editSmallNumber" />
+                Max sugestii <input id="maxSuggestions" value={songRenderConfig.maxSuggestions} type="number"
+                    onChange={onMaxSuggestionsChanged} className="editSmallNumber" />
                 <br/>
-                Max capo <input id="maxCapo" value={songRenderConfig.maxCapo} type="number" className="editSmallNumber" />
+                Max capo <input id="maxCapo" value={songRenderConfig.maxCapo} type="number"
+                    onChange={onMaxCapoChanged} className="editSmallNumber" />
                 <br/>
             </div>
         </div>}
