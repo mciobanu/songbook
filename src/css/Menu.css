@@ -68,3 +68,8 @@
 .hamburgerAlign {
     align-self: flex-end;
 }
+
+.nextToolBtn {
+    margin-right: 2rem;
+    margin-left: 1rem;
+}
