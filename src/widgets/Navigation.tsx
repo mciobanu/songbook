@@ -3,6 +3,7 @@ import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import {SortType} from '../Common';
 import {getSortedSongs} from '../SongCollections';
+import {createSongPath} from '../Paths';
 
 export const NavigationWidget = ({songNumber, sortType} :
         {songNumber: number, sortType: SortType}) => {
@@ -11,20 +12,15 @@ export const NavigationWidget = ({songNumber, sortType} :
 
     const navigate = useNavigate();
 
-    const fullPath = window.location.pathname;
-    const k = fullPath.lastIndexOf('/');
-    const extraPath = fullPath.substring(0, k + 1);
-
     const onPrevious = React.useCallback(() => {
-        navigate(`${extraPath}${songNumber - 1}`);
-    }, [extraPath, navigate, songNumber]);
+        navigate(createSongPath(sortType, songNumber - 1));
+    }, [navigate, songNumber, sortType]);
 
     const onNext = React.useCallback(() => {
-        navigate(`${extraPath}${songNumber + 1}`);
-    }, [extraPath, navigate, songNumber]);
+        navigate(createSongPath(sortType, songNumber + 1));
+    }, [navigate, songNumber, sortType]);
 
     return (<span className="menuNormal navAlign">
-        {/*navigation {songNumber}*/}
         <input id="prevBtn" type="button" className="toolBtnNormal"
             disabled={songNumber <= 1} value="&larr;" onClick={onPrevious} />
         <input id="nextBtn" type="button" className="toolBtnNormal nextToolBtn"
