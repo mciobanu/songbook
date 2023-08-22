@@ -22,10 +22,10 @@ const lastPathKey = 'lastPath';
 
 export function persistLastPath(path: string) {
     if (path === '/') {
-        console.log(`won't persist last path: ${path}`);
+        //console.log(`won't persist last path: ${path}`);
         return;
     }
-    console.log(`persisting last path: ${path}`);
+    //console.log(`persisting last path: ${path}`);
     localStorage.setItem(lastPathKey, path);
 }
 

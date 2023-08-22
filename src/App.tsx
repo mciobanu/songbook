@@ -31,8 +31,9 @@ function App() {
     const [songNumber, setSongNumber] = React.useState<number>(20);
     const [songRenderConfig, setSongRenderConfig] = React.useState<SongRenderConfig>(() => {
         try {
+            // noinspection UnnecessaryLocalVariableJS
             const persistedSongRenderConfig = Persistence.retrieve<SongRenderConfig>(songRenderConfigKey);
-            console.log(`retrieved ${debugFmt(persistedSongRenderConfig)}`);
+            //console.log(`retrieved ${debugFmt(persistedSongRenderConfig)}`);
             return persistedSongRenderConfig;
         } catch (e) {
             return defaultSongRenderConfig;
@@ -52,31 +53,31 @@ function App() {
     React.useEffect(() => {
         if (!ranPathRestoreAtStart) {
             ranPathRestoreAtStart = true;
-            console.log('initializing page; will try to go to the last path');
+            //console.log('initializing page; will try to go to the last path');
             try {
                 const currentPath = window.location.pathname;
-                console.log(`currentPath at start: ${currentPath}`);
+                //console.log(`currentPath at start: ${currentPath}`);
                 const retrievedLastPath = Persistence.retrieveLastPath();
-                console.log(`retrievedLastPath at start: ${retrievedLastPath}`);
+                //console.log(`retrievedLastPath at start: ${retrievedLastPath}`);
                 if (currentPath === '/' && retrievedLastPath) {
                     console.log(`navigating to: ${retrievedLastPath}`);
                     navigate(retrievedLastPath);
-                } else {
+                } /*else {
                     console.log('won\'t navigate elsewhere');
-                }
+                }*/
             } catch (e) {
                 //!!! Nothing
             }
-        } else {
+        } /*else {
             console.log('already initialized, won\'t try to go to the last path');
-        }
+        }*/
     }, [navigate]);
 
     //ttt0: Use local storage to persist all settings
     React.useEffect(() => {
         //Persistence.persist(songNumberKey, songNumber);
         Persistence.persist(songRenderConfigKey, songRenderConfig);
-        console.log(`persisted ${debugFmt(songRenderConfig)}`);
+        //console.log(`persisted ${debugFmt(songRenderConfig)}`);
     }, [songRenderConfig]);
 
     return (
@@ -126,7 +127,7 @@ Restore state at startup:
 //     } catch (e) {
 //         //!!! Nothing
 //     }
-// }, [navigate]);
+// }, [navigate]); // as long as there's the dependency on "navigate", this useEffect() gets called for all URL changes
 
 /*const persistedLastPath = Persistence.retrieve<string>(lastPathKey);
 if (persistedLastPath) {
