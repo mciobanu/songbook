@@ -49,7 +49,6 @@ const RouteDefinition = ({
 
 
     /* eslint max-len: off */
-    //ttt0 try again to navigate from app or redirect here
     // ttt0 Make sure React.Suspense works fine here - https://blog.devgenius.io/implementing-react-router-v6-with-code-splitting-in-a-react-typescript-project-14d98e2cab79
     return (
         <React.Suspense fallback={<LoaderPage/>}>

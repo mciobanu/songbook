@@ -259,15 +259,6 @@ export function computeSuggestionRange(newMin: string, newMax: string, currentVa
         [minNum, maxNum] = [numRange[0], numRange[1]];
     }
 
-    /*voiceRangeL.innerHTML = "" + (maxNum - minNum);  //ttt0: Make sure these happen in the right places
-
-    voiceMinE.value = fixAccidentals(minStr);
-    voiceMaxE.value = fixAccidentals(maxStr);
-
-    localStorage["minStr"] = minStr;
-    localStorage["maxStr"] = maxStr;
-    suggestions = null;
-    setupPage(currentHash);*/
     return {
         minStrInternal: minStr,
         maxStrInternal: maxStr,
