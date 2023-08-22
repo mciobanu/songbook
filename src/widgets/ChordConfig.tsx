@@ -9,9 +9,11 @@ import {computeSuggestionRange} from '../RangeProcessor';
 import {convertToInt} from '../Utils';
 
 export const ChordConfigWidget = ({
-    songRenderConfig, setSongRenderConfig,
+    songRenderConfig,
+    setSongRenderConfig,
 } : {
-    songRenderConfig: SongRenderConfig, setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    songRenderConfig: SongRenderConfig,
+    setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
 
     const toggleChordVisibility = React.useCallback(() => {
@@ -89,7 +91,7 @@ export const ChordConfigWidget = ({
             Sugestii &nbsp;
             <input id="useSuggestions" type="checkbox" className="chkBox" checked={songRenderConfig.useSuggestions}
                 onChange={toggleSuggestions}/> <br/>
-            <div id="suggestionsContainer">
+            {songRenderConfig.useSuggestions && <div id="suggestionsContainer">
                 <input id="voiceMin" value={songRenderConfig.minNoteDisplay} className="editVoiceRangeShort"
                     placeholder="min" spellCheck="false" autoComplete="off" autoCorrect="off"
                     onChange={onRangeChanged}/> {/*ttt2 maybe put in a table*/}
@@ -104,7 +106,7 @@ export const ChordConfigWidget = ({
                 Max capo <input id="maxCapo" value={songRenderConfig.maxCapo} type="number"
                     onChange={onMaxCapoChanged} className="editSmallNumber" />
                 <br/>
-            </div>
+            </div>}
         </div>}
     </div>);
 };
