@@ -23,6 +23,8 @@ export const SongPage = ({
     setSongRenderConfig,
     expandedMenu,
     setExpandedMenu,
+    capoCbBVal,
+    setCapoCbBVal,
 } : {
     sortType: SortType,
     songNumber: number,
@@ -31,6 +33,8 @@ export const SongPage = ({
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
+    capoCbBVal: string,
+    setCapoCbBVal: ReactSetter2<string>,
 }) => {
 
     persistLastPath(window.location.pathname);
@@ -50,7 +54,8 @@ export const SongPage = ({
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
-            <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig}/>
+            <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
+                setCapoCbBVal={setCapoCbBVal}/>
         </div>
     );
 };

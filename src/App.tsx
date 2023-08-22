@@ -8,6 +8,7 @@ import {debugFmt} from './Common';
 import {SongRenderConfig} from './SongRenderConfig';
 import {initAsciiForAccidentals} from './RangeProcessor';
 import * as Persistence from './Persistence';
+import {AUTO} from './widgets/Song';
 
 let ranPathRestoreAtStart = false;
 
@@ -40,6 +41,8 @@ function App() {
         }
     });
     const [expandedMenu, setExpandedMenu] = React.useState<boolean>(false);
+
+    const [capoCbBVal, setCapoCbBVal] = React.useState<string>(AUTO);
 
     const navigate = useNavigate();
 
@@ -83,6 +86,7 @@ function App() {
     return (
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
             expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}
+            capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}
             /*setLastPath={setLastPath}*/
         />
     );

@@ -1,5 +1,5 @@
-const NOTES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
-const ALT_NOTES = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
+export const NOTES = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+export const ALT_NOTES = ['C', 'D♭', 'D', 'E♭', 'E', 'F', 'G♭', 'G', 'A♭', 'A', 'B♭', 'B'];
 
 const MIN_SONG_RANGE = 4; // a song is considered to have at least 4 semitones, so if a range seems to have less
 // than that an octave is added; thus a range of A-C is equivalent to A-C+1, 15 semitones; OTOH C-E is equivalent to
@@ -14,7 +14,7 @@ let accidentalUseAscii: boolean = false;
  *
  * @param s one (or several) chords; this function should never be called on a string containing regular words
  */
-function accidentalsToDisplay(s: string): string {
+export function accidentalsToDisplay(s: string): string { //ttt1: maybe move
     return accidentalUseAscii
         ? s.replace(/♯/g, '#').replace(/♭/g, 'b')
         : s.replace(/#/g, '♯').replace(/b/g, '♭');
