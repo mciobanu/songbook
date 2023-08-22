@@ -187,12 +187,17 @@ const CreateFirstChordCbB = ({
     firstChordCbBVal,
     setFirstChordCbBVal,
     useAutoInitially,
+    song,
 } : {
     initialFirstChord: string,
     firstChordCbBVal: string,
     setFirstChordCbBVal: ReactSetter2<string>,
     useAutoInitially: boolean,
+    song: Song,
 }) => {
+    //ttt9: This still doesn't work well: If we start with suggestions off and navigate between songs, the preselected
+    // value is "auto". After turning suggestions on and off, the preselected value at navigation is the song's first
+    // chord, as it should be
 
     /*React.useEffect(() => {
         if (firstChordCbBVal === '') {
@@ -207,14 +212,30 @@ const CreateFirstChordCbB = ({
         setFirstChordCbBVal(tmpFirstChordCbBVal);
     }, [setFirstChordCbBVal, tmpFirstChordCbBVal]);*/
 
-    const generateOptions = React.useCallback(() => {
-        let realFirstChordCbBVal = firstChordCbBVal;
+    //const realFirstChordCbBVal = React.useRef(firstChordCbBVal);   //ttt0: remove if only used in logs
+
+    //let realFirstChordCbBVal = firstChordCbBVal;
+    React.useEffect(() => {
         if (firstChordCbBVal === '') {
+            // This is supposed to get called only when setting up the dropdown
+            console.log(`at init: Setting firstChordCbBVal to ${initialFirstChord}; `
+                + `useAutoInitially=${useAutoInitially}`);
+
+            //ttt0: Unlike the JS project, here it can be seen that the dropdown starts in auto and then switches
+            // to the first chord, if suggestions are disabled
+            setFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
+            //realFirstChordCbBVal.current = initialFirstChord;
+        }
+    }, [firstChordCbBVal, initialFirstChord, setFirstChordCbBVal, song, useAutoInitially]);
+
+    const generateOptions = React.useCallback(() => {
+        //let realFirstChordCbBVal = firstChordCbBVal;
+        /*if (firstChordCbBVal === '') {
             // This is supposed to get called only when setting up the dropdown
             console.log(`at init: Setting firstChordCbBVal to ${initialFirstChord}`);
 
             setFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
-            //ttt9: The line above causes this warning:
+            //!!!: The line above causes this warning:
             // Warning: Cannot update a component (`CreateChordWidget`) while rendering a different component (`CreateFirstChordCbB`).
             //
             // Most advice on the net is about making a call in the body of the function to a setXyz() that was
@@ -223,14 +244,19 @@ const CreateFirstChordCbB = ({
             // leads to a stack overflow. However, despite the warning, things seem OK. Also, the warning is only seen
             // initially, when the page loads, and not at navigation between songs
             //
+            // The thing is, the warning makes sense: This hook is called from inside the return statement, which
+            // renders the current widget. The solution was to have an useEffect that depends on the current song (and
+            // this is the only reason the song was passed as a parameter).
+            //
             //setTmpFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
 
             realFirstChordCbBVal = initialFirstChord;
-        }
-        console.log(`generating options, for realFirstChordCbBVal=${realFirstChordCbBVal}, initialFirstChord=${initialFirstChord}. firstChordCbBVal=${firstChordCbBVal}`);
+        }*/
+        /*console.log(`generating options, for realFirstChordCbBVal=${realFirstChordCbBVal.current}, `
+            + `initialFirstChord=${initialFirstChord}. firstChordCbBVal=${firstChordCbBVal}`);*/
         const firstChordRoot = getRoot(initialFirstChord);
         if (!firstChordRoot) {
-            throw Error(`Internal error. Unable to find root for chord "${realFirstChordCbBVal}"`);
+            throw Error(`Internal error. Unable to find root for chord "${initialFirstChord}"`);
         }
         const arr: string[] = [];
         const firstChordQuality = initialFirstChord.substring(firstChordRoot.length);
@@ -240,7 +266,7 @@ const CreateFirstChordCbB = ({
         return arr.map((s) => {
             return <option value={s} key={s}>{s}</option>;
         });
-    }, [firstChordCbBVal, initialFirstChord, setFirstChordCbBVal, useAutoInitially]);
+    }, [initialFirstChord]);
 
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
@@ -368,7 +394,7 @@ const CreateChordWidget = ({
         <tbody>
             {useSuggestions && <CreateCapoCbB capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}/>}
             <CreateFirstChordCbB firstChordCbBVal={firstChordCbBVal} initialFirstChord={initialFirstChord}
-                setFirstChordCbBVal={setFirstChordCbBVal} useAutoInitially={useSuggestions}/>
+                setFirstChordCbBVal={setFirstChordCbBVal} useAutoInitially={useSuggestions} song={song}/>
         </tbody>
     </table>);
     // var tbl = document.createElement("table");

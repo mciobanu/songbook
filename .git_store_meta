@@ -54,5 +54,5 @@ src/widgets/NavigatingRootMenu.tsx	f	2023-08-21T20:37:24Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-21T20:06:22Z
 src/widgets/Search.tsx	f	2023-08-20T20:03:46Z
-src/widgets/Song.tsx	f	2023-08-22T15:45:28Z
+src/widgets/Song.tsx	f	2023-08-22T17:54:56Z
 tsconfig.json	f	2023-08-19T07:21:28Z
