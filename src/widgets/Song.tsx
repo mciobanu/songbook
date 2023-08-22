@@ -227,7 +227,7 @@ const CreateFirstChordCbB = ({
 
             realFirstChordCbBVal = initialFirstChord;
         }
-        console.log(`generating options, for ${realFirstChordCbBVal} / ${initialFirstChord}`);
+        console.log(`generating options, for realFirstChordCbBVal=${realFirstChordCbBVal}, initialFirstChord=${initialFirstChord}. firstChordCbBVal=${firstChordCbBVal}`);
         const firstChordRoot = getRoot(initialFirstChord);
         if (!firstChordRoot) {
             throw Error(`Internal error. Unable to find root for chord "${realFirstChordCbBVal}"`);
@@ -316,6 +316,9 @@ const CreateChordWidget = ({
     const chords = getAllChords(song);
     //const setupChords = chords.length ? chords : ['C']; // something to run useEffect() on, without lots of ifs
 
+    React.useEffect(() => { //!!! This resets firstChordCbBVal when the song changes
+        setFirstChordCbBVal('');
+    }, [song]);
 
     const range = song.r;
     const useSuggestions: boolean = songRenderConfig.useSuggestions && !!range;
@@ -341,9 +344,9 @@ const CreateChordWidget = ({
     // matter in itself. We just need a value to avoid checking for null in many places, but nothing will be rendered
 
     React.useEffect(() => {
-        console.log(`computing render values for song ${song.t}`);
+        console.log(`computing render values for song ${song.t}, ${chords}, starting with ${initialFirstChord}`);
         // set up range, shift, etc
-    }, [song.t]);
+    }, [chords, initialFirstChord, song.t]);
 
     //var currentInfo = "";
     //tbl.border = 0;
