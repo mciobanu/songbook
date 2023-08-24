@@ -1,3 +1,4 @@
+/* eslint-disable max-len */  //ttt9: remove
 import React from 'react';
 
 import '../legacy.css';
@@ -124,7 +125,7 @@ function getAllChords(song: Song): string[] {
     return Array.from(chords);
 }
 
-const CreateCapoCbB = ({
+const CapoCbB = ({
     capoCbBVal,
     setCapoCbBVal,
 } : {
@@ -171,119 +172,82 @@ const CreateCapoCbB = ({
         setCapoCbBVal(s);  //ttt9: check if this works
     }, [setCapoCbBVal]);
 
-    return <tr>
-        <td>Capodastru: </td>
-        <td>
-            <select className='dropDown' value={capoCbBVal} onChange={onChange}>
-                <option value={AUTO} key={AUTO}>{AUTO}</option>
-                {generateOptions()}
-            </select>
-        </td>
-    </tr>;
+    return (
+        <select className='dropDown' value={capoCbBVal} onChange={onChange}>
+            <option value={AUTO} key={AUTO}>{AUTO}</option>
+            {generateOptions()}
+        </select>
+    );
 };
 
-const CreateFirstChordCbB = ({
-    initialFirstChord,
-    firstChordCbBVal,
-    setFirstChordCbBVal,
-    useAutoInitially,
-    song,
+/**
+ * Normally it gets the first chord, extracts the quality (major, minor, dim7, ...) and builds a list of all 12
+ * chords with the same quality, plus auto. If the param is empty, assumes chords are major.
+ *
+ * @param chords - Only the first chord matters, if present. If chords' length is 0, just assumes major chords, but
+ * this shouldn't matter, in the sense that this may happen only at initialization, and a proper list will be passed
+ * shortly. If the song really doesn't have chords, this doesn't get called at all.
+ */
+function createFirstChordOptions(chords: string[]) {
+    //ttt0: "Om bun (Dan Andrei Aldea, Sfinx)" has a funny first chord list: "Cm(C)", "C#m(C)", ... The same happens
+    // in the JS code, so it's not a new bug
+
+    const initialChord = chords.length > 0 ? chords[0] : 'D';  //!!! 'D' doesn't matter in itself. We just
+    // need a value to avoid checking for null in many places, but nothing will be rendered
+    const firstChordRoot = getRoot(initialChord);
+    if (!firstChordRoot) {
+        throw Error(`Internal error. Unable to find root for chord "${initialChord}"`);
+    }
+    const arr: string[] = [AUTO];
+    const firstChordQuality = initialChord.substring(firstChordRoot.length);
+    for (let i = 0; i <= 11; ++i) {
+        arr.push(accidentalsToDisplay(NOTES[i]) + firstChordQuality);
+    }
+    console.log(`createFirstChordOptions(${initialChord}). Generated ${arr}`);
+    return arr;
+}
+
+
+const FirstChordCbB = ({
+    chords,
+    useSuggestions,
 } : {
-    initialFirstChord: string,
-    firstChordCbBVal: string,
-    setFirstChordCbBVal: ReactSetter2<string>,
-    useAutoInitially: boolean,
-    song: Song,
+    chords: string[],
+    useSuggestions: boolean,
 }) => {
-    //ttt9: This still doesn't work well: If we start with suggestions off and navigate between songs, the preselected
-    // value is "auto". After turning suggestions on and off, the preselected value at navigation is the song's first
-    // chord, as it should be
+    const [firstChordCbBVal, setFirstChordCbBVal] = React.useState<string>(/*computeInitialFirstChord()*/'');
 
-    /*React.useEffect(() => {
-        if (firstChordCbBVal === '') {
-            // This is supposed to get called only when setting up the dropdown
-            console.log(`at init: Setting firstChordCbBVal to ${initialFirstChord}`);
-            setFirstChordCbBVal(initialFirstChord);
-        }
-    }, [firstChordCbBVal, initialFirstChord, setFirstChordCbBVal]);*/
-
-    /*const [tmpFirstChordCbBVal, setTmpFirstChordCbBVal] = React.useState<string>('');
     React.useEffect(() => {
-        setFirstChordCbBVal(tmpFirstChordCbBVal);
-    }, [setFirstChordCbBVal, tmpFirstChordCbBVal]);*/
+        const newVal = computeInitialFirstChord(chords, useSuggestions);
+        console.log(`setting new value for firstChordCbBVal: ${newVal}`);
+        setFirstChordCbBVal(newVal);
+    }, [useSuggestions, chords, setFirstChordCbBVal]);
 
-    //const realFirstChordCbBVal = React.useRef(firstChordCbBVal);   //ttt0: remove if only used in logs
+    const [optionsStr, setOptionsStr] = React.useState<string[]>(createFirstChordOptions(chords));
 
-    //let realFirstChordCbBVal = firstChordCbBVal;
     React.useEffect(() => {
-        if (firstChordCbBVal === '') {
-            // This is supposed to get called only when setting up the dropdown
-            console.log(`CreateFirstChordCbB.useEffect(): Setting firstChordCbBVal to ${initialFirstChord}; `
-                + `useAutoInitially=${useAutoInitially}`);
-
-            //ttt0: Unlike the JS project, here it can be seen that the dropdown starts in auto and then switches
-            // to the first chord, if suggestions are disabled
-            setFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
-            //realFirstChordCbBVal.current = initialFirstChord;
-        }
-    }, [firstChordCbBVal, initialFirstChord, setFirstChordCbBVal, song, useAutoInitially]);
+        const newOptions = createFirstChordOptions(chords);
+        console.log(`new chords: ${chords}; new options: ${newOptions}`);
+        setOptionsStr(newOptions);
+    }, [chords]);
 
     const generateOptions = React.useCallback(() => {
-        //let realFirstChordCbBVal = firstChordCbBVal;
-        /*if (firstChordCbBVal === '') {
-            // This is supposed to get called only when setting up the dropdown
-            console.log(`at init: Setting firstChordCbBVal to ${initialFirstChord}`);
-
-            setFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
-            //!!!: The line above causes this warning:
-            // Warning: Cannot update a component (`CreateChordWidget`) while rendering a different component (`CreateFirstChordCbB`).
-            //
-            // Most advice on the net is about making a call in the body of the function to a setXyz() that was
-            // defined in a parent component, rather than in a hook, and the advice is to use a hook.
-            // The situation here is different, as we are in a hook. However, tried tmpFirstChordCbBVal and it
-            // leads to a stack overflow. However, despite the warning, things seem OK. Also, the warning is only seen
-            // initially, when the page loads, and not at navigation between songs
-            //
-            // The thing is, the warning makes sense: This hook is called from inside the return statement, which
-            // renders the current widget. The solution was to have an useEffect that depends on the current song (and
-            // this is the only reason the song was passed as a parameter).
-            //
-            //setTmpFirstChordCbBVal(useAutoInitially ? AUTO : initialFirstChord);
-
-            realFirstChordCbBVal = initialFirstChord;
-        }*/
-        /*console.log(`generating options, for realFirstChordCbBVal=${realFirstChordCbBVal.current}, `
-            + `initialFirstChord=${initialFirstChord}. firstChordCbBVal=${firstChordCbBVal}`);*/
-        const firstChordRoot = getRoot(initialFirstChord);
-        if (!firstChordRoot) {
-            throw Error(`Internal error. Unable to find root for chord "${initialFirstChord}"`);
-        }
-        const arr: string[] = [];
-        const firstChordQuality = initialFirstChord.substring(firstChordRoot.length);
-        for (let i = 0; i <= 11; ++i) {
-            arr.push(accidentalsToDisplay(NOTES[i]) + firstChordQuality);
-        }
-        console.log(`CreateFirstChordCbB.generateOptions(). Generated ${arr}`);
-        return arr.map((s) => {
+        return optionsStr.map((s) => {
             return <option value={s} key={s}>{s}</option>;
         });
-    }, [initialFirstChord]);
+    }, [optionsStr]);
 
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
-        console.log(`CreateFirstChordCbB.onChange(): Setting FirstChordCbBVal to ${s} when the user changed it`);
+        console.log(`FirstChordCbB.onChange(): Setting FirstChordCbBVal to ${s} when the user changed it`);
         setFirstChordCbBVal(s);  //ttt9: check if this works
     }, [setFirstChordCbBVal]);
 
-    return <tr>
-        <td>Primul acord: </td>
-        <td>
-            <select className='dropDown' value={firstChordCbBVal} onChange={onChange}>
-                (useSuggestions && <option value={AUTO} key={AUTO}>{AUTO}</option>)
-                {generateOptions()}
-            </select>
-        </td>
-    </tr>;
+    return (
+        <select className='dropDown' value={firstChordCbBVal} onChange={onChange}>
+            {generateOptions()}
+        </select>
+    );
 
 
 
@@ -314,23 +278,34 @@ const CreateFirstChordCbB = ({
 
 };
 
-/*function computeFirstChordCbBVal(firstChord: string, useSuggestions: boolean) {
-    return useSuggestions ? AUTO : firstChord;
-}*/
 
 /**
- * Creates the part above the actual song, with chord, capo, suggestions, etc.
+ * The initial value for the first chord CbB is computed like this:
+ *       If suggestions are enabled, it's "auto"
+ *       If suggestions are not enabled, it's the actual first chord in the song.
+ */
+function computeInitialFirstChord(chords: string[], useAuto: boolean) {
+    // noinspection UnnecessaryLocalVariableJS
+    const res = useAuto || !chords.length ? AUTO : chords[0];
+    console.log(`computeInitialFirstChord(${chords}, ${useAuto}) returning ${res}`);
+    return res; //!!! actually nothing will be rendered when there are no chords for a song, but
+    // the function will still be called, and it must return "something"
+}
+
+
+/**
+ * The capo and the first chord. Rendered together, so they can be aligned, for which a table is used
  *
  * Functionality: For capo and first chord we want to compute something initially for a song, then don't touch them
  * unless the settings change.
  */
-const CreateChordWidget = ({
-    song,
+export const DropdownsWidget = ({
+    chords,
     songRenderConfig,
     capoCbBVal,
     setCapoCbBVal,
 } : {
-    song: Song,
+    chords: string[],
     songRenderConfig: SongRenderConfig,
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
@@ -339,68 +314,45 @@ const CreateChordWidget = ({
         throw Error('Internal error. Asked to create chord info when chords are not rendered');
     }
 
-    const [firstChordCbBVal, setFirstChordCbBVal] = React.useState<string>('');
+    return (
+        <table className={'capoTable'}>
+            <tbody>
+                {songRenderConfig.useSuggestions && (
+                    <tr>
+                        <td>Capodastru: </td>
+                        <td><CapoCbB capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}/></td>
+                    </tr>)}
+                {chords.length && (
+                    <tr>
+                        <td>Primul acord: </td>
+                        <td><FirstChordCbB chords={chords} useSuggestions={songRenderConfig.useSuggestions}/></td>
+                    </tr>)}
+            </tbody>
+        </table>);
+};
 
-    const chords = getAllChords(song);
-    //const setupChords = chords.length ? chords : ['C']; // something to run useEffect() on, without lots of ifs
 
-    React.useEffect(() => { //!!! This resets firstChordCbBVal when the song changes
-        console.log('CreateChordWidget.useEffect(): Setting FirstChordCbBVal to \'\' due to the song changing');
-        setFirstChordCbBVal('');
-    }, [song]);
-
-    const range = song.r;
-    const useSuggestions: boolean = songRenderConfig.useSuggestions && !!range;
-
-    /*const [initialFirstChord, setInitialFirstChord] = React.useState<string>('');
-    React.useEffect(() => {
-        console.log(`initializing song ${song.t}`);
-        //set first chord (capo is a global setting, so no need to do anything about it)
-
-        // eslint-disable-next-line no-nested-ternary
-        const initial = useSuggestions ? AUTO : (chords.length ? chords[0] : 'D');
-        console.log(`calling setInitialFirstChord(${initial})`);
-        setInitialFirstChord(initial);
-        //
-    }, [chords, song.t, useSuggestions]);*/
-
-    // The initial value for the first chord CbB is computed like this:
-    //      If suggestions are enabled, it's "auto"
-    //      If suggestions are not enabled, it's the actual first chord in the song.
-    // eslint-disable-next-line no-nested-ternary
-    //const initialFirstChord = useSuggestions ? AUTO : (chords.length ? chords[0] : 'D'); //!!! 'D' doesn't
-    const initialFirstChord = chords.length ? chords[0] : 'D'; //!!! 'D' doesn't
-    // matter in itself. We just need a value to avoid checking for null in many places, but nothing will be rendered
-    console.log(`CreateChordWidget main body. Set initialFirstChord to [${initialFirstChord}]`);
-
-    /*React.useEffect(() => {  //ttt9: put back and implement
-        //console.log(`computing render values for song ${song.t}, ${chords}, starting with ${initialFirstChord}`);
-        // set up range, shift, etc
-    }, [chords, initialFirstChord, song.t]);*/
-
-    //var currentInfo = "";
-    //tbl.border = 0;
-    if (!chords.length) {
+/**
+ * Creates the part above the actual song, with chord, capo, suggestions, etc.
+ */
+export const ChordsWidget = ({
+    chords,
+    songRenderConfig,
+    capoCbBVal,
+    setCapoCbBVal,
+} : {
+    chords: string[],
+    songRenderConfig: SongRenderConfig,
+    capoCbBVal: string,
+    setCapoCbBVal: ReactSetter2<string>,
+}) => {
+    if (!songRenderConfig.showChords || !chords.length) {
         return null;
     }
-
-    // const firstNote = song.f;
-    // if (!useSuggestions) {
-    //     //range = null;
-    //     /*if (firstChordCbBVal === AUTO) {
-    //         firstChordCbBVal = null;
-    //     }*/
-    // }
-
-    //const firstChordCbBVal: string = computeFirstChordCbBVal(chords[0], useSuggestions);
-    //chords[0]
-    return (<table className={'capoTable'}>
-        <tbody>
-            {useSuggestions && <CreateCapoCbB capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}/>}
-            <CreateFirstChordCbB firstChordCbBVal={firstChordCbBVal} initialFirstChord={initialFirstChord}
-                setFirstChordCbBVal={setFirstChordCbBVal} useAutoInitially={useSuggestions} song={song}/>
-        </tbody>
-    </table>);
+    return (
+        <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
+            setCapoCbBVal={setCapoCbBVal}/>
+    );
     // var tbl = document.createElement("table");
     // var tbdy = document.createElement("tbody");
     //
@@ -527,10 +479,20 @@ export const SongWidget = ({
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
 }) => {
-    return (<div>
-        {songRenderConfig.showChords && <CreateChordWidget song={song} songRenderConfig={songRenderConfig}
+    const [chords, setChords] = React.useState(getAllChords(song)); //ttt1: Review situations like this,
+    // where it probably makes more sense to use a dummy chord list, as this function call will be replaced in the useEffect() below
+    React.useEffect(() => {
+        setChords(getAllChords(song));
+    }, [song]);
+
+    return <ChordsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
+        setCapoCbBVal={setCapoCbBVal}/>;
+    /*{ &&
+(songRenderConfig.showChords &&
+
+            <CreateChordWidget song={song} songRenderConfig={songRenderConfig}
             capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}/>}
-    </div>);
+    </div>);*/
 
     /*var node = document.createElement("p");
     node.className = "songTitle";
@@ -620,4 +582,21 @@ export const SongWidget = ({
     //return (<div>{debugFmt(song, true)}</div>);
 };
 
-//ttt0: Show the index in the original list regardless, so people can reference them.
+//ttt0: Show the index in the original list regardless of the current sort order, so people can reference them.
+// Also, this avoids situations like songs having 0 or multiple entries
+
+// Note: At a time there was this warning:
+// Warning: Cannot update a component (`CreateChordWidget`) while rendering a different component (`CreateFirstChordCbB`).
+//
+// Most advice on the net is about making a call in the body of the function to a setXyz() that was
+// defined in a parent component, rather than in a hook, and the advice is to use a hook.
+// The situation here was different, as we were in a hook. However, tried tmpFirstChordCbBVal and it
+// leads to a stack overflow. Still, despite the warning, things seemed OK. Also, the warning was only seen
+// initially, when the page loads, and not at navigation between songs.
+//
+// The thing is, the warning made sense: The code was in a hook which was called from inside the return statement,
+// which renders the current widget. An idea was to have an useEffect that depends on the current song (and
+// this is the only reason the song was passed as a parameter), but it didn't work.
+//
+// The solution was to properly understand the dependencies and add several useEffect hooks that took care of updating
+// dependent components when their dependencies changed.
