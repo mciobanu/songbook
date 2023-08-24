@@ -223,12 +223,10 @@ const FirstChordCbB = ({
         setFirstChordCbBVal(newVal);
     }, [useSuggestions, chords, setFirstChordCbBVal]);
 
-    const [optionsStr, setOptionsStr] = React.useState<string[]>(createFirstChordOptions(chords));
-
-    React.useEffect(() => {
+    const optionsStr = React.useMemo(() => {
         const newOptions = createFirstChordOptions(chords);
         console.log(`new chords: ${chords}; new options: ${newOptions}`);
-        setOptionsStr(newOptions);
+        return newOptions;
     }, [chords]);
 
     const generateOptions = React.useCallback(() => {
@@ -479,10 +477,14 @@ export const SongWidget = ({
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
 }) => {
-    const [chords, setChords] = React.useState(getAllChords(song)); //ttt1: Review situations like this,
+    /*const [chords, setChords] = React.useState(getAllChords(song)); //ttt1: Review situations like this,
     // where it probably makes more sense to use a dummy chord list, as this function call will be replaced in the useEffect() below
     React.useEffect(() => {
         setChords(getAllChords(song));
+    }, [song]);*/
+
+    const chords = React.useMemo(() => {
+        return getAllChords(song);
     }, [song]);
 
     return <ChordsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
