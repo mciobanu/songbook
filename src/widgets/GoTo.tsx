@@ -50,3 +50,7 @@ export const GoToWidget = ({
         <input id="gotoBtn" type="button" className="toolBtnNormal" value="&#10148;" onClick={onGo}/>
     </div>);
 };
+
+
+//ttt0: Actually we shouldn't care about sortType and always use the original list, so people can jump to a
+// different song by its number, regardless of how things are sorted
