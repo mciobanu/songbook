@@ -218,7 +218,7 @@ const CreateFirstChordCbB = ({
     React.useEffect(() => {
         if (firstChordCbBVal === '') {
             // This is supposed to get called only when setting up the dropdown
-            console.log(`at init: Setting firstChordCbBVal to ${initialFirstChord}; `
+            console.log(`CreateFirstChordCbB.useEffect(): Setting firstChordCbBVal to ${initialFirstChord}; `
                 + `useAutoInitially=${useAutoInitially}`);
 
             //ttt0: Unlike the JS project, here it can be seen that the dropdown starts in auto and then switches
@@ -263,6 +263,7 @@ const CreateFirstChordCbB = ({
         for (let i = 0; i <= 11; ++i) {
             arr.push(accidentalsToDisplay(NOTES[i]) + firstChordQuality);
         }
+        console.log(`CreateFirstChordCbB.generateOptions(). Generated ${arr}`);
         return arr.map((s) => {
             return <option value={s} key={s}>{s}</option>;
         });
@@ -270,6 +271,7 @@ const CreateFirstChordCbB = ({
 
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
+        console.log(`CreateFirstChordCbB.onChange(): Setting FirstChordCbBVal to ${s} when the user changed it`);
         setFirstChordCbBVal(s);  //ttt9: check if this works
     }, [setFirstChordCbBVal]);
 
@@ -343,6 +345,7 @@ const CreateChordWidget = ({
     //const setupChords = chords.length ? chords : ['C']; // something to run useEffect() on, without lots of ifs
 
     React.useEffect(() => { //!!! This resets firstChordCbBVal when the song changes
+        console.log('CreateChordWidget.useEffect(): Setting FirstChordCbBVal to \'\' due to the song changing');
         setFirstChordCbBVal('');
     }, [song]);
 
@@ -368,11 +371,12 @@ const CreateChordWidget = ({
     //const initialFirstChord = useSuggestions ? AUTO : (chords.length ? chords[0] : 'D'); //!!! 'D' doesn't
     const initialFirstChord = chords.length ? chords[0] : 'D'; //!!! 'D' doesn't
     // matter in itself. We just need a value to avoid checking for null in many places, but nothing will be rendered
+    console.log(`CreateChordWidget main body. Set initialFirstChord to [${initialFirstChord}]`);
 
-    React.useEffect(() => {
-        console.log(`computing render values for song ${song.t}, ${chords}, starting with ${initialFirstChord}`);
+    /*React.useEffect(() => {  //ttt9: put back and implement
+        //console.log(`computing render values for song ${song.t}, ${chords}, starting with ${initialFirstChord}`);
         // set up range, shift, etc
-    }, [chords, initialFirstChord, song.t]);
+    }, [chords, initialFirstChord, song.t]);*/
 
     //var currentInfo = "";
     //tbl.border = 0;
