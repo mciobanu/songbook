@@ -14,11 +14,15 @@ export const DropdownsWidget = ({
     songRenderConfig,
     capoCbBVal,
     setCapoCbBVal,
+    firstChordCbBVal,
+    setFirstChordCbBVal,
 } : {
     chords: string[],
     songRenderConfig: SongRenderConfig,
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
+    firstChordCbBVal: string,
+    setFirstChordCbBVal: ReactSetter2<string>,
 }) => {
     if (!songRenderConfig.showChords) {
         throw Error('Internal error. Asked to create chord info when chords are not rendered');
@@ -35,7 +39,8 @@ export const DropdownsWidget = ({
                 {chords.length && (
                     <tr>
                         <td>Primul acord: </td>
-                        <td><FirstChordDropdown chords={chords} useSuggestions={songRenderConfig.useSuggestions}/></td>
+                        <td><FirstChordDropdown chords={chords} useSuggestions={songRenderConfig.useSuggestions}
+                            firstChordCbBVal={firstChordCbBVal} setFirstChordCbBVal={setFirstChordCbBVal}/></td>
                     </tr>)}
             </tbody>
         </table>);

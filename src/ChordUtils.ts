@@ -5,6 +5,10 @@ const MIN_SONG_RANGE = 4; // a song is considered to have at least 4 semitones, 
 // than that an octave is added; thus a range of A-C is equivalent to A-C+1, 15 semitones; OTOH C-E is equivalent to
 // C-E+0; if a song really has fewer than 4 semitones, the +0 notation can be used to express this
 
+export const AUTO = 'auto';
+export const CAPO_AUTO = -1;
+
+
 let accidentalUseAscii: boolean = false;
 
 /**
@@ -92,7 +96,7 @@ function getNoteIndex(s: string) {
  * Returns null if the parameter is not a range, but if it contains a "-", it returns something, even if it has invalid
  * notes, for which it returns -1. So for "d-x" it will return [2, -1], and for "dv" it will just return null
  */
-function getNumericRange(range: string): number[] | null {
+export function getNumericRange(range: string): number[] | null {
     try {
         const k = range.indexOf('-');
         if (k === -1) {
@@ -285,4 +289,40 @@ export function getRoot(chord: string): string | null {
     return chord.substring(0, rootLen);
 }
 
-export const AUTO = 'auto';
+// substitutes a single chord using custom rangeShift and capo
+export function substituteChord(s: string, rangeShift2: number, capo2: number) {  //ttt9: rename "2"
+    const root = getRoot(s);
+    if (!root) {
+        throw Error(`Invalid chord: '${s}'`);
+    }
+    let res = substituteNote(root, rangeShift2, capo2);
+    res += s.substring(root.length);
+    return res;
+}
+
+
+/**
+ * Substitutes a single note (the root of a chord)
+ */
+function substituteNote(s: string, rangeShift2: number, capo2: number) {  //ttt9: rename "2"
+    if (s === 'N') {
+        return s;
+    }
+    /*if (!isDefined(rangeShift2)) {
+        rangeShift2 = rangeShift;
+        capo2 = capo;
+    }*/
+    let k = getNoteIndex(s);
+    if (k === -1) {
+        throw Error(`Got non-note ${s}`);
+    }
+    k = (k + (rangeShift2 - capo2) + 120) % 12;
+    // noinspection UnnecessaryLocalVariableJS
+    const res = NOTES[k];
+    return res;
+}
+
+
+export function capoStrToNum(s: string) {
+    return s === AUTO ? CAPO_AUTO : Number(s);
+}

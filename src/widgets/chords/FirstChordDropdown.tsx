@@ -7,6 +7,8 @@ import {
     AUTO,
 } from '../../ChordUtils';
 
+import {ReactSetter2} from '../../Common';
+
 /**
  * Normally it gets the first chord, extracts the quality (major, minor, dim7, ...) and builds a list of all 12
  * chords with the same quality, plus auto. If the param is empty, assumes chords are major.
@@ -52,11 +54,14 @@ function computeInitialFirstChord(chords: string[], useAuto: boolean) {
 export const FirstChordDropdown = ({
     chords,
     useSuggestions,
+    firstChordCbBVal,
+    setFirstChordCbBVal,
 } : {
     chords: string[],
     useSuggestions: boolean,
+    firstChordCbBVal: string,
+    setFirstChordCbBVal: ReactSetter2<string>,
 }) => {
-    const [firstChordCbBVal, setFirstChordCbBVal] = React.useState<string>(/*computeInitialFirstChord()*/'');
 
     React.useEffect(() => {
         const newVal = computeInitialFirstChord(chords, useSuggestions);
