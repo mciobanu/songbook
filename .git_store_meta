@@ -30,7 +30,7 @@ src/pages/HelpPage.tsx	f	2023-08-20T20:22:39Z
 src/pages/IndexPage.tsx	f	2023-08-21T19:24:28Z
 src/pages/LoaderPage.tsx	f	2023-08-20T12:40:00Z
 src/pages/SearchPage.tsx	f	2023-08-20T20:24:31Z
-src/pages/SongPage.tsx	f	2023-08-22T14:51:09Z
+src/pages/SongPage.tsx	f	2023-08-25T12:49:57Z
 src/Paths.ts	f	2023-08-21T20:30:22Z
 src/Persistence.ts	f	2023-08-22T05:29:00Z
 src/react-app-env.d.ts	f	2023-08-19T07:21:28Z

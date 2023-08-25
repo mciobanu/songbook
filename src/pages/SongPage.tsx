@@ -9,6 +9,7 @@ import {SongWidget} from '../widgets/Song';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {getSortedSongs} from '../SongCollections';
 import {persistLastPath} from '../Persistence';
+import {getFullTitle} from '../Song';
 
 type SongParams = {
     songPos: string;
@@ -53,7 +54,7 @@ export const SongPage = ({
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <span className="songTitle">SongPage: {numSngPos}, by {sortType}</span>
+            <span className="songTitle">{numSngPos}. {getFullTitle(sortedSong.song)} (by {sortType})</span>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
                 setCapoCbBVal={setCapoCbBVal}/>
         </div>
