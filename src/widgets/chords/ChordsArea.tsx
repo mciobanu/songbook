@@ -7,6 +7,7 @@ import {getChordSuggestions} from '../../Suggestions';
 import {Song} from '../../Song';
 import {capoStrToNum} from '../../ChordUtils';
 import {CapoWidget} from './Capo';
+import {IntervalWidget} from './Interval';
 
 /**
  * Creates the part above the actual song, with chord, capo, suggestions, etc.
@@ -43,6 +44,7 @@ export const ChordsAreaWidget = ({
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal}/>
         <CapoWidget suggestions={suggestions} currentSuggestion={currentSuggestion}/>
+        {song.r && <IntervalWidget suggestions={suggestions} currentSuggestion={currentSuggestion} range={song.r}/>}
     </>);
 };
 
