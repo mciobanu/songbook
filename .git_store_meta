@@ -7,8 +7,8 @@
 .idea/misc.xml	f	2023-08-19T07:20:18Z
 .idea/modules.xml	f	2023-08-19T07:20:18Z
 .idea/vcs.xml	f	2023-08-19T07:26:11Z
-package.json	f	2023-08-20T13:24:02Z
-package-lock.json	f	2023-08-20T13:24:03Z
+package.json	f	2023-08-25T19:35:30Z
+package-lock.json	f	2023-08-25T19:38:44Z
 public/favicon.ico	f	2015-12-10T18:14:13Z
 public/index.html	f	2023-08-19T07:38:41Z
 public/logo192.png	f	2023-08-19T07:21:22Z
@@ -62,4 +62,8 @@ src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-21T20:06:22Z
 src/widgets/Search.tsx	f	2023-08-20T20:03:46Z
 src/widgets/Song.tsx	f	2023-08-25T12:40:32Z
+tests/TestCalc01.test.ts	f	2023-08-25T20:48:18Z
+tests/TestRange.test.ts	f	2023-08-25T20:07:22Z
+tests/Tests.md	f	2023-08-25T20:44:50Z
 tsconfig.json	f	2023-08-19T07:21:28Z
+tsconfig.mocha.json	f	2023-08-25T19:26:53Z
