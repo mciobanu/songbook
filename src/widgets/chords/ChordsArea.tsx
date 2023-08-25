@@ -11,7 +11,7 @@ import {CapoWidget} from './Capo';
 /**
  * Creates the part above the actual song, with chord, capo, suggestions, etc.
  */
-export const ChordsWidget = ({
+export const ChordsAreaWidget = ({
     song,
     chords,
     songRenderConfig,

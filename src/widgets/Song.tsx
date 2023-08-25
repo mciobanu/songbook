@@ -6,7 +6,7 @@ import {SongRenderConfig} from '../SongRenderConfig';
 import {Song} from '../Song';
 import {ReactSetter2} from '../Common';
 import {getRoot} from '../ChordUtils';
-import {ChordsWidget} from './chords/Chords';
+import {ChordsAreaWidget} from './chords/ChordsArea';
 
 
 //ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
@@ -131,7 +131,7 @@ export const SongWidget = ({
         return getAllChords(song);
     }, [song]);
 
-    return <ChordsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
+    return <ChordsAreaWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
         setCapoCbBVal={setCapoCbBVal} song={song} firstChordCbBVal={firstChordCbBVal}
         setFirstChordCbBVal={setFirstChordCbBVal}/>;
     /*{ &&
