@@ -5,7 +5,7 @@ import '../legacy.css';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {ReactSetter2} from '../Common';
 import {Paths} from '../Paths';
-import {computeSuggestionRange} from '../RangeProcessor';
+import {computeSuggestionRange} from '../ChordUtils';
 import {convertToInt} from '../Utils';
 
 export const ChordConfigWidget = ({

@@ -5,7 +5,6 @@ const MIN_SONG_RANGE = 4; // a song is considered to have at least 4 semitones, 
 // than that an octave is added; thus a range of A-C is equivalent to A-C+1, 15 semitones; OTOH C-E is equivalent to
 // C-E+0; if a song really has fewer than 4 semitones, the +0 notation can be used to express this
 
-
 let accidentalUseAscii: boolean = false;
 
 /**
@@ -270,3 +269,20 @@ export function computeSuggestionRange(newMin: string, newMax: string, currentVa
     };
 }
 
+/**
+ * Returns the root of a chord ("A" for "Am7")
+ * Returns null if the param is a string but not a chord, or if it is null
+ * @param chord
+ */
+export function getRoot(chord: string): string | null {
+    if (!chord || chord.length === 0 || chord[0] < 'A' || chord[0] > 'G') {
+        return null;
+    }
+    let rootLen = 1;
+    if (chord.length >= 2 && (chord[1] === '♯' || chord[1] === '♭')) {
+        rootLen = 2;
+    }
+    return chord.substring(0, rootLen);
+}
+
+export const AUTO = 'auto';

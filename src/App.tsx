@@ -4,11 +4,10 @@ import {useNavigate} from 'react-router-dom';
 //import logo from './logo.svg';
 import './App.css';
 import RouteDefinition from './RouteDefinition';
-import {debugFmt} from './Common';
+//import {debugFmt} from './Common';
 import {SongRenderConfig} from './SongRenderConfig';
-import {initAsciiForAccidentals} from './RangeProcessor';
+import {initAsciiForAccidentals, AUTO} from './ChordUtils';
 import * as Persistence from './Persistence';
-import {AUTO} from './widgets/Song';
 
 let ranPathRestoreAtStart = false;
 
