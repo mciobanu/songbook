@@ -332,14 +332,18 @@ export function capoStrToNum(s: string) {
  * Computes a shifted range
  *
  * @param range
- * @param rangeShift - positive or negative integer
+ * @param rangeShift - positive or negative integer (although negative is not that important, as there is no negative capo)
  */
 export function getShiftedRange(range: string, rangeShift: number) {
     const k = range.indexOf('-');
     let c = range.substring(0, k);
     //var r = getRoot(c); var h = getNoteIndex(r); //!!! c should always be a plain note
     let h = getNoteIndex(c);
-    h = nonNegativeModulo(h + rangeShift, 12);
+    let positiveRangeShift = rangeShift;
+    while (positiveRangeShift < 0) {
+        positiveRangeShift += 12;
+    }
+    h = (h + positiveRangeShift) % 12;
     let res = NOTES[h] + c.substring(c.length);
     c = range.substring(k + 1); //!!! c is really a note that might be followed by "+"; it's not quite right to treat is as a chord, but it should work
     const r = getRoot(c);
@@ -347,18 +351,8 @@ export function getShiftedRange(range: string, rangeShift: number) {
         throw Error(`Got null root for ${c}, in getShiftedRange(${range}, ${rangeShift})`);
     }
     h = getNoteIndex(r);
-    h = nonNegativeModulo(h + rangeShift, 12);
+    h = (h + positiveRangeShift) % 12;
     res += `-${NOTES[h]}${c.substring(r.length)}`;
     return res;
-}
-
-
-function nonNegativeModulo(x: number, y: number) {
-    let x1 = x;
-    while (x1 < 0) {
-        // noinspection JSSuspiciousNameCombination
-        x1 += y;
-    }
-    return x1 % y;
 }
 
