@@ -27,7 +27,7 @@ src/index.tsx	f	2023-08-24T19:32:41Z
 src/legacy.css	f	2023-08-20T18:02:59Z
 src/logo.svg	f	2023-08-19T07:21:22Z
 src/pages/HelpPage.tsx	f	2023-08-20T20:22:39Z
-src/pages/IndexPage.tsx	f	2023-08-21T19:24:28Z
+src/pages/IndexPage.tsx	f	2023-08-27T17:56:26Z
 src/pages/LoaderPage.tsx	f	2023-08-20T12:40:00Z
 src/pages/SearchPage.tsx	f	2023-08-20T20:24:31Z
 src/pages/SongPage.tsx	f	2023-08-25T12:49:57Z

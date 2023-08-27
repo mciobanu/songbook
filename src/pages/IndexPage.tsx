@@ -23,7 +23,7 @@ export const IndexPage = ({
     songRenderConfig,
     setSongRenderConfig,
     //setLastPath,
-}: {
+} : {
     sortType: SortType,
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
