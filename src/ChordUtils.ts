@@ -289,7 +289,13 @@ export function getRoot(chord: string): string | null {
     return chord.substring(0, rootLen);
 }
 
-// substitutes a single chord using custom rangeShift and capo
+
+/**
+ * Substitutes a single chord using custom rangeShift and capo
+ * @param s
+ * @param rangeShift2
+ * @param capo2
+ */
 export function substituteChord(s: string, rangeShift2: number, capo2: number) {  //ttt9: rename "2"
     const root = getRoot(s);
     if (!root) {
@@ -355,4 +361,50 @@ export function getShiftedRange(range: string, rangeShift: number) {
     res += `-${NOTES[h]}${c.substring(r.length)}`;
     return res;
 }
+
+
+/**
+ * Replaces all chords in a string that starts with a chord with chords that take rangeShift and capo into account
+ * Throws if the string doesn't start with a chord
+ *
+ * ttt9 Review the point of this: Seems pretty strange to work on strings that start with a chord but then have random
+ * strings. Perhaps is for handling alternatives, like "Am(C)" in "Om bun"
+ *
+ * @param s
+ * @param rangeShift2
+ * @param capo2
+ * @param showCapo
+ */
+export function substituteChords(s: string, rangeShift2: number, capo2: number, showCapo: boolean) {  //ttt9: rename "2", "s"
+    /*if (s.indexOf("Am7 /") != -1) {
+        debugger;
+    }//*/
+    const root: string | null = s.startsWith('N') ? 'N' : getRoot(s);
+    if (!root) {
+        throw Error(`Invalid param to substituteChords: '${s}'`);
+    }
+    const rootLen = root.length;
+    let chordLen = rootLen;
+    while (chordLen < s.length && s[chordLen] !== ' ' && s[chordLen] !== ',' && s[chordLen] !== '-'
+            && s[chordLen] !== ';' && s[chordLen] !== '/' && s[chordLen] !== ']') {
+        ++chordLen;
+    }
+    let k = chordLen;
+    while (k < s.length && (s[k] < 'A' || s[k] > 'G')) {
+        ++k;
+    }
+    let res = substituteNote(root, rangeShift2, capo2);
+    //res = fixAccidentals(res);
+    res += (!showCapo || capo2 === 0
+        ? s.substring(rootLen, k)
+        : `${s.substring(rootLen, chordLen)}|${capo2}${s.substring(chordLen, k)}`);
+    if (k === s.length) {
+        // no further chord
+        return res;
+    }
+    // another chord starts at position k
+    res += substituteChords(s.substring(k), rangeShift2, capo2, showCapo);
+    return res;
+}
+
 
