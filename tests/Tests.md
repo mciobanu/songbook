@@ -1,4 +1,20 @@
 ## Notes
+              
+As it seems that Jest is written with React in mind, the initial decision to use
+Mocha was reverted, and now Jest is the chosen way.
+ 
+The script `test-jest` in `package.json` runs on everything but, although initially 
+was OK (IIRC), later started to fail on tests in the folder `tests`. Anyway, just
+use test files under `src`, inside `__tests__` folders, as these work both with
+individual tests and suites as well as with the global script. This can very
+likely be changed in some config file, but it seems better to keep the test files 
+near the sources, so didn't bother to figure it out.
+
+[Here](https://maous.medium.com/setup-testing-environment-for-react-typescript-with-jest-1f5eb453aa2)
+are some notes about using Jester with React UI code. In particular, you can 
+supposedly simulate thousands of users.
+
+## Mocha notes - Old 
 
 Not sure what the best approach is. Chose to install Mocha, as that was used in 
 an example. However, it looks like Jest was already configured to some extent. At least

@@ -7,8 +7,9 @@
 .idea/misc.xml	f	2023-08-19T07:20:18Z
 .idea/modules.xml	f	2023-08-19T07:20:18Z
 .idea/vcs.xml	f	2023-08-19T07:26:11Z
-package.json	f	2023-08-25T19:35:30Z
-package-lock.json	f	2023-08-25T19:38:44Z
+jest.config.js	f	2023-08-27T19:13:04Z
+package.json	f	2023-08-27T19:16:19Z
+package-lock.json	f	2023-08-27T19:16:19Z
 public/favicon.ico	f	2015-12-10T18:14:13Z
 public/index.html	f	2023-08-19T07:38:41Z
 public/logo192.png	f	2023-08-19T07:21:22Z
@@ -17,7 +18,7 @@ public/manifest.json	f	2023-08-19T07:21:22Z
 public/robots.txt	f	2023-08-19T07:21:22Z
 README.md	f	2023-08-22T18:03:44Z
 src/App.css	f	2023-08-19T07:21:22Z
-src/App.test.tsx	f	2023-08-20T12:42:16Z
+src/App.test.tsx	f	2023-08-27T20:02:31Z
 src/App.tsx	f	2023-08-25T06:23:10Z
 src/ChordUtils.ts	f	2023-08-27T18:24:45Z
 src/Common.ts	f	2023-08-21T20:54:15Z
@@ -42,6 +43,7 @@ src/SongRenderConfig.ts	f	2023-08-25T11:39:15Z
 src/Songs.ts	f	2023-08-20T12:30:33Z
 src/Song.ts	f	2023-08-20T12:31:18Z
 src/Suggestions.ts	f	2023-08-25T12:20:24Z
+src/__tests__/ChordUtils.test.ts	f	2023-08-27T19:55:17Z
 src/Utils.ts	f	2023-08-21T11:55:39Z
 src/widgets/ChordConfig.tsx	f	2023-08-25T06:23:10Z
 src/widgets/chords/CapoDropdown.tsx	f	2023-08-25T06:14:22Z
@@ -51,6 +53,7 @@ src/widgets/chords/ChordsArea.tsx	f	2023-08-27T18:16:18Z
 src/widgets/chords/Dropdowns.tsx	f	2023-08-25T11:53:33Z
 src/widgets/chords/FirstChordDropdown.tsx	f	2023-08-25T11:52:20Z
 src/widgets/chords/Interval.tsx	f	2023-08-25T13:07:56Z
+src/widgets/chords/__tests__/TestCalc02-jest.test.ts	f	2023-08-27T19:34:18Z
 src/widgets/FontConfigurator.tsx	f	2023-08-20T16:46:37Z
 src/widgets/GoTo.tsx	f	2023-08-22T12:26:01Z
 src/widgets/Hamburger.tsx	f	2023-08-22T05:35:43Z
@@ -63,9 +66,6 @@ src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-21T20:06:22Z
 src/widgets/Search.tsx	f	2023-08-20T20:03:46Z
 src/widgets/Song.tsx	f	2023-08-25T12:40:32Z
-tests/ChordUtils.test.ts	f	2023-08-25T21:31:47Z
-tests/TestCalc01.test.ts	f	2023-08-25T20:48:18Z
-tests/TestRange.test.ts	f	2023-08-25T20:07:22Z
-tests/Tests.md	f	2023-08-25T20:44:50Z
+tests/Tests.md	f	2023-08-27T20:01:25Z
 tsconfig.json	f	2023-08-19T07:21:28Z
 tsconfig.mocha.json	f	2023-08-25T19:26:53Z
