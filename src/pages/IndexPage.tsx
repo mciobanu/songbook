@@ -38,7 +38,7 @@ export const IndexPage = ({
         <div>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <span className="songTitle">IndexPage, by {sortType}</span>
+            <p className="songTitle">IndexPage, by {sortType}</p> {/*ttt0 review className*/}
             {render(songs)}
         </div>
     );

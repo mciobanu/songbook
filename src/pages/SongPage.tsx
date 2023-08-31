@@ -54,7 +54,7 @@ export const SongPage = ({
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <span className="songTitle">{numSngPos}. {getFullTitle(sortedSong.song)} (by {sortType})</span>
+            <p className="songTitle">{numSngPos}. {getFullTitle(sortedSong.song)} (by {sortType})</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
                 setCapoCbBVal={setCapoCbBVal}/>
         </div>

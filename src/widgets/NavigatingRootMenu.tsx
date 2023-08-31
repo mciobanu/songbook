@@ -7,6 +7,9 @@ import {HamburgerWidget} from './Hamburger';
 import {ReactSetter2, SortType} from '../Common';
 import {SongRenderConfig} from '../SongRenderConfig';
 
+import '../legacy.css';
+
+
 export const NavigatingRootMenuWidget = ({
     songNumber,
     sortType,
@@ -22,13 +25,16 @@ export const NavigatingRootMenuWidget = ({
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
-    return (<div className="menuDiv menuDivRight menuP">
-        <div className="navRootMenuContainer">
-            <NavigationWidget songNumber={songNumber} sortType={sortType}/>
-            <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
+    return <>
+        <p className={'crtAnchor'}/> {/*ttt9 In JS there's an onMainClick()*/}
+        <div className="menuDiv menuDivRight menuP">
+            <div className="navRootMenuContainer">
+                <NavigationWidget songNumber={songNumber} sortType={sortType}/>
+                <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
+            </div>
+            {expandedMenu && <NavigatingMenuWidget songRenderConfig={songRenderConfig}
+                setSongRenderConfig={setSongRenderConfig} sortType={sortType} setExpandedMenu={setExpandedMenu}/>}
         </div>
-        {expandedMenu && <NavigatingMenuWidget songRenderConfig={songRenderConfig}
-            setSongRenderConfig={setSongRenderConfig} sortType={sortType} setExpandedMenu={setExpandedMenu}/>}
-    </div>);
+    </>;
     /* ttt0 review why there are both menuDivRight and menuDivLeft */
 };

@@ -3,7 +3,8 @@ import React from 'react';
 import '../legacy.css';
 
 export const LoaderWidget = () => {
+    /*ttt0 review className*/
     return (
-        <span className="songTitle">Se încarcă...</span>
+        <p className="songTitle">Se încarcă...</p>
     );
 };

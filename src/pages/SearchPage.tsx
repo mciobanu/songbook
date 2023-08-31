@@ -21,7 +21,7 @@ export const SearchPage = ({
         <div>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <span className="songTitle">SearchPage</span>
+            <p className="songTitle">SearchPage</p> {/*ttt0 review className*/}
         </div>
     );
 };

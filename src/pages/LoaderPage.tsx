@@ -3,7 +3,8 @@ import React from 'react';
 import '../legacy.css';
 
 export const LoaderPage = () => {
+    /*ttt0 review className*/
     return (
-        <span className="songTitle">LoaderPage</span>
+        <p className="songTitle">LoaderPage</p>
     );
 };

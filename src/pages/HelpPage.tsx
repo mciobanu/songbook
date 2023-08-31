@@ -21,7 +21,7 @@ export const HelpPage = ({
         <div>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <span className="songTitle">HelpPage</span>
+            <p className="songTitle">HelpPage</p> {/*ttt0 probably wrong className*/}
         </div>
     );
 };
