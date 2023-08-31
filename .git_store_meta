@@ -47,13 +47,13 @@ src/__tests__/ChordUtils.test.ts	f	2023-08-27T19:55:17Z
 src/Utils.ts	f	2023-08-21T11:55:39Z
 src/widgets/ChordConfig.tsx	f	2023-08-25T06:23:10Z
 src/widgets/chords/CapoDropdown.tsx	f	2023-08-25T06:14:22Z
-src/widgets/chords/Capo.tsx	f	2023-08-25T12:23:38Z
-src/widgets/chords/ChordList.tsx	f	2023-08-27T18:24:45Z
+src/widgets/chords/Capo.tsx	f	2023-08-31T18:50:00Z
+src/widgets/chords/ChordList.tsx	f	2023-08-31T18:57:00Z
 src/widgets/chords/ChordsArea.tsx	f	2023-08-27T20:23:56Z
 src/widgets/chords/Dropdowns.tsx	f	2023-08-25T11:53:33Z
 src/widgets/chords/FirstChordDropdown.tsx	f	2023-08-25T11:52:20Z
-src/widgets/chords/FirstNote.tsx	f	2023-08-31T18:27:13Z
-src/widgets/chords/Interval.tsx	f	2023-08-25T13:07:56Z
+src/widgets/chords/FirstNote.tsx	f	2023-08-31T18:52:30Z
+src/widgets/chords/Interval.tsx	f	2023-08-31T18:57:00Z
 src/widgets/chords/__tests__/TestCalc02-jest.test.ts	f	2023-08-27T19:34:18Z
 src/widgets/FontConfigurator.tsx	f	2023-08-20T16:46:37Z
 src/widgets/GoTo.tsx	f	2023-08-22T12:26:01Z

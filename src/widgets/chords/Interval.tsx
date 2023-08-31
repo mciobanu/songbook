@@ -4,7 +4,7 @@ import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Sugge
 import {getShiftedRange} from '../../ChordUtils';
 
 /**
- * The position of the capo. (Nothing is shown if there is no capo.)
+ * The note interval. (Nothing is shown if there are no suggestions.)
  */
 export const IntervalWidget = ({
     suggestions,
@@ -22,7 +22,7 @@ export const IntervalWidget = ({
         return null;
     }
     return (
-        <p className={getGoodRangeClass(s)}>
+        <p className={[getGoodRangeClass(s), 'songNormalVerse'].join(' ')}>
             Interval: {getShiftedRange(range, s.rangeShift)}
         </p>);
 };

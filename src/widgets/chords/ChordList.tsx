@@ -3,8 +3,10 @@ import React from 'react';
 import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Suggestions';
 import {accidentalsToDisplay, getShiftedRange, substituteChords} from '../../ChordUtils';
 
+import '../../legacy.css';
+
 /**
- * The position of the capo. (Nothing is shown if there is no capo.)
+ * The chord list. (Nothing is shown if there are no suggestions.)
  */
 export const ChordListWidget = ({
     suggestions,
@@ -28,7 +30,7 @@ export const ChordListWidget = ({
         return null;
     }
     return (
-        <p className={getGoodRangeClass(s)}>
+        <p className={[getGoodRangeClass(s), 'songNormalVerse'].join(' ')}>
             Acorduri: {shiftedChords.join(', ')}
         </p>);
 };
