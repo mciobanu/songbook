@@ -9384,7 +9384,6 @@ export const TestSongs: Song[] = [  //ttt0: rename, load from lib
             'g',
         ],
         r: 'G-D',
-        f: '',
         b: [
             {
                 i: '1',
@@ -9447,7 +9446,6 @@ export const TestSongs: Song[] = [  //ttt0: rename, load from lib
             'g',
         ],
         r: 'G-D',
-        f: '',
         b: [
             {
                 i: '1',
@@ -9510,7 +9508,6 @@ export const TestSongs: Song[] = [  //ttt0: rename, load from lib
             'g',
         ],
         r: 'G-D',
-        f: '',
         b: [
             {
                 i: '1',
