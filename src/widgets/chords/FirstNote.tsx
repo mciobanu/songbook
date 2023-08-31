@@ -12,10 +12,12 @@ export const FirstNoteWidget = ({
     suggestions,
     currentSuggestion,
     firstNote,
+    useOriginalSuggestion,
 } : {
     suggestions: Suggestion[],
     currentSuggestion: number,
     firstNote: string | undefined,
+    useOriginalSuggestion: boolean,  //ttt0: do something about this hack: get rid of songNormalVerse in ChordsArea and add some space after whatever happens to be the last
 }) => {
     const s = React.useMemo(() => {
         return getSuggestionOrDefault(suggestions, currentSuggestion);
@@ -29,7 +31,7 @@ export const FirstNoteWidget = ({
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(s), 'songLastVerse'].join(' ')}>
+        <p className={[getGoodRangeClass(s), useOriginalSuggestion ? 'songNormalVerse' : 'songLastVerse'].join(' ')}>
             Prima notă: {shiftedFirstNote}
         </p>);
 };
