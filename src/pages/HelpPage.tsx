@@ -18,7 +18,7 @@ export const HelpPage = ({
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
     return (
-        <div>
+        <div onClick={() => { setExpandedMenu(false); }}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <p className="songTitle">HelpPage</p> {/*ttt0 probably wrong className*/}

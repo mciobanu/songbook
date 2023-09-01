@@ -25,9 +25,15 @@ export const NavigatingRootMenuWidget = ({
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
+
+    // used to prevent clicking on the menu to close the menu
+    const onClick = React.useCallback((event:  React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+    }, []);
+
     return <>
         <p className={'crtAnchor'}/> {/*ttt9 In JS there's an onMainClick()*/}
-        <div className="menuDiv menuDivRight menuP">
+        <div className="menuDiv menuDivRight menuP" onClick={onClick}>
             <div className="navRootMenuContainer">
                 <NavigationWidget songNumber={songNumber} sortType={sortType}/>
                 <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>

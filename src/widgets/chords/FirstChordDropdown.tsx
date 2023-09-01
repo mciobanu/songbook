@@ -84,41 +84,19 @@ export const FirstChordDropdown = ({
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
         console.log(`FirstChordCbB.onChange(): Setting FirstChordCbBVal to ${s} when the user changed it`);
-        setFirstChordCbBVal(s);  //ttt9: check if this works
+        setFirstChordCbBVal(s);
     }, [setFirstChordCbBVal]);
 
+    // used to prevent clicking on a dropbox to close the menu //ttt2 make sure works OK in old browsers - fine in Android 2.2, not sure about IE
+    const onClick = React.useCallback((event:  React.MouseEvent<HTMLSelectElement>) => {
+        console.log(`click CkB ${event.currentTarget.value}`);
+        event.stopPropagation();
+    }, []);
+
     return (
-        <select className='dropDown' value={firstChordCbBVal} onChange={onChange}>
+        <select className='dropDown' value={firstChordCbBVal} onChange={onChange} onClick={onClick}>
             {generateOptions()}
         </select>
     );
-
-
-
-    /*var option;
-    for (var i = 0; i <= 11; ++i) {
-        option = document.createElement("option");
-        option.value = option.text = accidentalsToDisplay(NOTES[i]) + firstChordQuality;
-        firstChordCbB.appendChild(option);
-    }
-    if (useSuggestions) {
-        if (!isDefined(firstChordCbBVal) || lastSongIndex != currentSongIndex) {
-            firstChordCbBVal = AUTO; //!!! note that something similar is not used for capoCbBVal, which has a persisted value
-        }
-    } else {
-        if (!isDefined(firstChordCbBVal) || lastSongIndex != currentSongIndex) {
-            firstChordCbBVal = firstChord;
-        }
-    }
-    firstChordCbB.value = fixAccidentals(firstChordCbBVal);
-    firstChordCbB.onchange = onFirstChordChanged;
-    firstChordCbB.onclick = buildSelectCallback();  //ttt9:
-    td.appendChild(firstChordCbB);
-    tr.appendChild(td);
-    tbdy.appendChild(tr);
-    tbl.appendChild(tbdy);
-    tbl.className = "capoTable";
-    domElem.appendChild(tbl);*/
-
 };
 

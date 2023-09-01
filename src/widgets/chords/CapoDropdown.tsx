@@ -10,30 +10,6 @@ export const CapoDropdown = ({
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
 }) => {
-    /*var tr = document.createElement("tr");
-    var td = document.createElement("td");
-    td.appendChild(document.createTextNode("Capodastru: "));
-    tr.appendChild(td);
-    td = document.createElement("td");
-
-    capoCbB = document.createElement("select");
-    capoCbB.className = "dropDown";
-    var option = document.createElement("option");
-    option.value = option.text = AUTO;
-    capoCbB.appendChild(option);
-    for (let i = 0; i <= 11; ++i) {
-        option = document.createElement("option");
-        option.value = option.text = i;
-        capoCbB.appendChild(option);
-    }
-    if (capoCbBVal) {
-        capoCbB.value = capoCbBVal;  //ttt9:
-    }
-    capoCbB.onchange = onCapoChanged; //ttt9:
-    capoCbB.onclick = buildSelectCallback();  //ttt9: // used to prevent clicking on a dropbox to close the menu //ttt2 make sure works OK in old browsers - fine in Android 2.2, not sure about IE
-    td.appendChild(capoCbB);
-    tr.appendChild(td);
-    tbdy.appendChild(tr);*/
 
     const generateOptions = React.useCallback(() => {
         const arr: string[] = [];
@@ -47,11 +23,27 @@ export const CapoDropdown = ({
 
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
-        setCapoCbBVal(s);  //ttt9: check if this works
+        setCapoCbBVal(s);
     }, [setCapoCbBVal]);
 
+    // used to prevent clicking on a dropbox to close the menu //ttt2 make sure works OK in old browsers - fine in Android 2.2, not sure about IE
+    const onClick = React.useCallback((event:  React.MouseEvent<HTMLSelectElement>) => {
+        const s = event.currentTarget.value;
+        console.log(`click CkB ${s}`);
+        event.stopPropagation();
+
+        //ttt3: Code in JS (below) is more complicated; see if needed, perhaps on older browsers
+        /*return function(event) {
+            event.cancelBubble = true;
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            }
+            return false;
+        }*/
+    }, []);
+
     return (
-        <select className='dropDown' value={capoCbBVal} onChange={onChange}>
+        <select className='dropDown' value={capoCbBVal} onChange={onChange} onClick={onClick}>
             <option value={AUTO} key={AUTO}>{AUTO}</option>
             {generateOptions()}
         </select>

@@ -50,7 +50,7 @@ export const SongPage = ({
     }, [numSngPos, setSongNumber]);
 
     return (
-        <div>
+        <div onClick={() => { setExpandedMenu(false); }}>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>

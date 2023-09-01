@@ -17,7 +17,13 @@ export const NonNavigatingRootMenuWidget = ({
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
 }) => {
-    return (<div className="menuDiv menuDivRight menuP">
+
+    // used to prevent clicking on the menu to close the menu
+    const onClick = React.useCallback((event:  React.MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+    }, []);
+
+    return (<div className="menuDiv menuDivRight menuP" onClick={onClick}>
         <div className="nonNavRootMenuContainer">
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
