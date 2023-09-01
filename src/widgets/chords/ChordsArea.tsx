@@ -12,6 +12,7 @@ import {ChordListWidget} from './ChordList';
 import {FirstNoteWidget} from './FirstNote';
 import {OriginalSuggestionWidget} from './OriginalSuggestion';
 import {SuggestionListWidget} from './SuggestionList';
+import {NotesWidget} from './Notes';
 
 /**
  * Creates the part above the actual song, with chord, capo, suggestions, etc.
@@ -47,6 +48,7 @@ export const ChordsAreaWidget = ({
     //ttt0: put these in config
     const useOriginalSuggestion = true;
     const debugEnabled = false;
+    const showNotes = true;
 
     return (<>
         <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
@@ -62,6 +64,7 @@ export const ChordsAreaWidget = ({
             && <SuggestionListWidget suggestions={suggestions} currentSuggestion={currentSuggestion}
                 setCurrentSuggestion={setCurrentSuggestion} chords={chords} range={song.r} debugEnabled={debugEnabled}
             />}
+        {song.n && <NotesWidget notes={song.n}/>}
     </>);
 };
 
