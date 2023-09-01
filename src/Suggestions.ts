@@ -188,13 +188,18 @@ export function getChordSuggestions(chords: string[], songRange: string, voiceRa
         const d = suggestion1.score - suggestion2.score;
         return d || suggestion1.index - suggestion2.index;
     }); //ttt3 no need to sort the whole thing to get the best maxSuggestionsVal
-    /* eslint-disable max-len */    //ttt9: remove
     /*for (var i = 0; i < suggestionList.length; ++i) { // debug only
         //console.log('' + JSON.stringify(suggestionList[i]));
         var s = suggestionList[i];
-        //console.log(s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ',' + s.songNumRange + ',' + s.adjSongRange + ',' + s.midSong + ',' + s.voiceNumRange + ',' + s.midVoice);
-        console.log(s.index + ',' + s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ',' + s.songNumRange + ',' + s.adjSongRange + ',' + s.midSong + ',' + s.voiceNumRange + ',' + s.midVoice + ',' + s.shiftedChords);
-        //console.log(s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ',' + s.songNumRange[0] + '-' + s.songNumRange[1] + ',' + s.adjSongRange[0] + '-' + s.adjSongRange[1] + ',' + s.midSong + ',' + s.voiceNumRange[0] + '-' + s.voiceNumRange[1] + ',' + s.midVoice);
+        //console.log(s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ',' + s.songNumRange + ','
+        //+ s.adjSongRange + ',' + s.midSong + ',' + s.voiceNumRange + ',' + s.midVoice);
+
+        console.log(s.index + ',' + s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ','
+        + s.songNumRange + ',' + s.adjSongRange + ',' + s.midSong + ',' + s.voiceNumRange + ',' + s.midVoice + ',' + s.shiftedChords);
+
+        //console.log(s.rangeShift + ',' + s.capo + ',' + s.voiceOut + ',' + s.score + ',' + s.rangeDiff + ',' + s.songNumRange[0] + '-'
+        //+ s.songNumRange[1] + ',' + s.adjSongRange[0] + '-' + s.adjSongRange[1] + ',' + s.midSong + ',' + s.voiceNumRange[0] + '-'
+        //+ s.voiceNumRange[1] + ',' + s.midVoice);
     }*/
     for (let i = 0; i < maxSuggestions && i < suggestionList.length; ++i) {
         const suggestion = suggestionList[i];
