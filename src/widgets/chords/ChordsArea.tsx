@@ -52,7 +52,7 @@ export const ChordsAreaWidget = ({
         <ChordListWidget suggestions={suggestions} currentSuggestion={currentSuggestion} chords={chords}/>
         <FirstNoteWidget suggestions={suggestions} currentSuggestion={currentSuggestion} firstNote={song.f}
             useOriginalSuggestion={useOriginalSuggestion}/>
-        <OriginalSuggestionWidget song={song} chords={chords}/>
+        {useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
     </>);
 };
 
