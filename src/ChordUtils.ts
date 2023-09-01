@@ -293,15 +293,15 @@ export function getRoot(chord: string): string | null {
 /**
  * Substitutes a single chord using custom rangeShift and capo
  * @param s
- * @param rangeShift2
- * @param capo2
+ * @param rangeShift
+ * @param capo
  */
-export function substituteChord(s: string, rangeShift2: number, capo2: number) {  //ttt9: rename "2"
+export function substituteChord(s: string, rangeShift: number, capo: number) {
     const root = getRoot(s);
     if (!root) {
         throw Error(`Invalid chord: '${s}'`);
     }
-    let res = substituteNote(root, rangeShift2, capo2);
+    let res = substituteNote(root, rangeShift, capo);
     res += s.substring(root.length);
     return res;
 }
@@ -310,19 +310,15 @@ export function substituteChord(s: string, rangeShift2: number, capo2: number) {
 /**
  * Substitutes a single note (the root of a chord)
  */
-function substituteNote(s: string, rangeShift2: number, capo2: number) {  //ttt9: rename "2"
+function substituteNote(s: string, rangeShift2: number, capo: number) {
     if (s === 'N') {
         return s;
     }
-    /*if (!isDefined(rangeShift2)) {
-        rangeShift2 = rangeShift;
-        capo2 = capo;
-    }*/
     let k = getNoteIndex(s);
     if (k === -1) {
         throw Error(`Got non-note ${s}`);
     }
-    k = (k + (rangeShift2 - capo2) + 120) % 12;
+    k = (k + (rangeShift2 - capo) + 120) % 12;
     // noinspection UnnecessaryLocalVariableJS
     const res = NOTES[k];
     return res;
@@ -371,11 +367,11 @@ export function getShiftedRange(range: string, rangeShift: number) {
  * strings. Perhaps is for handling alternatives, like "Am(C)" in "Om bun"
  *
  * @param s
- * @param rangeShift2
- * @param capo2
+ * @param rangeShift
+ * @param capo
  * @param showCapo
  */
-export function substituteChords(s: string, rangeShift2: number, capo2: number, showCapo: boolean) {  //ttt9: rename "2", "s"
+export function substituteChords(s: string, rangeShift: number, capo: number, showCapo: boolean) {
     /*if (s.indexOf("Am7 /") != -1) {
         debugger;
     }//*/
@@ -393,17 +389,17 @@ export function substituteChords(s: string, rangeShift2: number, capo2: number, 
     while (k < s.length && (s[k] < 'A' || s[k] > 'G')) {
         ++k;
     }
-    let res = substituteNote(root, rangeShift2, capo2);
+    let res = substituteNote(root, rangeShift, capo);
     //res = fixAccidentals(res);
-    res += (!showCapo || capo2 === 0
+    res += (!showCapo || capo === 0
         ? s.substring(rootLen, k)
-        : `${s.substring(rootLen, chordLen)}|${capo2}${s.substring(chordLen, k)}`);
+        : `${s.substring(rootLen, chordLen)}|${capo}${s.substring(chordLen, k)}`);
     if (k === s.length) {
         // no further chord
         return res;
     }
     // another chord starts at position k
-    res += substituteChords(s.substring(k), rangeShift2, capo2, showCapo);
+    res += substituteChords(s.substring(k), rangeShift, capo, showCapo);
     return res;
 }
 
