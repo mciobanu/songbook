@@ -20,7 +20,7 @@ README.md	f	2023-08-22T18:03:44Z
 src/App.css	f	2023-08-19T07:21:22Z
 src/App.test.tsx	f	2023-08-27T20:02:31Z
 src/App.tsx	f	2023-08-25T06:23:10Z
-src/ChordUtils.ts	f	2023-08-27T18:24:45Z
+src/ChordUtils.ts	f	2023-09-01T15:48:07Z
 src/Common.ts	f	2023-08-21T20:54:15Z
 src/css/Menu.css	f	2023-08-21T11:36:16Z
 src/index.css	f	2023-08-19T07:21:22Z
@@ -49,7 +49,7 @@ src/widgets/ChordConfig.tsx	f	2023-08-25T06:23:10Z
 src/widgets/chords/CapoDropdown.tsx	f	2023-08-25T06:14:22Z
 src/widgets/chords/Capo.tsx	f	2023-08-31T18:50:00Z
 src/widgets/chords/ChordList.tsx	f	2023-09-01T16:34:23Z
-src/widgets/chords/ChordsArea.tsx	f	2023-09-01T06:57:19Z
+src/widgets/chords/ChordsArea.tsx	f	2023-09-01T16:34:23Z
 src/widgets/chords/Dropdowns.tsx	f	2023-08-25T11:53:33Z
 src/widgets/chords/FirstChordDropdown.tsx	f	2023-08-25T11:52:20Z
 src/widgets/chords/FirstNote.tsx	f	2023-09-01T16:34:23Z
@@ -70,7 +70,7 @@ src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-08-21T20:06:22Z
 src/widgets/Search.tsx	f	2023-08-20T20:03:46Z
 src/widgets/SongBody.tsx	f	2023-09-01T14:23:57Z
-src/widgets/Song.tsx	f	2023-09-01T13:27:41Z
+src/widgets/Song.tsx	f	2023-09-01T16:31:51Z
 tests/Tests.md	f	2023-08-27T20:01:25Z
 tsconfig.json	f	2023-08-19T07:21:28Z
 tsconfig.mocha.json	f	2023-08-25T19:26:53Z

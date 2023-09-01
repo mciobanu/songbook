@@ -81,7 +81,7 @@ function upperCaseChord(s: string): string {
  * Returns the index of a note, with 0 for C, 1 for C♯, ...
  * Returns -1 when the parameter is not a note
  */
-function getNoteIndex(s: string) {
+export function getNoteIndex(s: string) {
     let k = NOTES.indexOf(s);
     if (k === -1) {
         k = ALT_NOTES.indexOf(s);

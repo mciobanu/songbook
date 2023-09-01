@@ -1,11 +1,10 @@
 import React from 'react';
 
-import {SongRenderConfig, voiceRange} from '../../SongRenderConfig';
+import {SongRenderConfig} from '../../SongRenderConfig';
 import {ReactSetter2} from '../../Common';
 import {DropdownsWidget} from './Dropdowns';
-import {getChordSuggestions} from '../../Suggestions';
+import {Suggestion} from '../../Suggestions';
 import {Song} from '../../Song';
-import {capoStrToNum} from '../../ChordUtils';
 import {CapoWidget} from './Capo';
 import {IntervalWidget} from './Interval';
 import {ChordListWidget} from './ChordList';
@@ -25,6 +24,9 @@ export const ChordsAreaWidget = ({
     setCapoCbBVal,
     firstChordCbBVal,
     setFirstChordCbBVal,
+    suggestions,
+    currentSuggestion,
+    setCurrentSuggestion,
 } : {
     song: Song,
     chords: string[],
@@ -33,14 +35,10 @@ export const ChordsAreaWidget = ({
     setCapoCbBVal: ReactSetter2<string>,
     firstChordCbBVal: string,
     setFirstChordCbBVal: ReactSetter2<string>,
+    suggestions: Suggestion[],
+    currentSuggestion: number,
+    setCurrentSuggestion: ReactSetter2<number>,
 }) => {
-    const suggestions = React.useMemo(() => {
-        return getChordSuggestions(chords, song.r || '', voiceRange(songRenderConfig),
-                songRenderConfig.maxSuggestions, capoStrToNum(capoCbBVal), songRenderConfig.maxCapo, firstChordCbBVal);
-    }, [capoCbBVal, chords, firstChordCbBVal, song.r, songRenderConfig]);
-
-    const [currentSuggestion, setCurrentSuggestion] = React.useState(0);
-
     if (!songRenderConfig.showChords || !chords.length) {
         return null;
     }
@@ -58,7 +56,7 @@ export const ChordsAreaWidget = ({
         {song.r && <IntervalWidget suggestions={suggestions} currentSuggestion={currentSuggestion} range={song.r}/>}
         <ChordListWidget suggestions={suggestions} currentSuggestion={currentSuggestion} chords={chords}/>
         <FirstNoteWidget suggestions={suggestions} currentSuggestion={currentSuggestion} firstNote={song.f}
-            useOriginalSuggestion={useOriginalSuggestion}/>
+            lastInList={!useOriginalSuggestion}/>
         {useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
         {song.r && suggestions.length
             && <SuggestionListWidget suggestions={suggestions} currentSuggestion={currentSuggestion}
