@@ -43,7 +43,7 @@ export const SuggestionListWidget = ({
                 currentInfo += ` ${crtSuggestion.score}`;
             }
             return <button className='btnNormal' onClick={() => onButtonClick(index)}
-                disabled={index === currentSuggestion}>
+                disabled={index === currentSuggestion} key={index}>
                 {accidentalsToDisplay(currentInfo)}
             </button>;
         });
