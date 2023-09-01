@@ -314,3 +314,10 @@ export function replaceChordSequence(verse: string): string {
     return res;
 }
 
+
+export function removeChords(verse: string) {
+    // noinspection UnnecessaryLocalVariableJS
+    const res = verse.replace(/\[[^\]]+]/g, '');
+    return res;
+}
+

@@ -6,6 +6,7 @@ import {
     changeStanzaChords,
     cloneEmptyStanzas,
     isChordNotes,
+    removeChords,
     replaceChordSequence,
     Song,
     Stanza,
@@ -205,7 +206,16 @@ const VerseWidget = ({
             }
             return null;
         }
-        return <p>TODO</p>;
+
+        const text = chordRendering === ChordRendering.INLINE
+            ? replaceChordSequence(changeStanzaChords(v, capo, rangeShift, false))
+            : removeChords(v);
+
+        if (!text) {
+            return null;
+        }
+
+        return <p className={lastVerse ? 'songLastVerse' : 'songNormalVerse'}>{text}</p>;
     }, [capo, chordRendering, firstVerse, lastVerse, rangeShift, repeat, stanzaId, verse]);
 
     return res;
