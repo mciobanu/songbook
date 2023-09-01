@@ -6,6 +6,7 @@ import {SongRenderConfig} from '../SongRenderConfig';
 import {getAllChords, Song} from '../Song';
 import {ReactSetter2} from '../Common';
 import {ChordsAreaWidget} from './chords/ChordsArea';
+import {SongBodyWidget} from './SongBody';
 
 
 //ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
@@ -35,102 +36,15 @@ export const SongWidget = ({
         return getAllChords(song);
     }, [song]);
 
-    return <ChordsAreaWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
-        setCapoCbBVal={setCapoCbBVal} song={song} firstChordCbBVal={firstChordCbBVal}
-        setFirstChordCbBVal={setFirstChordCbBVal}/>;
-    /*{ &&
-(songRenderConfig.showChords &&
+    const [capo, setCapo] = React.useState(0);   //ttt9: link to dropdown
+    const [rangeShift, setRangeShift] = React.useState(0);
 
-            <CreateChordWidget song={song} songRenderConfig={songRenderConfig}
-            capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}/>}
-    </div>);*/
-
-    /*var node = document.createElement("p");
-    node.className = "songTitle";
-    //var textNode = document.createTextNode(getInfoByTitle(song) + " #" + (song.index + 1));
-    var textNode = document.createTextNode(/!*(song.index + 1) + ". " +*!/ getInfoByNumber(song));
-    node.appendChild(textNode);
-    domElem.appendChild(node);*/
-
-    // if (chordsCkB.checked) {
-    // }
-    //
-    // if (localStorage["showNotes"] == "true" && song["n"]) { //ttt2 maybe separate setting and place
-    //     currentInfo = "";
-    //     for (var i = 0; i < song["n"].length; ++i) {
-    //         currentInfo += "; " + song["n"][i];
-    //     }
-    //     var textNode = document.createTextNode(fixAccidentals(currentInfo.substring(2))); // 2 is to remove starting "; "
-    //     node = document.createElement("p");
-    //     node.className = "songLastVerse";
-    //     node.appendChild(textNode);
-    //     domElem.appendChild(node);
-    // }
-    //
-    // cloneEmptyStanzas(song);
-    // for (var i = 0; i < song["b"].length; i++) {
-    //     var stanza = song["b"][i];
-    //     var verses = stanza["v"];
-    //     var n = verses.length;
-    //     var prevNode;
-    //     for (var j = 0; j < n; j++) {
-    //         var verse = verses[j];
-    //         verse = removeInvisibleId(verse);
-    //         if (isChordNotes(verse) && !chordsCkB.checked) {
-    //             continue;
-    //         }
-    //
-    //         if (j == 0) {
-    //             if (stanza["r"] && stanza["r"] != 1) {
-    //                 verse = stanza["r"] + "x: " + verse;
-    //             }
-    //             var id = stanza["i"];
-    //             if (id) {
-    //                 id = id.replace(/\^.*/, "");
-    //                 if (id) {
-    //                     verse = id + ") " + verse;
-    //                 }
-    //             }
-    //         }
-    //
-    //         //node.setAttribute("class", j == n - 1 ? "songLastVerse" : "songNormalVerse"); // apparently setAttribute() not needed - http://stackoverflow.com/questions/3919291/when-to-use-setattribute-vs-attribute-in-javascript  http://stackoverflow.com/questions/22151560/what-is-happening-behind-setattribute-vs-attribute  http://quirksmode.org/dom/core/#attributes  ; need to test in old browsers (IE6, IE7, IE8) but Android 2.2 seems fine
-    //         // see also http://www.w3schools.com/jsref/dom_obj_all.asp, because not all attributes have the same HTML and JavaScript name (e.g. class vs className);
-    //         if (embeddedChordsCkB.checked || !chordsCkB.checked) {
-    //             node = document.createElement("p");
-    //             node.className = j == n - 1 ? "songLastVerse" : "songNormalVerse";
-    //             var text = chordsCkB.checked ? replaceChordSequence(changeStanzaChords(verse)) : removeChords(verse);
-    //             if (text) {
-    //                 var textNode = document.createTextNode(text);
-    //                 node.appendChild(textNode);
-    //                 domElem.appendChild(node);
-    //             } else {
-    //                 if (prevNode) {
-    //                     prevNode.className = "songLastVerse"; // ttt2 a failure here causes some confusion about the identity of the current song, e.g. when trying to enable chords; to trigger a failure, remove the test for prevNode, hide chords and go to "Mica țiganiadă"; it happens due to a verse having only chords; they should be ignored completely
-    //                 }
-    //             }
-    //         } else {
-    //             var text = replaceChordSequence(changeStanzaChords(verse));
-    //             if (text) {
-    //                 //var tbl = createChordTable(text);
-    //                 node = createChordTable(text, j == n - 1 && stanza["i"] != "^pre");
-    //                 domElem.appendChild(node);
-    //             } else {
-    //                 var prevClass = prevNode.className;
-    //                 if (prevClass == "songNormalVerseTbl") {
-    //                     prevNode.className = "songLastVerseTbl";
-    //                 } else if (prevClass == "songNormalVerse") {
-    //                     prevNode.className = "songLastVerse";
-    //                 } else {
-    //                     alert("Incorrect previous class: '" + prevClass + "'");
-    //                     throw "Incorrect previous class: '" + prevClass + "'";
-    //                 }
-    //             }
-    //         }
-    //         prevNode = node;
-    //     }
-    // }
-
-    //return (<div>{debugFmt(song, true)}</div>);
+    return <>
+        <ChordsAreaWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
+            setCapoCbBVal={setCapoCbBVal} song={song} firstChordCbBVal={firstChordCbBVal}
+            setFirstChordCbBVal={setFirstChordCbBVal}/>
+        <SongBodyWidget song={song} songRenderConfig={songRenderConfig} capo={capo} rangeShift={rangeShift}/>
+    </>;
 };
 
 //ttt0: Show the index in the original list regardless of the current sort order, so people can reference them.

@@ -1,4 +1,4 @@
-import {getRoot} from './ChordUtils';
+import {getRoot, substituteChords} from './ChordUtils';
 
 export type Stanza = {
     i?: string, // "id", or "index"; usually 1, 2, 3, ... , R, but also "^R2", "R^1", "^2", "^2a", "Intro", "^pre":
@@ -20,6 +20,8 @@ export type Song = {
     d?: string, // definitions //ttt1 this should be an array, as mentioned in Java/SongsDbTextImport/src/net/ciobi/songs/textimport/Song.java
     b: Stanza[], // body
     v?: string[], // verses (to be used in search)
+
+    clonesInserted?: boolean,
 };
 
 /**
@@ -104,12 +106,12 @@ function getFullTitleSomeRemoved(song: Song, removedLyricist?: string, removedPe
  * and has no other "[" or "]" (but might have "(" or ")"; after "([" there may be a comment, which ends with ": ";
  * this is kept as is and what follows (or the whole thing if there is no comment) is passed through chord conversion;
  *
- * chord separators are defined in substituteChords;
- * note that substituteChords does nothing if its parameter doesn't start with a chord
+ * Chord separators are defined in substituteChords.
  *
+ * Note that substituteChords does nothing if its parameter doesn't start with a chord.
  * @param verse
  */
-function isChordNotes(verse: string) {
+export function isChordNotes(verse: string) {
     const n = verse.length;
     //return n > 4 && verse[1] == "(" && verse[2] == "[" && verse.indexOf("]") == n - 2 && verse.indexOf(")") == n - 1; //!!! not right: "Cântec de inimă albastră" has inner ")"
     return n > 4 && verse[0] === '(' && verse[1] === '[' && verse.indexOf(']') === n - 2 && verse[n - 1] === ')';
@@ -190,5 +192,125 @@ export function getAllChords(song: Song): string[] {
     //return [...chords, ...deferredChords]; // requires ES2015, let's not force it
     deferredChords.forEach((s) => chords.add(s));
     return Array.from(chords);
+}
+
+
+/**
+ * Replaces stanzas that are only given as an ID with the actual content from where that stanza is defined
+ */
+export function cloneEmptyStanzas(song: Song) {
+    if (song.clonesInserted) {
+        return;
+    }
+
+    const stanzaMap = new Map<string, Stanza>();
+
+    for (let i = 0; i < song.b.length; ++i) {
+        const stanza = song.b[i];
+        const id = stanza.i;
+        if (id) {
+            if (!stanza.v) {
+                const existing = stanzaMap.get(id);
+                if (existing) {
+                    //const clone = shallowCopy(existing);
+                    const clone = {...existing};
+                    if (stanza.r) {  // override "repeat"
+                        clone.r = stanza.r;
+                    }
+                    // eslint-disable-next-line no-param-reassign
+                    song.b[i] = clone;
+                } else {
+                    alert(`Strofa numită ${id} nu este definită`);
+                }
+            } else {
+                stanzaMap.set(id, stanza);
+            }
+        }
+    }
+
+    // eslint-disable-next-line no-param-reassign
+    song.clonesInserted = true;
+}
+
+/**
+ * Replaces the chords in a stanza taking into account the current range shift, capo ...
+ *
+ * The name of the parameter isn't quite right, because while externally it always gets passed a verse, the function
+ * calls itself recursively, with a fragment of a verse
+ *
+ * @param verse
+ * @param capo
+ * @param rangeShift
+ * @param showCapo
+ */
+export function changeStanzaChords(verse: string, capo: number, rangeShift: number, showCapo: boolean): string {
+//debugger
+    /*if (verse.indexOf("1:Am7") != -1) {
+        debugger;
+    }//*/
+    if (capo === 0 && rangeShift === 0 /*&& !accidentalUseAscii*/) {  //ttt9: accidentalUseAscii is in JS; review if needed
+        return verse;
+    }
+    //look for things like [Am, D]
+    let k = verse.indexOf('[');
+    if (k === -1) {
+        return verse;
+    }
+    const h = verse.indexOf(']', k);
+    if (h === -1) {
+        return verse;
+    }
+    //var chrd = verse.substring(k + 1, h - k - 1);
+    if (verse[k + 1] === ';') {
+        ++k;
+    } else if (isChordNotes(verse)) { //!!! theoretically this might be incorrect due to recursion, but a substring cannot actually match in practice
+        const g = verse.indexOf(': ', k);
+        if (g > 0 && g < h) {  // skip the "comment" part of an "chord notes" entry
+            k = g + 1;
+        }
+    } else if (verse.substring(k + 1, k + 3) === '1:') { // "alternative extra chords" for stanza that repeats (usually chorus)
+        k += 2;
+    }
+    const chrd = verse.substring(k + 1, h);
+    const tail = verse.substring(h);
+    // noinspection UnnecessaryLocalVariableJS
+    const res = verse.substring(0, k + 1) + substituteChords(chrd, rangeShift, capo, showCapo)
+        + changeStanzaChords(tail, capo, rangeShift, showCapo);
+    return res;
+}
+
+
+/**
+ * Replaces chord sequences like [;G;Em] with individual chords, when a syllable has multiple chords.
+ * Example:  a[;c1;c2;c3] => a-[c1]a-[c2]a-[c3]a
+ *
+ * @param verse
+ */
+export function replaceChordSequence(verse: string): string {
+    /*if (verse.indexOf("Când trecem prin") != -1) {
+        debugger
+    }//*/
+
+    const k = verse.indexOf('[;');
+    if (k === -1) {
+        return verse;
+    }
+    if (k === 0) {
+        throw Error(`Missing text before chord sequence in ${verse}`);
+    }
+    const h = verse.indexOf(']', k + 2);
+    if (h === -1) {
+        throw Error(`Missing chord sequence closing element in ${verse}`);
+    }
+    const c = verse[k - 1];
+    let s = '';
+    const a = verse.substring(k + 2, h).split(';');
+    for (let i = 0; i < a.length; ++i) {
+        s += `-[${a[i]}]${c}`;
+    }
+    const r = replaceChordSequence(verse.substring(h + 1));
+    // noinspection UnnecessaryLocalVariableJS
+    const res = verse.substring(0, k) + s + r;
+    return res;
 }
 
