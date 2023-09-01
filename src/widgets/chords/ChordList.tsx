@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Suggestions';
+import {getSuggestionOrDefault, Suggestion} from '../../Suggestions';
 import {accidentalsToDisplay, getShiftedRange, substituteChords} from '../../ChordUtils';
 
 import '../../legacy.css';
@@ -30,7 +30,7 @@ export const ChordListWidget = ({
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(s), 'songNormalVerse'].join(' ')}>
+        <p className={'songNormalVerse'}>
             Acorduri: {shiftedChords.join(', ')}
         </p>);
 };

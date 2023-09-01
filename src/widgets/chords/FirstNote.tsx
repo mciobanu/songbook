@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Suggestions';
+import {getSuggestionOrDefault, Suggestion} from '../../Suggestions';
 import {accidentalsToDisplay, substituteChords} from '../../ChordUtils';
 
 import '../../legacy.css';
@@ -31,7 +31,7 @@ export const FirstNoteWidget = ({
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(s), useOriginalSuggestion ? 'songNormalVerse' : 'songLastVerse'].join(' ')}>
+        <p className={lastInList ? 'songLastVerse' : 'songNormalVerse'}>
             Prima notă: {shiftedFirstNote}
         </p>);
 };
