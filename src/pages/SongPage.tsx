@@ -26,6 +26,7 @@ export const SongPage = ({
     setExpandedMenu,
     capoCbBVal,
     setCapoCbBVal,
+    optionallyHideMenu,
 } : {
     sortType: SortType,
     songNumber: number,
@@ -36,6 +37,7 @@ export const SongPage = ({
     setExpandedMenu: ReactSetter2<boolean>,
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
+    optionallyHideMenu: () => void,
 }) => {
 
     persistLastPath(window.location.pathname);
@@ -50,7 +52,7 @@ export const SongPage = ({
     }, [numSngPos, setSongNumber]);
 
     return (
-        <div onClick={() => { setExpandedMenu(false); }}>
+        <div onClick={optionallyHideMenu}>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>

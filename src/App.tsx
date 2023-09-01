@@ -45,6 +45,9 @@ function App() {
 
     const navigate = useNavigate();
 
+    //ttt0: put these in config
+    const autoHideMenu = true;
+
     /*
     This code, together with calls to persistLastPath() in some pages, achieve this: If you go to the root path,
     you get redirected to whatever you were doing before. Kind of messy, as it mixes React with plain functions and
@@ -82,10 +85,17 @@ function App() {
         //console.log(`persisted ${debugFmt(songRenderConfig)}`);
     }, [songRenderConfig]);
 
+    const optionallyHideMenu = React.useCallback(() => {
+        if (autoHideMenu) {
+            setExpandedMenu(false);
+        }
+    }, [autoHideMenu]);
+
+
     return (
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
             expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}
-            capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}
+            capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal} optionallyHideMenu={optionallyHideMenu}
             /*setLastPath={setLastPath}*/
         />
     );

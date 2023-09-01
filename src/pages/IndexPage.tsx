@@ -23,6 +23,7 @@ export const IndexPage = ({
     songRenderConfig,
     setSongRenderConfig,
     //setLastPath,
+    optionallyHideMenu,
 } : {
     sortType: SortType,
     expandedMenu: boolean,
@@ -30,12 +31,13 @@ export const IndexPage = ({
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     //setLastPath: ReactSetter2<string>,
+    optionallyHideMenu: () => void,
 }) => {
     //setLastPath(window.location.pathname);
     persistLastPath(window.location.pathname);
     const songs = getSortedSongs(sortType);
     return (
-        <div onClick={() => { setExpandedMenu(false); }}>
+        <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <p className="songTitle">IndexPage, by {sortType}</p> {/*ttt0 review className*/}

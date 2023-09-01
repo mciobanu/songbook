@@ -11,14 +11,16 @@ export const SearchPage = ({
     setExpandedMenu,
     songRenderConfig,
     setSongRenderConfig,
+    optionallyHideMenu,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    optionallyHideMenu: () => void,
 }) => {
     return (
-        <div onClick={() => { setExpandedMenu(false); }}>
+        <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <p className="songTitle">SearchPage</p> {/*ttt0 review className*/}
