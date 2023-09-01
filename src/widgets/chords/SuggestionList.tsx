@@ -24,9 +24,9 @@ export const SuggestionListWidget = ({
     currentSuggestion: number,
     setCurrentSuggestion: ReactSetter2<number>,
 }) => {
-    const onButtonClick = React.useCallback((index: number) => {
+    const onButtonClick = React.useCallback((event:  React.MouseEvent<HTMLButtonElement>, index: number) => {
         setCurrentSuggestion(index);
-        // buildSuggestionCallback(rangeShift2, capo2, s.outsideRange, hash);   //ttt0: JS has something about event.cancelBubble. Review
+        event.stopPropagation();
     }, [setCurrentSuggestion]);
 
     const buttons = React.useMemo(() => {
@@ -42,7 +42,8 @@ export const SuggestionListWidget = ({
             if (debugEnabled) {
                 currentInfo += ` ${crtSuggestion.score}`;
             }
-            return <button className='btnNormal' onClick={() => onButtonClick(index)}
+            return <button className='btnNormal'
+                onClick={(event:  React.MouseEvent<HTMLButtonElement>) => onButtonClick(event, index)}
                 disabled={index === currentSuggestion} key={index}>
                 {accidentalsToDisplay(currentInfo)}
             </button>;
