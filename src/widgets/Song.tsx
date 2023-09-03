@@ -10,6 +10,8 @@ import {getChordSuggestions} from '../Suggestions';
 import {capoStrToNum} from '../ChordUtils';
 
 
+// Paths like "/song-by-position/14"
+
 //ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
 
 

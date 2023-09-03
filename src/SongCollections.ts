@@ -5,17 +5,12 @@ import {
 import {TestSongs} from './Songs';
 
 export type SortedSong = {
-    index: number,
     displayString: string, // usually used for sorting too, except in "ByPosition"
     song: Song,
 }
 
 function sortSongs(songs: SortedSong[]): void {
     songs.sort((s1, s2) => s1.displayString.localeCompare(s2.displayString));
-    for (let i = 0; i < songs.length; i++) {
-        // eslint-disable-next-line no-param-reassign
-        songs[i].index = i + 1;
-    }
 }
 
 let songsByPosition : SortedSong[];
@@ -26,7 +21,6 @@ function getSongsByPosition(): SortedSong[] {
         for (let i = 1; i <= TestSongs.length; i++) {
             const song = TestSongs[i - 1];
             songsByPosition.push({
-                index: i,
                 displayString: getFullTitle(song),
                 song,
             });
@@ -43,7 +37,6 @@ function getSongsByTitle(): SortedSong[] {
         songsByTitle = [];
         for (const song of TestSongs) {
             songsByTitle.push({
-                index: -1,
                 displayString: getFullTitle(song),
                 song,
             });
@@ -62,7 +55,6 @@ function getSongsByPerformer(): SortedSong[] {
             if (song.p) {
                 for (const performer of song.p) {
                     songsByPerformer.push({
-                        index: -1,
                         displayString: `${performer} - ${getFullTitlePerformerRemoved(song, performer)}`,
                         song,
                     });
@@ -83,7 +75,6 @@ function getSongsByLyricist(): SortedSong[] {
             if (song.l) {
                 for (const lyricist of song.l) {
                     songsByLyricist.push({
-                        index: -1,
                         displayString: `${lyricist} - ${getFullTitleLyricistRemoved(song, lyricist)}`,
                         song,
                     });
@@ -105,7 +96,6 @@ function getSongsByVerse(): SortedSong[] {
                 for (const verse of song.v) {
                 //song.v.forEach((verse) => {
                     songsByVerse.push({
-                        index: -1,
                         displayString: `${verse} - ${getFullTitle(song)}`,
                         song,
                     });

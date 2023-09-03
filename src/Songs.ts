@@ -9559,3 +9559,7 @@ export const TestSongs: Song[] = [  //ttt0: rename, load from lib
     },
 
 ];
+
+for (let i = 0; i < TestSongs.length; i++) {
+    TestSongs[i].index = i + 1;
+}

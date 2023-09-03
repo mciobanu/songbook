@@ -36,3 +36,19 @@ initSongPathsForSortType();  //ttt0: Make sure this is always OK
 export function createSongPath(sortType: SortType, songNo: number): string {
     return `${songPathsForSortType[sortType]}/${songNo}`;
 }
+
+const indexPageTitles: string[] = [];
+
+function initIndexPageTitles() {
+    indexPageTitles[SortType.position] = 'Index după număr';
+    indexPageTitles[SortType.title] = 'Index după titlu';
+    indexPageTitles[SortType.performer] = 'Index după interpret';
+    indexPageTitles[SortType.lyricist] = 'Index după textier';
+    indexPageTitles[SortType.verse] = 'Index după versuri';
+}
+
+initIndexPageTitles();
+
+export function getIndexPageTitle(sortType: SortType): string {
+    return  indexPageTitles[sortType];
+}

@@ -6,14 +6,23 @@ import {ReactSetter2, SortType} from '../Common';
 import {getSortedSongs, SortedSong} from '../SongCollections';
 import {SongRenderConfig} from '../SongRenderConfig';
 import {persistLastPath} from '../Persistence';
+import {createSongPath, getIndexPageTitle} from '../Paths';
 
 
-function render(sortedSongs: SortedSong[]) {
-    return sortedSongs.map((song) => {
+function formatIndexEntry(index: number, title: string, sortType: SortType) {
+    return sortType === SortType.position ? `${index}. ${title}` : `${title} (${index})`;
+}
+
+function render(sortedSongs: SortedSong[], sortType: SortType) {
+    return sortedSongs.map((song, index) => {
         //return (<div key={song.index}>{song.index}. {song.sortString} - {getFullTitle(song.song)} </div>);
-        return (<div key={song.index}>{song.index}. {song.displayString}</div>);
+        return (
+            <p className='indexParagraph' key={song.displayString}>
+                <a className='indexEntry' href={createSongPath(sortType, index + 1)}>
+                    {formatIndexEntry(song.song?.index || 0, song.displayString, sortType)}
+                </a>
+            </p>);
     });
-    //return (<div>aaa</div>);
 }
 
 export const IndexPage = ({
@@ -40,8 +49,8 @@ export const IndexPage = ({
         <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <p className="songTitle">IndexPage, by {sortType}</p> {/*ttt0 review className*/}
-            {render(songs)}
+            <p className="songTitle">{getIndexPageTitle(sortType)}</p> {/*ttt0 review className*/}
+            {render(songs, sortType)}
         </div>
     );
 };

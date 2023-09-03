@@ -22,6 +22,7 @@ export type Song = {
     v?: string[], // verses (to be used in search)
 
     clonesInserted?: boolean,
+    index?: number,
 };
 
 /**
