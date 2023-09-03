@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 
-import {getShiftedRange} from '../ChordUtils';
+import {getShiftedRange, substituteChords} from '../ChordUtils';
 
 
 describe('getShiftedRange', () => {
@@ -38,4 +38,24 @@ describe('getShiftedRange', () => {
             expect(result).toBe('C-A♯+');
         });
     });
+});
+
+
+describe('substituteChords', () => {
+    function hlp(s: string, rangeShift: number, capo: number, showCapo: boolean, expected: string) {
+        test(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}) should return '${expected}'`, () => {
+            const result = substituteChords(s, rangeShift, capo, showCapo);
+            expect(result).toBe(expected);
+        });
+    }
+
+    hlp('Am', 1, 3, false, 'Gm');
+    hlp('Am', 1, 3, true, 'Gm|3');
+    hlp('Am', 0, 2, true, 'Gm|2');
+
+    hlp('Am abc[Gm]', 1, 3, true, 'Gm|3 abc[Fm|3]');
+    hlp('Am(C) E(Gadd7)', 1, 3, true, 'Gm|3(A♯)|3 D|3(Fadd7)|3');
+    hlp('Am(C) E(Gadd7)', 1, 3, false, 'Gm(A♯) D(Fadd7)');
+
+    hlp('Cadd7', 2, 3, false, 'Badd7');
 });

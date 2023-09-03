@@ -360,13 +360,18 @@ export function getShiftedRange(range: string, rangeShift: number) {
 
 
 /**
- * Replaces all chords in a string that starts with a chord with chords that take rangeShift and capo into account
+ * Replaces all the chords in a list of chords with chords that take rangeShift and capo into account.
+ *
+ * Normally the list separator is the space, but others are used as well: '-', ',', ';', ']', '('.
+ * Normally the list has more than 1 chord when there are several chords for a single syllable, or in instrumental parts.
+ *
+ * Some combinations of params don't really make sense, namely showCapo==true combined with multiple chords, in which
+ * case a capo is inserted after every chord, as can be seen in the tests.  //ttt1: Perhaps throw something
+ *
  * Throws if the string doesn't start with a chord
  *
- * ttt1 Review the point of this: Seems pretty strange to work on strings that start with a chord but then have random
- * strings. Perhaps is for handling alternatives, like "Am(C)" in "Om bun". Also, it looks like it is called more than
- * needed and that substituteChord() could be used instead in several places (at least the ones where showCapo is false)
- * and it is called for a single chord or note.
+ * ttt1 It looks like this is called more than needed and that substituteChord() could be used instead in several
+ * places (at least the ones where showCapo is false)and it is called for a single chord or note.
  *
  * @param s
  * @param rangeShift
@@ -384,7 +389,7 @@ export function substituteChords(s: string, rangeShift: number, capo: number, sh
     const rootLen = root.length;
     let chordLen = rootLen;
     while (chordLen < s.length && s[chordLen] !== ' ' && s[chordLen] !== ',' && s[chordLen] !== '-'
-            && s[chordLen] !== ';' && s[chordLen] !== '/' && s[chordLen] !== ']') {
+            && s[chordLen] !== ';' && s[chordLen] !== '/' && s[chordLen] !== ']' && s[chordLen] !== '(') {
         ++chordLen;
     }
     let k = chordLen;
@@ -398,10 +403,12 @@ export function substituteChords(s: string, rangeShift: number, capo: number, sh
         : `${s.substring(rootLen, chordLen)}|${capo}${s.substring(chordLen, k)}`);
     if (k === s.length) {
         // no further chord
+        //console.log(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
         return res;
     }
     // another chord starts at position k
     res += substituteChords(s.substring(k), rangeShift, capo, showCapo);
+    //console.log(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
     return res;
 }
 
