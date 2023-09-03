@@ -1,6 +1,13 @@
-# Getting Started with Create React App
+# Songbook
 
-//ttt0: Customize
+This is a vanilla React app for viewing songs in a songbook, searching for them,
+viewing several indexes.
+
+An important component is displaying the song's chords and adjusting them to the 
+vocal range of the singer.
+
+
+# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -46,3 +53,5 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+ttt1 add details
