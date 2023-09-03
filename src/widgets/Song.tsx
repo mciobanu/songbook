@@ -6,7 +6,7 @@ import {getAllChords, Song} from '../Song';
 import {ReactSetter2} from '../Common';
 import {ChordsAreaWidget} from './chords/ChordsArea';
 import {SongBodyWidget} from './SongBody';
-import {getChordSuggestions, getSuggestionOrDefault} from '../Suggestions';
+import {getChordSuggestions} from '../Suggestions';
 import {capoStrToNum} from '../ChordUtils';
 
 
@@ -48,8 +48,9 @@ export const SongWidget = ({
     }, [song]);
 
     const [capo, rangeShift] = React.useMemo(() => {
-        const def = getSuggestionOrDefault(suggestions, currentSuggestion);
-        return [def.capo, def.rangeShift];
+        return suggestions.length
+            ? [suggestions[currentSuggestion].capo, suggestions[currentSuggestion].rangeShift]
+            : [0, 0];
     }, [currentSuggestion, suggestions]);
 
     return <>

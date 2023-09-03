@@ -1,28 +1,24 @@
 import React from 'react';
 
-import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Suggestions';
+import {getGoodRangeClass, Suggestion} from '../../Suggestions';
 import {getShiftedRange} from '../../ChordUtils';
 
 /**
  * The note interval. (Nothing is shown if there are no suggestions.)
  */
 export const IntervalWidget = ({
-    suggestions,
-    currentSuggestion,
+    suggestion,
     range,
 } : {
-    suggestions: Suggestion[],
+    suggestion: Suggestion | undefined,
     currentSuggestion: number,
     range: string,
 }) => {
-    const s = React.useMemo(() => {
-        return getSuggestionOrDefault(suggestions, currentSuggestion);
-    }, [currentSuggestion, suggestions]);
-    if (!suggestions.length || !range) {
+    if (!suggestion || !range) {
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(s), 'songNormalVerse'].join(' ')}>
-            Interval: {getShiftedRange(range, s.rangeShift)}
+        <p className={[getGoodRangeClass(suggestion), 'songNormalVerse'].join(' ')}>
+            Interval: {getShiftedRange(range, suggestion.rangeShift)}
         </p>);
 };

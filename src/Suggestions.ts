@@ -215,23 +215,3 @@ export function getChordSuggestions(chords: string[], songRange: string, voiceRa
 export function getGoodRangeClass(suggestion: Suggestion) {
     return suggestion.outsideRange ? 'outsideRange' : 'insideRange';
 }
-
-
-const defaultSuggestion: Suggestion = {
-    rangeShift: 0,
-    capo: 0,
-    index: 0,
-    score: 0,
-    outsideRange: false,
-    voiceOut: 0,
-};
-
-/**
- * Normally returns the suggestion at index k, but, if the array is empty, returns some default to avoid checks
- * for nulls. Nothing will actually be rendered, so it doesn't matter what the default is.
- *
- * Throws if the array is not empty but the index is out of bounds
- */
-export function getSuggestionOrDefault(suggestions: Suggestion[], k: number) {
-    return suggestions.length > 0 ? suggestions[k] : defaultSuggestion;
-}

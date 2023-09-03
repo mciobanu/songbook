@@ -39,6 +39,14 @@ export const ChordsAreaWidget = ({
     currentSuggestion: number,
     setCurrentSuggestion: ReactSetter2<number>,
 }) => {
+
+    const suggestion = React.useMemo(() => {
+        return suggestions.length ? suggestions[currentSuggestion] : undefined;
+        //return suggestions[currentSuggestion];  //ttt1: Review what's going on: The type of suggestion should really
+        // be "Suggestion|undefined", as you get undefined when the index is out of bounds. Still, to get TypeScript
+        // to acknowledge this, the more verbose version above should be used
+    }, [currentSuggestion, suggestions]);
+
     if (!songRenderConfig.showChords || !chords.length) {
         return null;
     }
@@ -52,11 +60,10 @@ export const ChordsAreaWidget = ({
         <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal} setCurrentSuggestion={setCurrentSuggestion}/>
-        <CapoWidget suggestions={suggestions} currentSuggestion={currentSuggestion}/>
-        {song.r && <IntervalWidget suggestions={suggestions} currentSuggestion={currentSuggestion} range={song.r}/>}
-        <ChordListWidget suggestions={suggestions} currentSuggestion={currentSuggestion} chords={chords}/>
-        <FirstNoteWidget suggestions={suggestions} currentSuggestion={currentSuggestion} firstNote={song.f}
-            lastInList={!useOriginalSuggestion}/>
+        <CapoWidget suggestion={suggestion}/>
+        {song.r && <IntervalWidget suggestion={suggestion} currentSuggestion={currentSuggestion} range={song.r}/>}
+        <ChordListWidget suggestion={suggestion} chords={chords}/>
+        <FirstNoteWidget suggestion={suggestion} firstNote={song.f} lastInList={!useOriginalSuggestion}/>
         {useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
         {song.r && suggestions.length
             && <SuggestionListWidget suggestions={suggestions} currentSuggestion={currentSuggestion}
