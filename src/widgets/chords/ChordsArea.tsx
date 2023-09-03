@@ -44,7 +44,7 @@ export const ChordsAreaWidget = ({
         return suggestions.length ? suggestions[currentSuggestion] : undefined;
         //return suggestions[currentSuggestion];  //ttt1: Review what's going on: The type of suggestion should really
         // be "Suggestion|undefined", as you get undefined when the index is out of bounds. Still, to get TypeScript
-        // to acknowledge this, the more verbose version above should be used
+        // to acknowledge this, the more verbose version above should be used. Perhaps use getAtIndex(), below
     }, [currentSuggestion, suggestions]);
 
     const rangeFitClass = React.useMemo(() => {
@@ -77,3 +77,13 @@ export const ChordsAreaWidget = ({
         {song.n && <NotesWidget notes={song.n}/>}
     </>);
 };
+
+/* *
+ * Returns the element at position "index" in the array. Unlike the normal array lookup, if the array is empty, it
+ * returns "undefined". However, if the array is not empty and the index is outside the bounds, it
+ * @param arr
+ * @param index
+ */
+/*export function getAtIndex<T>(arr: T[], index: number): T | undefined {
+    return arr.length ? arr[index] : undefined;
+}*/
