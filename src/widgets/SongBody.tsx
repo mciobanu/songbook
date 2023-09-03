@@ -326,9 +326,7 @@ export const SongBodyWidget = ({
     const widthCalculator = React.useCallback((s: string): number => {
         uiMeasure.textContent = s;   // innerHTML for IE < 9
         return uiMeasure.scrollWidth;
-    }, [uiMeasure]);  //ttt9: see if uiMeasure should be Memo, to prevent recomputing at every render
-
-    console.log(widthCalculator('abc'));
+    }, [uiMeasure]);   //ttt1: see if uiMeasure should be Memo, to prevent recomputing at every render
 
     //ttt2: See if this can replace uiMeasure. The idea is to use a canvas to measure things, but one issue is getting
     // the attributes from the "measureSpan" class, namely the font, including zoom changes. The other issue is that

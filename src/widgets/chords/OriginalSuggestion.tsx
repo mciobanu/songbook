@@ -1,7 +1,5 @@
 import React from 'react';
 
-//import {getGoodRangeClass, getSuggestionOrDefault, Suggestion} from '../../Suggestions';
-
 import '../../legacy.css';
 import {Song} from '../../Song';
 

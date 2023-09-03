@@ -47,7 +47,7 @@ export const SuggestionListWidget = ({
                 disabled={index === currentSuggestion} key={index}>
                 {accidentalsToDisplay(currentInfo)}
             </button>;
-        });
+        });      //ttt1: The key is pretty useless when it's set as the index, here and elsewhere
     }, [chords, currentSuggestion, debugEnabled, onButtonClick, range, suggestions]);
     if (!suggestions.length) {
         return null;
