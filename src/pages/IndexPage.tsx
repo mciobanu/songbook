@@ -48,7 +48,7 @@ export const IndexPage = ({
     return (
         <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
-                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
             <p className="songTitle">{getIndexPageTitle(sortType)}</p> {/*ttt0 review className*/}
             {render(songs, sortType)}
         </div>

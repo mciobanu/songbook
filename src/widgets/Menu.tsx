@@ -21,14 +21,16 @@ const MenuWidget1 = () => {
 const MenuWidget2 = ({
     songRenderConfig,
     setSongRenderConfig,
+    sortType,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    sortType: SortType | undefined,
 }) => {
     return (<div>
         <SearchWidget />
         <hr className="menuHr" />
-        <IndexSelectorWidget />
+        <IndexSelectorWidget sortType={sortType}/>
         <hr className="menuHr" />
         <ChordConfigWidget songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
     </div>);
@@ -49,19 +51,22 @@ export const NavigatingMenuWidget = ({
         <MenuWidget1/>
         <GoToWidget sortType={sortType} setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
-        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
+        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
     </div>);
 };
 
 export const NonNavigatingMenuWidget = ({
     songRenderConfig,
     setSongRenderConfig,
+    sortType,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    sortType: SortType | undefined,  //!!! Needed so the menu can match the current index. However, the help and search pages don't need it
 }) => {
     return (<div>
         <MenuWidget1/>
-        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
+        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
+            sortType={sortType}/>
     </div>);
 };

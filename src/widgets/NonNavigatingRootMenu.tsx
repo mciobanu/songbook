@@ -3,7 +3,7 @@ import React from 'react';
 import '../css/Menu.css';
 import {NonNavigatingMenuWidget} from './Menu';
 import {HamburgerWidget} from './Hamburger';
-import {ReactSetter2} from '../Common';
+import {ReactSetter2, SortType} from '../Common';
 import {SongRenderConfig} from '../SongRenderConfig';
 
 export const NonNavigatingRootMenuWidget = ({
@@ -11,11 +11,13 @@ export const NonNavigatingRootMenuWidget = ({
     setExpandedMenu,
     songRenderConfig,
     setSongRenderConfig,
+    sortType,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    sortType: SortType | undefined,
 }) => {
 
     // used to prevent clicking on the menu to close the menu
@@ -28,6 +30,6 @@ export const NonNavigatingRootMenuWidget = ({
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
         {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
-            setSongRenderConfig={setSongRenderConfig}/>}
+            setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>}
     </div>);
 };

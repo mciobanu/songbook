@@ -47,6 +47,7 @@
     margin: 0;
 }
 
+/*ttt1 looks like menuCurrent should have all the attributes of menuNormal and then some; but it doesn't */
 .menuCurrent {
     font-weight: bold;
 }

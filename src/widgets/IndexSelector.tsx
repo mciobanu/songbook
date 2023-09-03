@@ -3,15 +3,25 @@ import React from 'react';
 import '../legacy.css';
 import {Link} from 'react-router-dom';
 import {Paths} from '../Paths';
+import {SortType} from '../Common';
 
-export const IndexSelectorWidget = () => {
+export const IndexSelectorWidget = ({
+    sortType,
+} : {
+    sortType: SortType | undefined,
+}) => {
+
+    function getClass(currentSortType: SortType) {
+        return sortType === currentSortType ? 'menuCurrent' : 'menuNormal';
+    }
+
     return (<div>
         Ordonare după: <br/>      {/*ttt0 have the current index in bold */}
-        <Link to={Paths.indexByPosition}>Număr</Link> <br/>
-        <Link to={Paths.indexByTitle}>Titlu</Link> <br/>
-        <Link to={Paths.indexByPerformer}>Interpret</Link> <br/>
-        <Link to={Paths.indexByLyricist}>Textier</Link> <br/>
-        <Link to={Paths.indexByVerse}>Versuri</Link>
+        <Link to={Paths.indexByPosition}><span className={getClass(SortType.position)}>Număr</span></Link> <br/>
+        <Link to={Paths.indexByTitle}><span className={getClass(SortType.title)}>Titlu</span></Link> <br/>
+        <Link to={Paths.indexByPerformer}><span className={getClass(SortType.performer)}>Interpret</span></Link> <br/>
+        <Link to={Paths.indexByLyricist}><span className={getClass(SortType.lyricist)}>Textier</span></Link> <br/>
+        <Link to={Paths.indexByVerse}><span className={getClass(SortType.verse)}>Versuri</span></Link>
         {/*<a id="list_unsorted" className="menuNormal" href="#list_unsorted"> Număr </a> <br/>
         <a id="list_by_title" className="menuNormal" href="#list_by_title"> Titlu </a> <br/>
         <a id="list_by_performer" className="menuNormal" href="#list_by_performer"> Interpret </a> <br/>
