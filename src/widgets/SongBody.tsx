@@ -11,6 +11,7 @@ import {
     Song,
     Stanza,
 } from '../Song';
+import {accidentalsToDisplay} from '../ChordUtils';
 
 
 //ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
@@ -62,7 +63,7 @@ const ChordTableWidget = ({
                     const t = text.substring(g, k);
                     tr2Elems.push(t);
                 }
-                const t = `${text.substring(k + 1, h)} `;
+                const t = `${accidentalsToDisplay(text.substring(k + 1, h))} `;
                 tr1Elems.push(t);
                 g = h + 1;
                 k = g;
