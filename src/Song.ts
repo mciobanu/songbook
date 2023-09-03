@@ -248,7 +248,7 @@ export function changeStanzaChords(verse: string, capo: number, rangeShift: numb
     /*if (verse.indexOf("1:Am7") != -1) {
         debugger;
     }//*/
-    if (capo === 0 && rangeShift === 0 /*&& !accidentalUseAscii*/) {  //ttt9: accidentalUseAscii is in JS; review if needed
+    if (capo === 0 && rangeShift === 0) {
         return verse;
     }
     //look for things like [Am, D]

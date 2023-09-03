@@ -21,5 +21,3 @@ export const OriginalSuggestionWidget = ({
                 + (song.s ? ` ; (${song.s})` : '')}
         </p>);
 };
-
-// Sugestie originală: {(song.r ? song.r + " ; " : "") + chords + (song.f ? " ; " + song.f : "") + (song["s"] ? " ; (" + song["s"] + ")" : "")}

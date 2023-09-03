@@ -363,8 +363,10 @@ export function getShiftedRange(range: string, rangeShift: number) {
  * Replaces all chords in a string that starts with a chord with chords that take rangeShift and capo into account
  * Throws if the string doesn't start with a chord
  *
- * ttt9 Review the point of this: Seems pretty strange to work on strings that start with a chord but then have random
- * strings. Perhaps is for handling alternatives, like "Am(C)" in "Om bun"
+ * ttt0 Review the point of this: Seems pretty strange to work on strings that start with a chord but then have random
+ * strings. Perhaps is for handling alternatives, like "Am(C)" in "Om bun". Also, it looks like it is called more than
+ * needed and that substituteChord() could be used instead in several places (at least the ones where showCapo is false)
+ * and it is called for a single chord or note.
  *
  * @param s
  * @param rangeShift

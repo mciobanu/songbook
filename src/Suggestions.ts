@@ -139,7 +139,7 @@ const suggestionList = (() => {
                 rangeShift,
                 capo,
                 index: res.length,
-                score: -1,  //ttt9: see if inf is better
+                score: -1,
                 voiceOut: -1,
                 outsideRange: false,
             }); //index is only used to have a consistent order for equal scores

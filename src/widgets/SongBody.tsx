@@ -11,7 +11,6 @@ import {
     Song,
     Stanza,
 } from '../Song';
-import {ReactSetter2} from '../Common';
 
 
 //ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
@@ -37,9 +36,6 @@ const ChordTableWidget = ({
         const n = text.length;
         let k = 0;
         let chordsFound = false;
-        //let tr1;
-        //let tr2;
-        //let td;
         let g = 0;
         let h;
         const tr1Elems: string[] = [];
@@ -55,13 +51,8 @@ const ChordTableWidget = ({
             }
             if (h < n) {
                 // we have chords
-                //if (!tr1) {
                 if (!chordsFound) {
                     chordsFound = true;
-                    /*tr1 = document.createElement("tr");
-                    tr1.className = "chordRow";
-                    tr2 = document.createElement("tr");
-                    tr2.className = "chordRow";*/
                     if (k > 0) {
                         // it's first chord, and we have something before it, so create an empty "chord"
                         tr1Elems.push('');
@@ -79,17 +70,15 @@ const ChordTableWidget = ({
                 break;
             }
         }
-        /*if (text.indexOf("Când trecem prin") != -1) {
-            debugger
-        }//*/
 
         for (k = tr2Elems.length - 1; k >= 0 && !(tr2Elems[k].trim()); --k) {
             //!!! nothing
         }
         ++k; // starting from k all elements of tr2Elems are empty; we remove them, so we don't end up with a
         // final "-" at the end of a verse that ends with multiple chords //ttt2 this would be a reason to only allow one final chord entry in each verse
-        //tr2Elems = tr2Elems.slice(0, k);  //ttt9: review why the line below is used, as this seems cleaner
-        tr2Elems.length = k;
+        tr2Elems.length = k; // Note that this is a valid way of truncating an array, and is not considered an
+        // antipattern: https://stackoverflow.com/questions/31547315/is-it-an-antipattern-to-set-an-array-length-in-javascript
+        // The more verbose version is "tr2Elems = tr2Elems.slice(0, k);", and it forces tr2Elems to be declared with "let"
         if (g < n) {
             tr2Elems.push(text.substring(g, n));
         }

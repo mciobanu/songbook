@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {getSuggestionOrDefault, Suggestion} from '../../Suggestions';
-import {accidentalsToDisplay, getShiftedRange, substituteChords} from '../../ChordUtils';
+import {accidentalsToDisplay, substituteChords} from '../../ChordUtils';
 
 import '../../legacy.css';
 

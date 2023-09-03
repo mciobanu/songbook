@@ -32,7 +32,7 @@ export const NavigatingRootMenuWidget = ({
     }, []);
 
     return <>
-        <p className={'crtAnchor'}/> {/*ttt9 In JS there's an onMainClick()*/}
+        <p className={'crtAnchor'}/>
         <div className="menuDiv menuDivRight menuP" onClick={onClick}>
             <div className="navRootMenuContainer">
                 <NavigationWidget songNumber={songNumber} sortType={sortType}/>
