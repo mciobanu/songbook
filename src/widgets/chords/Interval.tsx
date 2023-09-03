@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getGoodRangeClass, Suggestion} from '../../Suggestions';
+import {Suggestion} from '../../Suggestions';
 import {getShiftedRange} from '../../ChordUtils';
 
 /**
@@ -9,16 +9,17 @@ import {getShiftedRange} from '../../ChordUtils';
 export const IntervalWidget = ({
     suggestion,
     range,
+    additionalClass,
 } : {
     suggestion: Suggestion | undefined,
-    currentSuggestion: number,
     range: string,
+    additionalClass: string,
 }) => {
     if (!suggestion || !range) {
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(suggestion), 'songNormalVerse'].join(' ')}>
+        <p className={[additionalClass, 'songNormalVerse'].join(' ')}>
             Interval: {getShiftedRange(range, suggestion.rangeShift)}
         </p>);
 };

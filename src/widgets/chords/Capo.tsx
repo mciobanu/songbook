@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {getGoodRangeClass, Suggestion} from '../../Suggestions';
+import {Suggestion} from '../../Suggestions';
 
 import '../../legacy.css';
 
@@ -9,14 +9,16 @@ import '../../legacy.css';
  */
 export const CapoWidget = ({
     suggestion,
+    additionalClass,
 } : {
     suggestion: Suggestion | undefined,
+    additionalClass: string,
 }) => {
     if (!suggestion || suggestion.capo === 0) {
         return null;
     }
     return (
-        <p className={[getGoodRangeClass(suggestion), 'songNormalVerse'].join(' ')}>
+        <p className={[additionalClass, 'songNormalVerse'].join(' ')}>
             |{suggestion.capo}
         </p>);
 };

@@ -3,7 +3,7 @@ import React from 'react';
 import {SongRenderConfig} from '../../SongRenderConfig';
 import {ReactSetter2} from '../../Common';
 import {DropdownsWidget} from './Dropdowns';
-import {Suggestion} from '../../Suggestions';
+import {getGoodRangeClass, Suggestion} from '../../Suggestions';
 import {Song} from '../../Song';
 import {CapoWidget} from './Capo';
 import {IntervalWidget} from './Interval';
@@ -47,6 +47,10 @@ export const ChordsAreaWidget = ({
         // to acknowledge this, the more verbose version above should be used
     }, [currentSuggestion, suggestions]);
 
+    const rangeFitClass = React.useMemo(() => {
+        return suggestion && songRenderConfig.useSuggestions ? getGoodRangeClass(suggestion) : '';
+    }, [songRenderConfig.useSuggestions, suggestion]);
+
     if (!songRenderConfig.showChords || !chords.length) {
         return null;
     }
@@ -60,8 +64,9 @@ export const ChordsAreaWidget = ({
         <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal} setCurrentSuggestion={setCurrentSuggestion}/>
-        <CapoWidget suggestion={suggestion}/>
-        {song.r && <IntervalWidget suggestion={suggestion} currentSuggestion={currentSuggestion} range={song.r}/>}
+        <CapoWidget suggestion={suggestion} additionalClass={rangeFitClass}/>
+        {song.r && <IntervalWidget suggestion={suggestion} range={song.r}
+            additionalClass={rangeFitClass}/>}
         <ChordListWidget suggestion={suggestion} chords={chords}/>
         <FirstNoteWidget suggestion={suggestion} firstNote={song.f} lastInList={!useOriginalSuggestion}/>
         {useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
