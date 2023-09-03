@@ -1,4 +1,5 @@
 import {getRoot, substituteChords} from './ChordUtils';
+import {arraysAreEqual} from './Utils';
 
 export type Stanza = {
     i?: string, // "id", or "index"; usually 1, 2, 3, ... , R, but also "^R2", "R^1", "^2", "^2a", "Intro", "^pre":
@@ -29,7 +30,11 @@ export type Song = {
  * @return title like "Cântec de inimă albastră (Adrian Jacota / Mircea Dinescu)"
  */
 export function getFullTitle(song: Song): string {
-    return getFullTitleSomeRemoved(song);
+    // Don't repeat performers and lyricists if they are the same
+    if (arraysAreEqual(song.p, song.l)) {   //ttt3: Something like this could be done for the other titles
+        return song.t + listsAsString(song.p, undefined);
+    }
+    return song.t + listsAsString(song.p, song.l);
 }
 
 export function getFullTitleLyricistRemoved(song: Song, removedLyricist: string): string {

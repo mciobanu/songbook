@@ -21,3 +21,18 @@ export function convertToInt(str: string, min: number, max: number, defaultVal: 
     }
     return val;
 }
+
+
+/**
+ * Returns true iff both arrays exist and have the same elements, in the same order
+ * @param arr1
+ * @param arr2
+ */
+export function arraysAreEqual<T>(arr1: T[] | undefined, arr2: T[] | undefined) {
+    if (!arr1 || !arr2 || arr1.length !== arr2.length) {
+        return false;
+    }
+    return arr1.every((val, index) => {
+        return val === arr2[index];
+    });
+}
