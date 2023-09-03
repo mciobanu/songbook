@@ -51,7 +51,7 @@ export const ChordsAreaWidget = ({
     return (<>
         <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
-            setFirstChordCbBVal={setFirstChordCbBVal}/>
+            setFirstChordCbBVal={setFirstChordCbBVal} setCurrentSuggestion={setCurrentSuggestion}/>
         <CapoWidget suggestions={suggestions} currentSuggestion={currentSuggestion}/>
         {song.r && <IntervalWidget suggestions={suggestions} currentSuggestion={currentSuggestion} range={song.r}/>}
         <ChordListWidget suggestions={suggestions} currentSuggestion={currentSuggestion} chords={chords}/>

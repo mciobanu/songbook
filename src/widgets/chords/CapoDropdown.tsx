@@ -6,9 +6,11 @@ import {AUTO} from '../../ChordUtils';
 export const CapoDropdown = ({
     capoCbBVal,
     setCapoCbBVal,
+    setCurrentSuggestion,
 } : {
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
+    setCurrentSuggestion: ReactSetter2<number>,
 }) => {
 
     const generateOptions = React.useCallback(() => {
@@ -24,7 +26,8 @@ export const CapoDropdown = ({
     const onChange = React.useCallback((event: React.FormEvent<HTMLSelectElement>) => {
         const s = event.currentTarget.value;
         setCapoCbBVal(s);
-    }, [setCapoCbBVal]);
+        setCurrentSuggestion(0);
+    }, [setCapoCbBVal, setCurrentSuggestion]);
 
     // used to prevent clicking on a dropbox to close the menu //ttt2 make sure works OK in old browsers - fine in Android 2.2, not sure about IE
     const onClick = React.useCallback((event:  React.MouseEvent<HTMLSelectElement>) => {

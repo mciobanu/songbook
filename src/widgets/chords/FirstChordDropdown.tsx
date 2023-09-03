@@ -56,11 +56,13 @@ export const FirstChordDropdown = ({
     useSuggestions,
     firstChordCbBVal,
     setFirstChordCbBVal,
+    setCurrentSuggestion,
 } : {
     chords: string[],
     useSuggestions: boolean,
     firstChordCbBVal: string,
     setFirstChordCbBVal: ReactSetter2<string>,
+    setCurrentSuggestion: ReactSetter2<number>,
 }) => {
 
     React.useEffect(() => {
@@ -85,7 +87,8 @@ export const FirstChordDropdown = ({
         const s = event.currentTarget.value;
         console.log(`FirstChordCbB.onChange(): Setting FirstChordCbBVal to ${s} when the user changed it`);
         setFirstChordCbBVal(s);
-    }, [setFirstChordCbBVal]);
+        setCurrentSuggestion(0);
+    }, [setCurrentSuggestion, setFirstChordCbBVal]);
 
     // used to prevent clicking on a dropbox to close the menu //ttt2 make sure works OK in old browsers - fine in Android 2.2, not sure about IE
     const onClick = React.useCallback((event:  React.MouseEvent<HTMLSelectElement>) => {
