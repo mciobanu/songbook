@@ -8,6 +8,7 @@ import {ChordsAreaWidget} from './chords/ChordsArea';
 import {SongBodyWidget} from './SongBody';
 import {getChordSuggestions} from '../Suggestions';
 import {capoStrToNum} from '../ChordUtils';
+import {MiscConfig} from '../MiscConfig';
 
 
 // Paths like "/song-by-position/14"
@@ -18,11 +19,13 @@ export const SongWidget = ({
     songRenderConfig,
     capoCbBVal,
     setCapoCbBVal,
+    miscConfig,
 } : {
     song: Song,
     songRenderConfig: SongRenderConfig,
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
+    miscConfig: MiscConfig,
 }) => {
     /*const [chords, setChords] = React.useState(getAllChords(song)); //ttt1: Review situations like this,
     // where it probably makes more sense to use a dummy chord list, as this function call will be replaced in the useEffect() below
@@ -56,7 +59,7 @@ export const SongWidget = ({
         <ChordsAreaWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
             setCapoCbBVal={setCapoCbBVal} song={song} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal} suggestions={suggestions} currentSuggestion={currentSuggestion}
-            setCurrentSuggestion={setCurrentSuggestion}/>
+            setCurrentSuggestion={setCurrentSuggestion} miscConfig={miscConfig}/>
         <SongBodyWidget song={song} songRenderConfig={songRenderConfig} capo={capo} rangeShift={rangeShift}/>
     </>;
 };

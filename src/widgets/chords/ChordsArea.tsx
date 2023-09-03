@@ -12,6 +12,7 @@ import {FirstNoteWidget} from './FirstNote';
 import {OriginalSuggestionWidget} from './OriginalSuggestion';
 import {SuggestionListWidget} from './SuggestionList';
 import {NotesWidget} from './Notes';
+import {MiscConfig} from '../../MiscConfig';
 
 /**
  * Creates the part above the actual song, with chord, capo, suggestions, etc.
@@ -27,6 +28,7 @@ export const ChordsAreaWidget = ({
     suggestions,
     currentSuggestion,
     setCurrentSuggestion,
+    miscConfig,
 } : {
     song: Song,
     chords: string[],
@@ -38,6 +40,7 @@ export const ChordsAreaWidget = ({
     suggestions: Suggestion[],
     currentSuggestion: number,
     setCurrentSuggestion: ReactSetter2<number>,
+    miscConfig: MiscConfig,
 }) => {
 
     const suggestion = React.useMemo(() => {
@@ -55,11 +58,6 @@ export const ChordsAreaWidget = ({
         return null;
     }
 
-    //ttt0: put these in config
-    const useOriginalSuggestion = true;
-    const debugEnabled = false;
-    const showNotes = true;
-
     return (<>
         <DropdownsWidget chords={chords} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
@@ -68,11 +66,12 @@ export const ChordsAreaWidget = ({
         {song.r && <IntervalWidget suggestion={suggestion} range={song.r}
             additionalClass={rangeFitClass}/>}
         <ChordListWidget suggestion={suggestion} chords={chords}/>
-        <FirstNoteWidget suggestion={suggestion} firstNote={song.f} lastInList={!useOriginalSuggestion}/>
-        {useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
+        <FirstNoteWidget suggestion={suggestion} firstNote={song.f} lastInList={!miscConfig.useOriginalSuggestion}/>
+        {miscConfig.useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
         {song.r && suggestions.length
             && <SuggestionListWidget suggestions={suggestions} currentSuggestion={currentSuggestion}
-                setCurrentSuggestion={setCurrentSuggestion} chords={chords} range={song.r} debugEnabled={debugEnabled}
+                setCurrentSuggestion={setCurrentSuggestion} chords={chords} range={song.r}
+                debugEnabled={miscConfig.debugEnabled}
             />}
         {song.n && <NotesWidget notes={song.n}/>}
     </>);

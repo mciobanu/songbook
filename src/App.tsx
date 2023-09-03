@@ -8,24 +8,35 @@ import RouteDefinition from './RouteDefinition';
 import {SongRenderConfig} from './SongRenderConfig';
 import {initAsciiForAccidentals, AUTO} from './ChordUtils';
 import * as Persistence from './Persistence';
+import {MiscConfig} from './MiscConfig';
 
 let ranPathRestoreAtStart = false;
 
+const defaultSongRenderConfig: SongRenderConfig = {
+    fontSize: 10,
+    showChords: true,
+    inlineChords: false,
+    useSuggestions: true,
+    minNoteInternal: 'C',
+    maxNoteInternal: 'D',
+    minNoteDisplay: 'C',
+    maxNoteDisplay: 'D',
+    noteRange: 14,
+    maxSuggestions: 6,
+    maxCapo: 5,
+};
+
+const defaultMiscConfig: MiscConfig = {
+    autoHideMenu: true,
+    useOriginalSuggestion: true,
+    debugEnabled: false,
+    showNotes: true,
+};
+
+
 function App() {
-    const defaultSongRenderConfig: SongRenderConfig = {
-        fontSize: 10,
-        showChords: true,
-        inlineChords: false,
-        useSuggestions: true,
-        minNoteInternal: 'C',
-        maxNoteInternal: 'D',
-        minNoteDisplay: 'C',
-        maxNoteDisplay: 'D',
-        noteRange: 14,
-        maxSuggestions: 6,
-        maxCapo: 5,
-    };
     const songRenderConfigKey = 'songRenderConfig';
+    const miscConfigKey = 'miscConfig';
     //const lastPathKey = 'lastPath';
 
     const [songNumber, setSongNumber] = React.useState<number>(20);
@@ -39,14 +50,22 @@ function App() {
             return defaultSongRenderConfig;
         }
     });
+    const [miscConfig, setMiscConfig] = React.useState<MiscConfig>(() => {
+        try {
+            // noinspection UnnecessaryLocalVariableJS
+            const persistedMiscConfig = Persistence.retrieve<MiscConfig>(miscConfigKey);
+            //console.log(`retrieved ${debugFmt(persistedMiscConfig)}`);
+            return persistedMiscConfig;
+        } catch (e) {
+            return defaultMiscConfig;
+        }
+    });
     const [expandedMenu, setExpandedMenu] = React.useState<boolean>(false);
 
     const [capoCbBVal, setCapoCbBVal] = React.useState<string>(AUTO);
 
     const navigate = useNavigate();
 
-    //ttt0: put these in config
-    const autoHideMenu = true;
 
     /*
     This code, together with calls to persistLastPath() in some pages, achieve this: If you go to the root path,
@@ -78,24 +97,25 @@ function App() {
         }*/
     }, [navigate]);
 
-    //ttt0: Use local storage to persist all settings
     React.useEffect(() => {
         //Persistence.persist(songNumberKey, songNumber);
         Persistence.persist(songRenderConfigKey, songRenderConfig);
         //console.log(`persisted ${debugFmt(songRenderConfig)}`);
-    }, [songRenderConfig]);
+        Persistence.persist(miscConfigKey, miscConfig);
+    }, [miscConfig, songRenderConfig]);
 
     const optionallyHideMenu = React.useCallback(() => {
-        if (autoHideMenu) {
+        if (miscConfig.autoHideMenu) {
             setExpandedMenu(false);
         }
-    }, [autoHideMenu]);
+    }, [miscConfig.autoHideMenu]);
 
 
     return (
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
             expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}
             capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal} optionallyHideMenu={optionallyHideMenu}
+            miscConfig={miscConfig}
             /*setLastPath={setLastPath}*/
         />
     );

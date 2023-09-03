@@ -9,6 +9,7 @@ import {IndexPage} from './pages/IndexPage';
 import {SearchPage} from './pages/SearchPage';
 import {SongRenderConfig} from './SongRenderConfig';
 import {Paths} from './Paths';
+import {MiscConfig} from './MiscConfig';
 
 const RouteDefinition = ({
     songNumber,
@@ -21,6 +22,7 @@ const RouteDefinition = ({
     capoCbBVal,
     setCapoCbBVal,
     optionallyHideMenu,
+    miscConfig,
 } : {
     songNumber: number,
     setSongNumber: ReactSetter2<number>,
@@ -32,6 +34,7 @@ const RouteDefinition = ({
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
     optionallyHideMenu: () => void,
+    miscConfig: MiscConfig,
 }) => {
 
     /*
@@ -95,27 +98,27 @@ const RouteDefinition = ({
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} capoCbBVal={capoCbBVal}
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
+                    optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
                 <Route path={`${Paths.songByTitle}/:songPos`} element={<SongPage sortType={SortType.title}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} capoCbBVal={capoCbBVal}
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
+                    optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
                 <Route path={`${Paths.songByPerformer}/:songPos`} element={<SongPage sortType={SortType.performer}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} capoCbBVal={capoCbBVal}
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
+                    optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
                 <Route path={`${Paths.songByLyricist}/:songPos`} element={<SongPage sortType={SortType.lyricist}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} capoCbBVal={capoCbBVal}
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
+                    optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
                 <Route path={`${Paths.songByVerse}/:songPos`} element={<SongPage sortType={SortType.verse}
                     songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} capoCbBVal={capoCbBVal}
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
+                    optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
 
                 <Route path={Paths.search} element={<SearchPage
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}

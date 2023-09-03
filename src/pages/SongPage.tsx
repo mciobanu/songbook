@@ -10,6 +10,7 @@ import {SongRenderConfig} from '../SongRenderConfig';
 import {getSortedSongs} from '../SongCollections';
 import {persistLastPath} from '../Persistence';
 import {getFullTitle} from '../Song';
+import {MiscConfig} from '../MiscConfig';
 
 type SongParams = {
     songPos: string;
@@ -27,6 +28,7 @@ export const SongPage = ({
     capoCbBVal,
     setCapoCbBVal,
     optionallyHideMenu,
+    miscConfig,
 } : {
     sortType: SortType,
     songNumber: number,
@@ -38,6 +40,7 @@ export const SongPage = ({
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
     optionallyHideMenu: () => void,
+    miscConfig: MiscConfig,
 }) => {
 
     persistLastPath(window.location.pathname);
@@ -58,7 +61,7 @@ export const SongPage = ({
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <p className="songTitle">{numSngPos}. {getFullTitle(sortedSong.song)} (by {sortType})</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
-                setCapoCbBVal={setCapoCbBVal}/>
+                setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig}/>
         </div>
     );
 };
