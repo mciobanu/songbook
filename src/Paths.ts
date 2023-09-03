@@ -31,7 +31,7 @@ function initSongPathsForSortType() {
     songPathsForSortType[SortType.verse] = Paths.songByVerse;
 }
 
-initSongPathsForSortType();  //ttt0: Make sure this is always OK
+initSongPathsForSortType();  //ttt2: Make sure this is always OK
 
 export function createSongPath(sortType: SortType, songNo: number): string {
     return `${songPathsForSortType[sortType]}/${songNo}`;

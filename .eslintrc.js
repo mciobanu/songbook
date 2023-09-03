@@ -41,9 +41,9 @@ module.exports = {
         'strict': 'off',
         'semi-spacing': 'off',
         'no-alert': 'off',
-        'no-plusplus': 'off', //ttt0 Review the problems with ++
+        'no-plusplus': 'off', //ttt1 Review the problems with ++
         'no-continue': 'off',
-        'no-restricted-syntax': 'off', //ttt0 Probably put back, or at least configure it. Was added because of things like for (const verse of song.v) {
+        'no-restricted-syntax': 'off', //ttt1 Probably put back, or at least configure it. Was added because of things like for (const verse of song.v) {
         'no-use-before-define': ['error', {'functions': false}],
         //'react-hooks/exhaustive-deps': ['error'],
         'arrow-body-style': 'off',

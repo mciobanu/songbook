@@ -13,7 +13,7 @@ export const CapoDropdown = ({
     setCurrentSuggestion: ReactSetter2<number>,
 }) => {
 
-    //ttt0: Switching from useCallback and useMemo here and in ChordConfigWidget led to visible performance
+    //ttt1: Switching from useCallback and useMemo here and in ChordConfigWidget led to visible performance
     // degradation. See why.
     const generateOptions = React.useCallback(() => {
         const arr: string[] = [];

@@ -17,7 +17,7 @@ export type Song = {
     r?: string, // range
     f?: string, // firstNote
     s?: string, // suggestion
-    n?: string[], // notes    //ttt0: The latest versions don't show these. Make it work and check the other fields as well.
+    n?: string[], // notes
     d?: string, // definitions //ttt1 this should be an array, as mentioned in Java/SongsDbTextImport/src/net/ciobi/songs/textimport/Song.java
     b: Stanza[], // body
     v?: string[], // verses (to be used in search)
@@ -183,18 +183,6 @@ export function getAllChords(song: Song): string[] {
         }
     }
 
-    //const res: string[] = [];
-
-    /*for (const chord in deferredChords) {  //ttt0: make sure the sets implement the original functionality
-        if (deferredChords.hasOwnProperty(chord)) {
-            chords[chord] = 1;
-        }
-    }
-    for (const chord in chords) {
-        if (chords.hasOwnProperty(chord)) {
-            res.push(chord);
-        }
-    }*/
     //return [...chords, ...deferredChords]; // requires ES2015, let's not force it
     deferredChords.forEach((s) => chords.add(s));
     return Array.from(chords);

@@ -103,7 +103,7 @@ function App() {
 
 
 //const [lastPath, setLastPath] = React.useState<string>(Paths.indexByPosition);
-//ttt0 See if lastPath can be made to work with React. As attempted, it led to this warning:
+//ttt2 See if lastPath can be made to work with React. As attempted, it led to this warning:
 //      Cannot update a component (`App`) while rendering a different component (`IndexPage`).
 // The workaround was to use plain functions
 
@@ -148,7 +148,6 @@ if (persistedLastPath) {
 }*/
 
 
-initAsciiForAccidentals();  //ttt0: Review using this approach. We don't want to keep calling this function
+initAsciiForAccidentals();  //ttt1: Review using this approach. We don't want to keep calling this function
 
 export default App;
-

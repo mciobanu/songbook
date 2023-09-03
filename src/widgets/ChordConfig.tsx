@@ -17,7 +17,7 @@ export const ChordConfigWidget = ({
 }) => {
 
     const toggleChordVisibility = React.useCallback(() => {
-        const newConfig = {...songRenderConfig};  //ttt0: Review if this shallow copy
+        const newConfig = {...songRenderConfig};  //ttt1: Review if this shallow copy
         // is good enough. (Probably so, as all fields are scalar.) Keep in mind that it's also used below.
         newConfig.showChords = !newConfig.showChords;
         setSongRenderConfig(newConfig);

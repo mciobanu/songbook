@@ -12,9 +12,6 @@ import {capoStrToNum} from '../ChordUtils';
 
 // Paths like "/song-by-position/14"
 
-//ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
-
-
 
 export const SongWidget = ({
     song,
@@ -63,9 +60,6 @@ export const SongWidget = ({
         <SongBodyWidget song={song} songRenderConfig={songRenderConfig} capo={capo} rangeShift={rangeShift}/>
     </>;
 };
-
-//ttt0: Show the index in the original list regardless of the current sort order, so people can reference them.
-// Also, this avoids situations like songs having 0 or multiple entries
 
 // Note: At a time there was this warning:
 // Warning: Cannot update a component (`CreateChordWidget`) while rendering a different component (`CreateFirstChordCbB`).

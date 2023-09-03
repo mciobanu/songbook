@@ -14,8 +14,6 @@ import {
 import {accidentalsToDisplay} from '../ChordUtils';
 
 
-//ttt0 check when same person is lyricist / performer / composer ... and keep one instance of each name, separate by comma
-
 // sort of ESLint bug - //!!! https://stackoverflow.com/questions/63961803/eslint-says-all-enums-in-typescript-app-are-already-declared-in-the-upper-scope
 // eslint-disable-next-line no-shadow
 enum ChordRendering {
@@ -111,7 +109,7 @@ const ChordTableWidget = ({
         /*return <tr>
             {rowsInfo.row2.map((s, index) => {
                 let t2 = s;
-                if (index < rowsInfo.row2.length - 1 && !s.endsWith('-') && !s.endsWith(' ')) { //ttt0: Make sure this works with zoom
+                if (index < rowsInfo.row2.length - 1 && !s.endsWith('-') && !s.endsWith(' ')) {
                     // Check if we should add a dash, for cases when the chord above takes more space than the text
                     // below
                     const t1 = rowsInfo.row1[index];
@@ -122,7 +120,6 @@ const ChordTableWidget = ({
                     uiMeasure1.textContent = `${t1}|`; // innerHTML for IE < 9
                     const w1 = uiMeasure.scrollWidth;
                     uiMeasure1.textContent = `${t2}|`; // innerHTML for IE < 9
-                    //ttt0 Țigăncușa - verse 2 with small fonts and some chords there's no "-" between "ți" and "gani", but there is space
                     const w2 = uiMeasure.scrollWidth;
                     //const w3 = uiMeasure.style.width;
                     //console.log(uiMeasure.scrollWidth);
@@ -301,7 +298,7 @@ export const SongBodyWidget = ({
 }) => {
 
     const songReady = React.useMemo(() => {
-        cloneEmptyStanzas(song); //ttt0: Not right, as it changes React variable directly, but it is really a global variable
+        cloneEmptyStanzas(song); //ttt1: Not right, as it changes React variable directly, but it is really a global variable
         return true; // This is supposed to make sure that cloneEmptyStanzas() is called once before doing anything about stanzas
     }, [song]);
 

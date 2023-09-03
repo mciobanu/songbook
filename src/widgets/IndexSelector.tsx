@@ -16,7 +16,7 @@ export const IndexSelectorWidget = ({
     }
 
     return (<div>
-        Ordonare după: <br/>      {/*ttt0 have the current index in bold */}
+        Ordonare după: <br/>
         <Link to={Paths.indexByPosition}><span className={getClass(SortType.position)}>Număr</span></Link> <br/>
         <Link to={Paths.indexByTitle}><span className={getClass(SortType.title)}>Titlu</span></Link> <br/>
         <Link to={Paths.indexByPerformer}><span className={getClass(SortType.performer)}>Interpret</span></Link> <br/>
