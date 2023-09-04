@@ -17,6 +17,11 @@ export enum SortType {
 export type ReactSetter2<T> = React.Dispatch<React.SetStateAction<T>>;  //ttt1: review the need for both ReactSetter and ReactSetter2
 
 export function debugFmt(x: any, multiLine: boolean = false): string {
+    if (Array.isArray(x)) {
+        return `[${x.map((o) => {
+            return debugFmt(o);
+        }).join(', ')}]`;
+    }
     const x1: any = (x instanceof Map) ? Object.fromEntries(x) : x;
     return multiLine ? JSON5.stringify(x1, null, 2) : JSON.stringify(x1);
 }
