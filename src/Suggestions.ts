@@ -28,7 +28,7 @@ export type Suggestion = {
     index: number,
     score: number,
     outsideRange: boolean,
-    voiceOut: number,    //ttt0: review and document what this is (seems to be "how far the voice is from what we want")
+    voiceOut: number,    // "how many semitones the suggestion exceeds the voice, up or down"; not really used for anything, just to help debugging
     dbg?: SuggestionDebug,
 };
 
@@ -54,7 +54,7 @@ export type Suggestion = {
  * @param voiceNumRange user's choice, from settings
  */
 function computeScore(suggestion: Suggestion, chords: string[], capo: number, maxCapo: number,
-    firstChord: string, songNumRange: number[], voiceNumRange: number[]) { //ttt0: add tests, see how "Om bun" works
+    firstChord: string, songNumRange: number[], voiceNumRange: number[]) {
 
     if (suggestion.capo < 0 || suggestion.capo > 11) {
         throw Error(`Invalid capo in computeScore: ${suggestion.capo}`);
