@@ -41,22 +41,22 @@ export const ChordConfigWidget = ({
         setSongRenderConfig(newConfig);
     }, [setSongRenderConfig, songRenderConfig]);
 
-    const rangeMin = 'voiceMin';
-    const rangeMax = 'voiceMax';
+    const voiceRangeMin = 'voiceRangeMin';
+    const voiceRangeMax = 'voiceRangeMax';
 
     const onRangeChanged = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
         const s = event.currentTarget.value;
         const {id} = event.currentTarget;
-        const newMin = id === rangeMin ? s : songRenderConfig.minNoteInternal;
-        const newMax = id === rangeMax ? s : songRenderConfig.maxNoteInternal;
+        const newMin = id === voiceRangeMin ? s : songRenderConfig.minVoiceInternal;
+        const newMax = id === voiceRangeMax ? s : songRenderConfig.maxVoiceInternal;
         const newConfig = {...songRenderConfig};
         const range = computeSuggestionRange(
-                newMin, newMax, songRenderConfig.minNoteInternal, songRenderConfig.maxNoteInternal);
-        newConfig.minNoteInternal = range.minStrInternal;
-        newConfig.maxNoteInternal = range.maxStrInternal;
-        newConfig.minNoteDisplay = range.minStrDisplay;
-        newConfig.maxNoteDisplay = range.maxStrDisplay;
-        newConfig.noteRange = range.maxNum - range.minNum;
+                newMin, newMax, songRenderConfig.minVoiceInternal, songRenderConfig.maxVoiceInternal);
+        newConfig.minVoiceInternal = range.minStrInternal;
+        newConfig.maxVoiceInternal = range.maxStrInternal;
+        newConfig.minVoiceDisplay = range.minStrDisplay;
+        newConfig.maxVoiceDisplay = range.maxStrDisplay;
+        newConfig.voiceRange = range.maxNum - range.minNum;
         setSongRenderConfig(newConfig);
         if (range.alerts.length) {
             alert(range.alerts.join('\n'));  //ttt0: Firefox will show a prompt to stop showing alerts. Replace
@@ -79,6 +79,10 @@ export const ChordConfigWidget = ({
         setSongRenderConfig(newConfig);
     }, [setSongRenderConfig, songRenderConfig]);
 
+    function getMinVoice(): string {
+        return songRenderConfig.minVoiceDisplay;
+    }
+
     return (<div>
         Acorduri &nbsp;
         <input id="chords" type="checkbox" className="chkBox" checked={songRenderConfig.showChords}
@@ -92,13 +96,13 @@ export const ChordConfigWidget = ({
             <input id="useSuggestions" type="checkbox" className="chkBox" checked={songRenderConfig.useSuggestions}
                 onChange={toggleSuggestions}/> <br/>
             {songRenderConfig.useSuggestions && <div id="suggestionsContainer">
-                <input id="voiceMin" value={songRenderConfig.minNoteDisplay} className="editVoiceRangeShort"
+                <input id={voiceRangeMin} value={getMinVoice()} className="editVoiceRangeShort"
                     placeholder="min" spellCheck="false" autoComplete="off" autoCorrect="off"
                     onChange={onRangeChanged}/> {/*ttt2 maybe put in a table*/}
-                <input id="voiceMax" value={songRenderConfig.maxNoteDisplay} className="editVoiceRangeNormal"
+                <input id={voiceRangeMax} value={songRenderConfig.maxVoiceDisplay} className="editVoiceRangeNormal"
                     placeholder="max" spellCheck="false" autoComplete="off" autoCorrect="off"
                     onChange={onRangeChanged}/>
-                <span id="voiceRange"> {songRenderConfig.noteRange} </span>
+                <span id="voiceRange"> {songRenderConfig.voiceRange} </span>
                 <br/>
                 Max sugestii <input id="maxSuggestions" value={songRenderConfig.maxSuggestions} type="number"
                     onChange={onMaxSuggestionsChanged} className="editSmallNumber" />

@@ -30,7 +30,7 @@ export function accidentalsToDisplay(s: string): string { //ttt1: maybe move
  * @param s one (or several) chords; this function should never be called on a string containing regular words
  */
 function accidentalsToInternal(s: string): string {
-    return s.replace(/#/g, '♯').replace(/b/g, '♭');
+    return s ? s.replace(/#/g, '♯').replace(/b/g, '♭') : s;
 }
 
 function getAndroidVersion() {

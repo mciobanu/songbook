@@ -36,3 +36,21 @@ export function arraysAreEqual<T>(arr1: T[] | undefined, arr2: T[] | undefined) 
         return val === arr2[index];
     });
 }
+
+
+/**
+ * Replaces undefined fields of obj with the corresponding fields from def. To be used when changing the name of some
+ * persisted fields changed, and we'd rather take the defaults, instead of copying the existing values
+ *
+ * @param obj
+ * @param def
+ */
+export function populateNewFields<T>(obj: T, def: T) {
+    let prop: keyof typeof obj;
+    for (prop in obj) {
+        if (obj[prop] === undefined) {
+            // eslint-disable-next-line no-param-reassign
+            obj[prop] = def[prop];
+        }
+    }
+}

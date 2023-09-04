@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import './App.css';
 import RouteDefinition from './RouteDefinition';
 //import {debugFmt} from './Common';
-import {SongRenderConfig} from './SongRenderConfig';
+import {SongRenderConfig, upgradeSongRenderConfig} from './SongRenderConfig';
 import {initAsciiForAccidentals, AUTO} from './ChordUtils';
 import * as Persistence from './Persistence';
 import {MiscConfig} from './MiscConfig';
@@ -17,11 +17,11 @@ const defaultSongRenderConfig: SongRenderConfig = {
     showChords: true,
     inlineChords: false,
     useSuggestions: true,
-    minNoteInternal: 'C',
-    maxNoteInternal: 'D',
-    minNoteDisplay: 'C',
-    maxNoteDisplay: 'D',
-    noteRange: 14,
+    minVoiceInternal: 'C',
+    maxVoiceInternal: 'D',
+    minVoiceDisplay: 'C',
+    maxVoiceDisplay: 'D',
+    voiceRange: 14,
     maxSuggestions: 6,
     maxCapo: 5,
 };
@@ -44,6 +44,7 @@ function App() {
         try {
             // noinspection UnnecessaryLocalVariableJS
             const persistedSongRenderConfig = Persistence.retrieve<SongRenderConfig>(songRenderConfigKey);
+            upgradeSongRenderConfig(persistedSongRenderConfig, defaultSongRenderConfig);
             //console.log(`retrieved ${debugFmt(persistedSongRenderConfig)}`);
             return persistedSongRenderConfig;
         } catch (e) {
