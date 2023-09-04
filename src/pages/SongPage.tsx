@@ -54,12 +54,19 @@ export const SongPage = ({
         setSongNumber(numSngPos);
     }, [numSngPos, setSongNumber]);
 
+    const getTitle = () => {
+        //return `${numSngPos}. ${getFullTitle(sortedSong.song)}`;
+        return sortType === SortType.position
+            ? `${sortedSong.song.index}. ${getFullTitle(sortedSong.song)}`
+            : `${getFullTitle(sortedSong.song)} (${sortedSong.song.index})`;
+    };
+
     return (
         <div onClick={optionallyHideMenu}>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
-            <p className="songTitle">{numSngPos}. {getFullTitle(sortedSong.song)} (by {sortType})</p>
+            <p className="songTitle">{getTitle()}</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
                 setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig}/>
         </div>
