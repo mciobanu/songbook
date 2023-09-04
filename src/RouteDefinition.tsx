@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 import {HelpPage} from './pages/HelpPage';
 import {LoaderPage} from './pages/LoaderPage';
 import {SongPage} from './pages/SongPage';
@@ -39,7 +39,7 @@ const RouteDefinition = ({
 
     /*
     Routes:
-    / - main page, normally same as /index-by-position, except the first time  //ttt0: implement "except"
+    / - not defined, so it redirects to /index-by-position, just as any other undefined route
     /help
     /index-by-position
     /index-by-title
@@ -63,10 +63,6 @@ const RouteDefinition = ({
         <React.Suspense fallback={<LoaderPage/>}>
             <Routes>
                 {/*<Route path='/' element={<LoaderPage/>}/>*/}
-                <Route path='/' element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
-                    songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
-                    optionallyHideMenu={optionallyHideMenu}/>}/>
 
                 <Route path={Paths.help} element={<HelpPage
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
@@ -74,7 +70,7 @@ const RouteDefinition = ({
                     optionallyHideMenu={optionallyHideMenu}/>}/>
 
                 <Route path={Paths.indexByPosition} element={<IndexPage sortType={SortType.position}
-                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} /*setLastPath={setLastPath}*/
+                    expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
                     optionallyHideMenu={optionallyHideMenu}/>}/>
                 <Route path={Paths.indexByTitle} element={<IndexPage sortType={SortType.title}
@@ -124,10 +120,12 @@ const RouteDefinition = ({
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
                     optionallyHideMenu={optionallyHideMenu}/>}/>
+
+                {/* page not found */}
+                <Route path="*" element={<Navigate to={Paths.indexByPosition} />} />
             </Routes>
         </React.Suspense>
     );
-    //ttt0: Have some "page not found"
 };
 
 export default RouteDefinition;
