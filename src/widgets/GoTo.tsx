@@ -6,11 +6,19 @@ import {ReactSetter2, SortType} from '../Common';
 import {getSortedSongs} from '../SongCollections';
 import {createSongPath} from '../Paths';
 
+
+/**
+ * Goes to the specified position in the original list, regardless of the current sort type. The idea is that while
+ * it's "nice" to use the sort type, it's confusing for users to refer to the same song if they use different sort
+ * types. And in some pages the sort tpe isn't really defined, although it can be said that it persists from
+ * previous pages.
+ *
+ * @param setExpandedMenu
+ * @constructor
+ */
 export const GoToWidget = ({
-    sortType,
     setExpandedMenu,
 } : {
-    sortType: SortType,
     setExpandedMenu: ReactSetter2<boolean>,
 }) => {
 
@@ -19,17 +27,17 @@ export const GoToWidget = ({
     const navigate = useNavigate();
 
     const onGo = React.useCallback(() => {
-        const songs = getSortedSongs(sortType);
+        const songs = getSortedSongs(SortType.position);
         const k = Number.parseInt(songNo, 10);
         if (Number.isNaN(k) || `${k}` !== songNo || k < 1 || k > songs.length) {
             alert(`Trebuie introdus un număr între 1 și ${songs.length}`);
             return;
         }
-        navigate(createSongPath(sortType, k));
+        navigate(createSongPath(SortType.position, k));
         setSongNo('');
         setExpandedMenu(false);
 
-    }, [navigate, setExpandedMenu, songNo, sortType]);
+    }, [navigate, setExpandedMenu, songNo]);
 
     const onEditChanged = React.useCallback((event: React.FormEvent<HTMLInputElement>) => {
         const s = event.currentTarget.value;
@@ -50,7 +58,3 @@ export const GoToWidget = ({
         <input id="gotoBtn" type="button" className="toolBtnNormal" value="&#10148;" onClick={onGo}/>
     </div>);
 };
-
-
-//ttt0: Actually we shouldn't care about sortType and always use the original list, so people can jump to a
-// different song by its number, regardless of how things are sorted

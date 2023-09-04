@@ -49,7 +49,7 @@ export const NavigatingMenuWidget = ({
 }) => {
     return (<div>
         <MenuWidget1/>
-        <GoToWidget sortType={sortType} setExpandedMenu={setExpandedMenu}/>
+        <GoToWidget setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
         <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
     </div>);

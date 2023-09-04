@@ -65,12 +65,12 @@ src/widgets/chords/SuggestionList.tsx	f	2023-09-03T14:49:36Z
 src/widgets/chords/__tests__/FirstChordDropdown.test.ts	f	2023-09-04T10:09:47Z
 src/widgets/chords/__tests__/TestCalc02-jest.test.ts	f	2023-08-27T19:34:18Z
 src/widgets/FontConfigurator.tsx	f	2023-08-20T16:46:37Z
-src/widgets/GoTo.tsx	f	2023-08-22T12:26:01Z
+src/widgets/GoTo.tsx	f	2023-09-04T19:08:26Z
 src/widgets/Hamburger.tsx	f	2023-08-22T05:35:43Z
 src/widgets/Help.tsx	f	2023-08-20T12:33:35Z
 src/widgets/IndexSelector.tsx	f	2023-09-03T17:56:33Z
 src/widgets/Loader.tsx	f	2023-09-04T18:57:25Z
-src/widgets/Menu.tsx	f	2023-09-03T17:43:07Z
+src/widgets/Menu.tsx	f	2023-09-04T19:00:13Z
 src/widgets/NavigatingRootMenu.tsx	f	2023-09-03T06:04:35Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-09-03T17:43:07Z
