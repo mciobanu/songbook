@@ -359,6 +359,8 @@ export function getShiftedRange(range: string, rangeShift: number) {
 }
 
 
+const chordListSeparators = ' ,-;/](';
+
 /**
  * Replaces all the chords in a list of chords with chords that take rangeShift and capo into account.
  *
@@ -373,42 +375,41 @@ export function getShiftedRange(range: string, rangeShift: number) {
  * ttt1 It looks like this is called more than needed and that substituteChord() could be used instead in several
  * places (at least the ones where showCapo is false)and it is called for a single chord or note.
  *
- * @param s
+ * @param chordList
  * @param rangeShift
  * @param capo
  * @param showCapo
  */
-export function substituteChords(s: string, rangeShift: number, capo: number, showCapo: boolean) {
-    /*if (s.indexOf("Am7 /") != -1) {
+export function substituteChords(chordList: string, rangeShift: number, capo: number, showCapo: boolean) {
+    /*if (chordList.indexOf("Am7 /") != -1) {
         debugger;
     }//*/
-    const root: string | null = s.startsWith('N') ? 'N' : getRoot(s);
+    const root: string | null = chordList.startsWith('N') ? 'N' : getRoot(chordList);
     if (!root) {
-        throw Error(`Invalid param to substituteChords: '${s}'`);
+        throw Error(`Invalid param to substituteChords: '${chordList}'`);
     }
     const rootLen = root.length;
     let chordLen = rootLen;
-    while (chordLen < s.length && s[chordLen] !== ' ' && s[chordLen] !== ',' && s[chordLen] !== '-'
-            && s[chordLen] !== ';' && s[chordLen] !== '/' && s[chordLen] !== ']' && s[chordLen] !== '(') {
+    while (chordLen < chordList.length && chordListSeparators.indexOf(chordList[chordLen]) === -1) {
         ++chordLen;
     }
     let k = chordLen;
-    while (k < s.length && (s[k] < 'A' || s[k] > 'G')) {
+    while (k < chordList.length && (chordList[k] < 'A' || chordList[k] > 'G')) {
         ++k;
     }
     let res = substituteNote(root, rangeShift, capo);
     //res = fixAccidentals(res);
     res += (!showCapo || capo === 0
-        ? s.substring(rootLen, k)
-        : `${s.substring(rootLen, chordLen)}|${capo}${s.substring(chordLen, k)}`);
-    if (k === s.length) {
+        ? chordList.substring(rootLen, k)
+        : `${chordList.substring(rootLen, chordLen)}|${capo}${chordList.substring(chordLen, k)}`);
+    if (k === chordList.length) {
         // no further chord
-        //console.log(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
+        //console.log(`substituteChords('${chordList}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
         return res;
     }
     // another chord starts at position k
-    res += substituteChords(s.substring(k), rangeShift, capo, showCapo);
-    //console.log(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
+    res += substituteChords(chordList.substring(k), rangeShift, capo, showCapo);
+    //console.log(`substituteChords('${chordList}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
     return res;
 }
 

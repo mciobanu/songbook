@@ -42,11 +42,12 @@ describe('getShiftedRange', () => {
 
 
 describe('substituteChords', () => {
-    function hlp(s: string, rangeShift: number, capo: number, showCapo: boolean, expected: string) {
-        test(`substituteChords('${s}', ${rangeShift}, ${capo}, ${showCapo}) should return '${expected}'`, () => {
-            const result = substituteChords(s, rangeShift, capo, showCapo);
-            expect(result).toBe(expected);
-        });
+    function hlp(chordList: string, rangeShift: number, capo: number, showCapo: boolean, expected: string) {
+        test(`substituteChords('${chordList}', ${rangeShift}, ${capo}, ${showCapo}) should return '${expected}'`,
+                () => {
+                    const result = substituteChords(chordList, rangeShift, capo, showCapo);
+                    expect(result).toBe(expected);
+                });
     }
 
     hlp('Am', 1, 3, false, 'Gm');
