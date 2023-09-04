@@ -46,8 +46,13 @@ export const SongPage = ({
     persistLastPath(window.location.pathname);
 
     const {songPos} = useParams<SongParams>();
-    const numSngPos = Number(songPos); //ttt0 adjust URL if this is invalid (123000, -10, abc, ...)
+    let numSngPos = Number(songPos);
     const sortedSongs = getSortedSongs(sortType);
+    if (numSngPos <= 0) {
+        numSngPos = 1; //ttt2 perhaps adjust URL
+    } else if (numSngPos > sortedSongs.length) {
+        numSngPos = sortedSongs.length;
+    }
     const sortedSong = sortedSongs[numSngPos - 1]; // Subtract 1 so the URLs are friendlier to manual change
 
     React.useEffect(() => {
