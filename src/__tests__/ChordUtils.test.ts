@@ -1,6 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 
-import {getShiftedRange, substituteChords} from '../ChordUtils';
+import {getShiftedRange, removeAlternatives, substituteChords} from '../ChordUtils';
 
 
 describe('getShiftedRange', () => {
@@ -59,4 +59,19 @@ describe('substituteChords', () => {
     hlp('Am(C) E(Gadd7)', 1, 3, false, 'Gm(A♯) D(Fadd7)');
 
     hlp('Cadd7', 2, 3, false, 'Badd7');
+});
+
+
+describe('removeAlternatives', () => {
+    function hlp(chord: string, expected: string) {
+        test(`removeAlternatives('${chord}') should return '${expected}'`, () => {
+            const result = removeAlternatives(chord);
+            expect(result).toBe(expected);
+        });
+    }
+
+    hlp('Am', 'Am');
+    hlp('Am (C)', 'Am');
+    hlp('Am(C)', 'Am');
+    hlp('Am7Add9(C#)', 'Am7Add9');
 });

@@ -414,3 +414,11 @@ export function substituteChords(chordList: string, rangeShift: number, capo: nu
 }
 
 
+/**
+ * Removes the alternative from a chord, meaning everything from the first '(' on
+ * @param chord
+ */
+export function removeAlternatives(chord: string): string {
+    const k = chord.indexOf('(');
+    return k === -1 ? chord : chord.substring(0, k).trimEnd();
+}

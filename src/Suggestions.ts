@@ -2,6 +2,7 @@ import {
     AUTO,
     CAPO_AUTO,
     getNumericRange,
+    removeAlternatives,
     substituteChord,
 } from './ChordUtils';
 
@@ -15,9 +16,14 @@ export type SuggestionDebug = {
     shiftedChords: string,
 };
 
+/**
+ * How suggestions work: There is a fixed list of all the combinations of rangeShift and capo between 0 and 11. Each of
+ * these suggestions is evaluated, computing the score (as well as outsideRange and voiceOut), then they are sorted by
+ * score, and we take the best ones.
+ */
 export type Suggestion = {
-    rangeShift: number,
-    capo: number,
+    rangeShift: number, // 0..11
+    capo: number, // 0..11
     index: number,
     score: number,
     outsideRange: boolean,
@@ -26,18 +32,46 @@ export type Suggestion = {
 };
 
 
+/**
+ * Updates most fields in the suggestion (score, outsideRange, voiceOut, dbg) to reflect how easy the given chords
+ * are to play given the first chord and how well the voice fits the current choices based on voice and song ranges and
+ * capo position.
+ *
+ * The values of suggestion.capo and suggestion.rangeShift must be between 0 and 11, not some AUTO.
+ *
+ * We see how good a match the capo and rangeShift of the suggestion is to the range of the song and the voice, as well
+ * as the chord difficulty, computing a score (really a penalty). This happens for all 144 combinations of capo and
+ * rangeShift. What can be AUTO are the current capo and first chord, which the user chooses. When these are not AUTO,
+ * we must get an exact match, otherwise a huge score gets assigned.
+ *
+ * @param suggestion
+ * @param chords originals, extracted from the song
+ * @param capo user's choice
+ * @param maxCapo user's choice, from settings
+ * @param firstChord user's choice
+ * @param songNumRange a song's attribute
+ * @param voiceNumRange user's choice, from settings
+ */
 function computeScore(suggestion: Suggestion, chords: string[], capo: number, maxCapo: number,
-    firstChord: string, songNumRange: number[], voiceNumRange: number[]) {
+    firstChord: string, songNumRange: number[], voiceNumRange: number[]) { //ttt0: add tests, see how "Om bun" works
+
+    if (suggestion.capo < 0 || suggestion.capo > 11) {
+        throw Error(`Invalid capo in computeScore: ${suggestion.capo}`);
+    }
+    if (suggestion.rangeShift < 0 || suggestion.rangeShift > 11) {
+        throw Error(`Invalid rangeShift in computeScore: ${suggestion.rangeShift}`);
+    }
 
     const suggestion1 = suggestion; // this is to avoid ESLint's no-param-reassign, as the whole purpose
     // of this function is to change its argument
     suggestion1.outsideRange = false;
     let score = 0;
-    if ((capo === CAPO_AUTO && suggestion1.capo > maxCapo) || (capo !== CAPO_AUTO && suggestion1.capo !== capo)) {
+    if ((capo === CAPO_AUTO && suggestion.capo > maxCapo) || (capo !== CAPO_AUTO && suggestion.capo !== capo)) {
         score = 1000000;
         suggestion1.outsideRange = true;
     } else if (firstChord !== AUTO) {
-        const shiftedChord = substituteChord(chords[0], suggestion1.rangeShift, suggestion1.capo);
+        //const shiftedChord = removeAlternatives(substituteChord(chords[0], suggestion.rangeShift, suggestion.capo));
+        const shiftedChord = substituteChord(chords[0], suggestion.rangeShift, suggestion.capo);
         if (shiftedChord !== firstChord) {
             score = 1000000;
             suggestion1.outsideRange = true;
@@ -49,7 +83,7 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
     let adjSongRange: number[] = [];
     let shiftedChords = '';   //ttt3 debug only
     if (score === 0) {
-        adjSongRange = [songNumRange[0] + suggestion1.rangeShift, songNumRange[1] + suggestion1.rangeShift];
+        adjSongRange = [songNumRange[0] + suggestion.rangeShift, songNumRange[1] + suggestion.rangeShift];
         midSong = (adjSongRange[0] + adjSongRange[1]) / 2;
         midVoice = (voiceNumRange[0] + voiceNumRange[1]) / 2;
         rangeDiff = midSong - midVoice;
@@ -80,8 +114,8 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
             suggestion1.outsideRange = true;
         }
         for (let i = 0; i < chords.length; ++i) {
-            const shiftedChord = substituteChord(chords[i], suggestion1.rangeShift, suggestion1.capo);
-            score += getDifficulty(shiftedChord);
+            const shiftedChord = substituteChord(chords[i], suggestion.rangeShift, suggestion.capo);
+            score += getDifficulty(removeAlternatives(shiftedChord));
             shiftedChords += `;${shiftedChord}`;
         }
     }
@@ -96,6 +130,8 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
         shiftedChords: shiftedChords ? shiftedChords.substring(1) : shiftedChords,
     };
 }
+
+export const forTestComputeScore = computeScore;
 
 
 const EASY_CHORDS: Map<string, number> = new Map<string, number>([

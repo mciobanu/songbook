@@ -44,8 +44,9 @@ src/SongCollections.ts	f	2023-09-03T16:43:31Z
 src/SongRenderConfig.ts	f	2023-08-25T11:39:15Z
 src/Songs.ts	f	2023-09-03T15:53:49Z
 src/Song.ts	f	2023-09-03T17:56:33Z
-src/Suggestions.ts	f	2023-09-03T14:51:01Z
-src/__tests__/ChordUtils.test.ts	f	2023-09-04T08:45:04Z
+src/Suggestions.ts	f	2023-09-04T08:16:06Z
+src/__tests__/ChordUtils.test.ts	f	2023-09-04T08:45:17Z
+src/__tests__/Suggestions.test.ts	f	2023-09-04T08:42:06Z
 src/__tests__/Utils.test.ts	f	2023-09-03T17:17:01Z
 src/Utils.ts	f	2023-09-03T17:16:29Z
 src/widgets/ChordConfig.tsx	f	2023-09-03T17:56:33Z
