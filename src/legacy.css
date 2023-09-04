@@ -159,10 +159,15 @@ text-indent: 0rem;
 .songTitle {
     font-size: 1.2rem;
 
-    padding-top: 0rem;
+    padding-top: 0;
     padding-left: 2.5rem;
     text-indent: -1rem;
     padding-bottom: 0.8rem;
+}
+
+/* Meant to be used after songTitle, to override padding */
+.genericTitle {
+    padding-top: 0.8rem;
 }
 
 

@@ -23,7 +23,7 @@ export const SearchPage = ({
         <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
-            <p className="songTitle">SearchPage</p> {/*ttt0 review className*/}
+            <p className="songTitle genericTitle">SearchPage</p>
         </div>
     );
 };

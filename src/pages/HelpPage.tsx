@@ -23,7 +23,7 @@ export const HelpPage = ({
         <div onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
-            <p className="songTitle">HelpPage</p> {/*ttt0 probably wrong className*/}
+            <p className="songTitle genericTitle">HelpPage</p>
         </div>
     );
 };
