@@ -2,9 +2,10 @@ import {
     AUTO,
     CAPO_AUTO,
     getNumericRange,
-    removeAlternatives,
-    substituteChord,
+    substituteChords,
 } from './ChordUtils';
+
+import {debugFmt} from './Common';
 
 export type SuggestionDebug = {
     rangeDiff: number,
@@ -19,7 +20,7 @@ export type SuggestionDebug = {
 /**
  * How suggestions work: There is a fixed list of all the combinations of rangeShift and capo between 0 and 11. Each of
  * these suggestions is evaluated, computing the score (as well as outsideRange and voiceOut), then they are sorted by
- * score, and we take the best ones.
+ * score, and we take the best ones.     //ttt1: Perhaps adjust count based on maxCapo
  */
 export type Suggestion = {
     rangeShift: number, // 0..11
@@ -70,8 +71,7 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
         score = 1000000;
         suggestion1.outsideRange = true;
     } else if (firstChord !== AUTO) {
-        //const shiftedChord = removeAlternatives(substituteChord(chords[0], suggestion.rangeShift, suggestion.capo));
-        const shiftedChord = substituteChord(chords[0], suggestion.rangeShift, suggestion.capo);
+        const shiftedChord = substituteChords(chords[0], suggestion.rangeShift, suggestion.capo, false);
         if (shiftedChord !== firstChord) {
             score = 1000000;
             suggestion1.outsideRange = true;
@@ -114,7 +114,7 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
             suggestion1.outsideRange = true;
         }
         for (let i = 0; i < chords.length; ++i) {
-            const shiftedChord = substituteChord(chords[i], suggestion.rangeShift, suggestion.capo);
+            const shiftedChord = substituteChords(chords[i], suggestion.rangeShift, suggestion.capo, false);
             score += getDifficulty(removeAlternatives(shiftedChord));
             shiftedChords += `;${shiftedChord}`;
         }
@@ -133,6 +133,18 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
 
 export const forTestComputeScore = computeScore;
 
+/**
+ * Removes the alternative from a chord, meaning everything from the first '(' on. To be used only by getDifficulty(),
+ * as in the other places we need the full entry for comparison
+ *
+ * @param chord
+ */
+function removeAlternatives(chord: string): string {
+    const k = chord.indexOf('(');
+    return k === -1 ? chord : chord.substring(0, k).trimEnd();
+}
+
+export const forTestRemoveAlternatives = removeAlternatives;
 
 const EASY_CHORDS: Map<string, number> = new Map<string, number>([
     ['C', 0],
@@ -244,6 +256,9 @@ export function getChordSuggestions(chords: string[], songRange: string, voiceRa
         }
         res.push(suggestion);
     }
+    /*console.log(`chords:${chords}, songRange:${songRange}, voiceRange:${voiceRange}, `
+        + `maxSuggestions:${maxSuggestions}, capo:${capo}, maxCapo:${maxCapo}, firstChord:${firstChord}`);
+    console.log(`computed suggestions: ${debugFmt(res)}`);*/
     return res;
 }
 

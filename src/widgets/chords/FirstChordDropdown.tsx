@@ -1,10 +1,10 @@
 import React from 'react';
 
 import {
-    accidentalsToDisplay,
     getRoot,
     NOTES,
     AUTO,
+    substituteChords,
 } from '../../ChordUtils';
 
 import {ReactSetter2} from '../../Common';
@@ -18,23 +18,23 @@ import {ReactSetter2} from '../../Common';
  * shortly. If the song really doesn't have chords, this doesn't get called at all.
  */
 function createFirstChordOptions(chords: string[]) {
-    //ttt0: "Om bun (Dan Andrei Aldea, Sfinx)" has a funny first chord list: "Cm(C)", "C#m(C)", ... The same happens
-    // in the JS code, so it's not a new bug
-
     const initialChord = chords.length > 0 ? chords[0] : 'D';  //!!! 'D' doesn't matter in itself. We just
     // need a value to avoid checking for null in many places, but nothing will be rendered
     const firstChordRoot = getRoot(initialChord);
     if (!firstChordRoot) {
         throw Error(`Internal error. Unable to find root for chord "${initialChord}"`);
     }
+    const firstNote = NOTES.indexOf(firstChordRoot); // by using this below, we always start with C
     const arr: string[] = [AUTO];
     const firstChordQuality = initialChord.substring(firstChordRoot.length);
     for (let i = 0; i <= 11; ++i) {
-        arr.push(accidentalsToDisplay(NOTES[i]) + firstChordQuality);
+        arr.push(substituteChords(initialChord, 12 - firstNote + i, 0, false));
     }
     console.log(`createFirstChordOptions(${initialChord}). Generated ${arr}`);
     return arr;
 }
+
+export const forTestCreateFirstChordOptions = createFirstChordOptions;
 
 
 /**
@@ -102,4 +102,3 @@ export const FirstChordDropdown = ({
         </select>
     );
 };
-

@@ -1,9 +1,23 @@
 import {describe, expect, test} from '@jest/globals';
 
 import {AUTO, CAPO_AUTO} from '../ChordUtils';
-import {forTestComputeScore, Suggestion} from '../Suggestions';
+import {forTestComputeScore, forTestRemoveAlternatives, Suggestion} from '../Suggestions';
 
 
+
+describe('removeAlternatives', () => {
+    function hlp(chord: string, expected: string) {
+        test(`removeAlternatives('${chord}') should return '${expected}'`, () => {
+            const result = forTestRemoveAlternatives(chord);
+            expect(result).toBe(expected);
+        });
+    }
+
+    hlp('Am', 'Am');
+    hlp('Am (C)', 'Am');
+    hlp('Am(C)', 'Am');
+    hlp('Am7Add9(C#)', 'Am7Add9');
+});
 
 describe('computeScore', () => {
     function hlp(suggestionCapo: number, suggestionRangeShift: number,

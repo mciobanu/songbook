@@ -291,23 +291,6 @@ export function getRoot(chord: string): string | null {
 
 
 /**
- * Substitutes a single chord using custom rangeShift and capo
- * @param s
- * @param rangeShift
- * @param capo
- */
-export function substituteChord(s: string, rangeShift: number, capo: number) {
-    const root = getRoot(s);
-    if (!root) {
-        throw Error(`Invalid chord: '${s}'`);
-    }
-    let res = substituteNote(root, rangeShift, capo);
-    res += s.substring(root.length);
-    return res;
-}
-
-
-/**
  * Substitutes a single note (the root of a chord)
  */
 function substituteNote(s: string, rangeShift2: number, capo: number) {
@@ -381,9 +364,6 @@ const chordListSeparators = ' ,-;/](';
  * @param showCapo
  */
 export function substituteChords(chordList: string, rangeShift: number, capo: number, showCapo: boolean) {
-    /*if (chordList.indexOf("Am7 /") != -1) {
-        debugger;
-    }//*/
     const root: string | null = chordList.startsWith('N') ? 'N' : getRoot(chordList);
     if (!root) {
         throw Error(`Invalid param to substituteChords: '${chordList}'`);
@@ -411,14 +391,4 @@ export function substituteChords(chordList: string, rangeShift: number, capo: nu
     res += substituteChords(chordList.substring(k), rangeShift, capo, showCapo);
     //console.log(`substituteChords('${chordList}', ${rangeShift}, ${capo}, ${showCapo}): ${res}`);
     return res;
-}
-
-
-/**
- * Removes the alternative from a chord, meaning everything from the first '(' on
- * @param chord
- */
-export function removeAlternatives(chord: string): string {
-    const k = chord.indexOf('(');
-    return k === -1 ? chord : chord.substring(0, k).trimEnd();
 }

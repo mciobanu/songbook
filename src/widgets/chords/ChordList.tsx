@@ -19,7 +19,6 @@ export const ChordListWidget = ({
         return chords.map((chord) => {
             return accidentalsToDisplay(substituteChords(chord, suggestion?.rangeShift || 0, suggestion?.capo || 0,
                     false));
-            //ttt1: substituteChords() is like in JS, but perhaps substituteChord() is good enough. Is it for things like "Am(C)" in "Om bun"? (It doesn't work in that case anyway)  //ttt0: So check "Am(C)" in "Om bun"
         });
     }, [chords, suggestion]);
     if (!suggestion) {
