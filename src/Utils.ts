@@ -54,3 +54,8 @@ export function populateNewFields<T>(obj: T, def: T) {
         }
     }
 }
+
+export function getLast<T>(arr: T[]): T {
+    return arr[arr.length - 1];
+}
+

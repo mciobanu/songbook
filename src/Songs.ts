@@ -3,8 +3,21 @@
 // Temporary song definitions
 
 import {Song} from './Song';
+import {indexAll} from './search/SearchBuilder';
 
-export const TestSongs: Song[] = [  //ttt0: rename, load from lib
+export const TestSongs: Song[] = [
+    /*
+    //ttt0: Rename, load from lib.
+
+    How things are supposed to work:
+    In prebuild, songs_db.txt is turned into a JSON, which is then turned into a compressed string constant, which
+    is stored probably in "lib" rather than "src" and is not added to git.
+
+    At build, the code sees the generated file, takes the string constant and build the array from it.
+
+    In JS, there were options about how to optimize (how to minify or whether to compress the DB string). Won't try to
+    replicate these, but always compress the DB while letting TS deal with theminification.
+     */
     {
         t: 'Așa beu oamenii buni',
         l: [
@@ -9563,3 +9576,7 @@ export const TestSongs: Song[] = [  //ttt0: rename, load from lib
 for (let i = 0; i < TestSongs.length; i++) {
     TestSongs[i].index = i + 1;
 }
+
+const start = Date.now();
+indexAll(TestSongs);
+console.log(`search build duration: ${Date.now() - start}`); // This takes 35 milliseconds. No need to optimize
