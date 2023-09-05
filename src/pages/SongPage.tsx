@@ -48,7 +48,7 @@ export const SongPage = ({
     const {songPos} = useParams<SongParams>();
     let numSngPos = Number(songPos);
     const sortedSongs = getSortedSongs(sortType);
-    if (numSngPos <= 0) {
+    if (!Number.isFinite(numSngPos) || numSngPos <= 0) {
         numSngPos = 1; //ttt2 perhaps adjust URL
     } else if (numSngPos > sortedSongs.length) {
         numSngPos = sortedSongs.length;
