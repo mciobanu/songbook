@@ -39,10 +39,10 @@ src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
 src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
 src/RouteDefinition.tsx	f	2023-09-04T19:30:44Z
 src/ScrollToTop.tsx	f	2023-09-03T15:37:16Z
-src/search/SearchBuilder.ts	f	2023-09-04T21:49:08Z
-src/search/Search.ts	f	2023-09-05T08:39:33Z
+src/search/SearchBuilder.ts	f	2023-09-05T19:08:53Z
+src/search/Search.ts	f	2023-09-05T19:04:10Z
 src/search/SearchUtils.ts	f	2023-09-05T07:50:31Z
-src/search/__tests__/Search.test.ts	f	2023-09-05T07:57:21Z
+src/search/__tests__/Search.test.ts	f	2023-09-05T18:38:25Z
 src/setupTests.ts	f	2023-08-19T07:21:22Z
 src/SongCollections.ts	f	2023-09-03T16:43:31Z
 src/SongRenderConfig.ts	f	2023-09-04T14:44:39Z

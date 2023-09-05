@@ -13,6 +13,7 @@ type TestInfo = {
     count: number,
     //minCount?: number, //ttt1: A fixed count for a variable DB is quite fragile. We can use minCount / maxCount to
     // have some flexibility
+    ignoredCount?: number,
 }
 
 describe('searchMatches', () => {
@@ -22,13 +23,15 @@ describe('searchMatches', () => {
             {terms: 'ădio', count: 5},
             {terms: 'vii', count: 5},
             {terms: 'mut ochi', count: 3},
+
             {terms: 'ninge oape', count: 0},
-            {terms: 'ninge pleoape', count: 1},
-            {terms: 'ninge', count: 0},
-            {terms: 'bbbbbb', count: 0},
+            {terms: 'ninge pleoape', count: 1, ignoredCount: 1},
+            {terms: 'ninge', count: 0, ignoredCount: 1},
+            {terms: 'hdyeew pleoape', count: 0},
+
             {terms: 'casa', count: 15},
 
-
+            {terms: 'bbbbbb', count: 0},
             {terms: 'jjjjjj', count: 0},
             {terms: 'kkkk llll', count: 0},
             {terms: 'gggg-hhhh gggg', count: 0},
@@ -47,10 +50,14 @@ describe('searchMatches', () => {
         function hlp(testInfo: TestInfo) {
             const {terms} = testInfo;
             test(`match for ${terms}`, () => {
-                let resultArr = searchTermsAndMerge(terms);
+                const searchResult = searchTermsAndMerge(terms);
+                let resultArr = searchResult.entries;
                 console.log(`search for ${terms} got ${resultArr.length} results`);
                 expect(resultArr.length).toBe(testInfo.count);
                 expect(resultArr).toBeTruthy();
+                if (testInfo.ignoredCount) {
+                    expect(searchResult.ignored.length).toBe(testInfo.ignoredCount);
+                }
                 resultArr = resultArr || [];
                 const termArr = replaceDiacritics(terms).split(' ')
                     .map((s) => {

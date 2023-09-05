@@ -8,25 +8,25 @@ const MAX_WORD_MATCHES = 20;
 const MAX_RESULTS_PER_SONG = 4;
 const EXP_BASE = 4;
 
-//MIN_WORD_SIZE_EXP = MIN_WORD_SIZE;  // ttt2 see how better to deal with these - the issue is that in NodeJS putting var or const makes a variable module-specific, while not putting any makes it global
+//MIN_WORD_SIZE_EXP = MIN_WORD_SIZE;  // ttt2 see how better to deal with these - the issue is that in Node.js putting var or const makes a variable module-specific, while not putting any makes it global
 //DISCARD_LIMIT_EXP = DISCARD_LIMIT;
 
-type LineMatch = {
+type SimpleLineMatch = {
     stanza: number,
     verse: number,
     start: number,
     end: number,
 }
 
-type SearchResult = {
+type SimpleSearchResultEntry = {
     song: number,
     word: string, //!!! debug-only
     score: number,
-    matches: LineMatch[],
+    matches: SimpleLineMatch[],
 }
 
 // expects a "prepared" word: lowercase, non-alpha removed ...
-function searchWholeWord(word: string): SearchResult[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
+function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
     //word = prepareForSearch(word); // param expected as this
     const searchIndex = getSearchIndex();
     const entry = searchIndex.get(word);
@@ -34,7 +34,7 @@ function searchWholeWord(word: string): SearchResult[] | null {  //ttt0: search 
         //console.log("searchWholeWord(" + word + "): null");
         return null;
     }
-    const res: SearchResult[] = [];
+    const res: SimpleSearchResultEntry[] = [];
     //const prevFmtMatch = null;
     for (let i = 0; i < entry.matches.length; ++i) {
         const match = entry.matches[i];
@@ -43,7 +43,7 @@ function searchWholeWord(word: string): SearchResult[] | null {  //ttt0: search 
         const k3 = match.indexOf('#', k2 + 1);
         const k4 = match.indexOf('#', k3 + 1);
         const song = parseInt(match.substring(0, k1), 10);
-        const lineMatch: LineMatch = {
+        const lineMatch: SimpleLineMatch = {
             stanza: parseInt(match.substring(k1 + 1, k2), 10),
             verse: parseInt(match.substring(k2 + 1, k3), 10),
             start: parseInt(match.substring(k3 + 1, k4), 10),
@@ -109,8 +109,12 @@ type PossibleMatch = {
  * would have to check for overlaps from multiple terms anyway.
  *
  * @param word
+ *
+ * @return array with results if the word is valid and some matches were found;
+ * empty array if the word is valid and no matches were found;
+ * null if the word is ignored;  //ttt1: Perhaps improve
  */
-function searchWord(word: string): SearchResult[] | null { //ttt9: rename "SearchWholeWordResult"
+function searchWord(word: string): SimpleSearchResultEntry[] | null { //ttt9: rename "SearchWholeWordResult"
     const word1 = prepareForSearch(word);
     const searchIndex = getSearchIndex();
     if (!word1 || word1.length < MIN_WORD_SIZE || (searchIndex.get(word1) && !searchIndex.get(word1)?.matches)) { // !!! don't try to see where a short word might be a substring, and don't try to find unindexed substrings of indexed ones
@@ -147,8 +151,8 @@ function searchWord(word: string): SearchResult[] | null { //ttt9: rename "Searc
     let crtWorstScore = 1.0; // with these we make sure all scores for a smaller sizeDiff are better than the ones for a larger sizeDiff
 
     let gotNotIndexed = false;
-    let res: SearchResult[] | null = [];
-    const resMap = new Map<number, SearchResult>();
+    let res: SimpleSearchResultEntry[] | null = [];
+    const resMap = new Map<number, SimpleSearchResultEntry>();
     for (let i = 0; i < possibleMatches.length; ++i) {
         if (res.length >= MAX_WORD_MATCHES && possibleMatches[i].sizeDiff !== lastDiff) {
             break;
@@ -202,7 +206,7 @@ function searchWord(word: string): SearchResult[] | null { //ttt9: rename "Searc
 //ttt2 while the score is generally usable to sort results, it's quite meaningless in itself; would be nice to have a relevance that makes sense
 
 
-function overlapExists(matches: LineMatch[], match: LineMatch) {
+function overlapExists(matches: SimpleLineMatch[], match: SimpleLineMatch) {
     for (let i = 0; i < matches.length; ++i) {
         const m = matches[i];
         if (m.stanza === match.stanza && m.verse === match.verse) {
@@ -219,9 +223,20 @@ function overlapExists(matches: LineMatch[], match: LineMatch) {
 }
 
 
-function searchTerms(terms: string): SearchResult[] | null {
+type SimpleSearchResult = {
+    entries: SimpleSearchResultEntry[],
+    ignored: string[],
+}
+
+function searchTerms(terms: string): SimpleSearchResult {
     //terms = terms.replace(/ +/g, " "); // fine but not really needed
-    let res: SearchResult[] | null = null;
+    const res: SimpleSearchResult = {
+        entries: [],
+        ignored: [],
+    };
+    // eslint-disable-next-line no-undef-init
+    let entries: SimpleSearchResultEntry[] | undefined = undefined; //!!! The previous line ("eslint-disable") is needed. Without
+    // this unnecessary "=undefined", there will be many warnings down below about the variable not being initialized
     let k = 0;
     let h = 0;
     while (k < terms.length) {
@@ -233,36 +248,39 @@ function searchTerms(terms: string): SearchResult[] | null {
         const word = terms.substring(h, k);
         const r = searchWord(word);
         if (r) {
-            if (res == null) {
-                res = r;
+            if (!entries) {
+                entries = r;
             } else {
                 // combine results
-                const merged: SearchResult[] = [];
-                for (let i = 0; i < res.length; ++i) {
+                const merged: SimpleSearchResultEntry[] = [];
+                for (let i = 0; i < entries.length; ++i) {
                     let j = 0;
                     for (; j < r.length; ++j) {
-                        if (res[i].song === r[j].song) {
-                            res[i].matches = res[i].matches.concat(r[j].matches);
-                            res[i].word = `${res[i].word} ${r[j].word}`;
-                            res[i].score = (res[i].score + r[j].score) / 2; //ttt2 review
+                        if (entries[i].song === r[j].song) {
+                            entries[i].matches = entries[i].matches.concat(r[j].matches);
+                            entries[i].word = `${entries[i].word} ${r[j].word}`;
+                            entries[i].score = (entries[i].score + r[j].score) / 2; //ttt2 review
                             break;
                         }
                     }
                     if (j < r.length) {
-                        merged.push(res[i]);
+                        merged.push(entries[i]);
                     }
                 }
-                res = merged;
+                entries = merged;
             }
+        } else {
+            res.ignored.push(word);
         }
         h = k + 1;
     }
+    res.entries = entries || [];
 
     //console.log("searchTerms(" + terms + "): " + JSON.stringify(res, null, 4));
     return res;
 }
 
-type MergedLineMatch = {
+type LineMatch = {
     stanza: number,
     verse: number,
     intervals: {
@@ -271,13 +289,17 @@ type MergedLineMatch = {
     }[],
 }
 
-type MergedSearchResult = {
+type SearchResultEntry = {
     song: number,
     word: string, //!!! debug-only
     score: number,
-    matches: MergedLineMatch[],
+    matches: LineMatch[],
 }
 
+type SearchResult = {
+    entries: SearchResultEntry[],
+    ignored: string[],
+}
 
 /**
  * Searches for some terms and returns a result list.
@@ -287,14 +309,17 @@ type MergedSearchResult = {
  *
  * @param terms search terms, as a string of space-separated words
  */
-export function searchTermsAndMerge(terms: string): MergedSearchResult[] {
+export function searchTermsAndMerge(terms: string): SearchResult {
     const s = searchTerms(terms);
-    const res: MergedSearchResult[] = [];
-    if (!s) {
+    const res: SearchResult = {
+        entries: [],
+        ignored: s.ignored,
+    };
+    if (!s.entries.length) {
         return res;
     }
-    for (let i = 0; i < s.length; ++i) {
-        const song = s[i];
+    for (let i = 0; i < s.entries.length; ++i) {
+        const song = s.entries[i];
         song.matches.sort((x, y) => {
             if (x.stanza !== y.stanza) {
                 return x.stanza - y.stanza;
@@ -321,7 +346,7 @@ export function searchTermsAndMerge(terms: string): MergedSearchResult[] {
                 }],
             }],
         };
-        res.push(r);
+        res.entries.push(r);
 
         for (let j = 1; j < song.matches.length; ++j) {
             const m = song.matches[j];
@@ -356,7 +381,7 @@ export function searchTermsAndMerge(terms: string): MergedSearchResult[] {
         }
     }
 
-    res.sort((x, y) => { return y.score - x.score; });
+    res.entries.sort((x, y) => { return y.score - x.score; });
 
     //console.log("searchTermsAndMerge(" + terms + "): " + JSON.stringify(res, null, 4));
     return res;

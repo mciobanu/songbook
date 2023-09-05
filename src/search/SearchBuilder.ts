@@ -39,7 +39,7 @@ function indexWord(word: string, songNo: number, stanzaNo: number, verseNo: numb
     }
     ++entry.count;
     if (entry.count === DISCARD_LIMIT) {
-        //console.log("discarding " + word1);
+        //console.log(`discarding ${word1}`);
         entry.matches = null; // word1 is too frequent
     }
     if (entry.matches) {
