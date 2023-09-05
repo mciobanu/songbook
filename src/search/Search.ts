@@ -108,12 +108,12 @@ type PossibleMatch = {
  * have 2 matches as substrings, one that starts at 0 and one that starts at 1; they will be dealt with later, as we
  * would have to check for overlaps from multiple terms anyway.
  *
- * @param word2
+ * @param word
  */
-function searchWord(word2: string): SearchResult[] | null { //ttt9: rename "SearchWholeWordResult"
-    const word = prepareForSearch(word2);
+function searchWord(word: string): SearchResult[] | null { //ttt9: rename "SearchWholeWordResult"
+    const word1 = prepareForSearch(word);
     const searchIndex = getSearchIndex();
-    if (!word || word.length < MIN_WORD_SIZE || (searchIndex.get(word) && !searchIndex.get(word)?.matches)) { // !!! don't try to see where a short word might be a substring, and don't try to find unindexed substrings of indexed ones
+    if (!word1 || word1.length < MIN_WORD_SIZE || (searchIndex.get(word1) && !searchIndex.get(word1)?.matches)) { // !!! don't try to see where a short word might be a substring, and don't try to find unindexed substrings of indexed ones
         //console.log("searchWord(" + word + "): null");
         return null;
     }
@@ -121,7 +121,7 @@ function searchWord(word2: string): SearchResult[] | null { //ttt9: rename "Sear
     const possibleMatches: PossibleMatch[] = [];
     let k = 0;
     for (;;) {
-        k = allWords.indexOf(` ${word}`, k); // prepend " " so we don't find matches in the middle of a word
+        k = allWords.indexOf(` ${word1}`, k); // prepend " " so we don't find matches in the middle of a word
         if (k === -1) {
             break;
         }
@@ -137,7 +137,7 @@ function searchWord(word2: string): SearchResult[] | null { //ttt9: rename "Sear
         }
         possibleMatches.push({
             word: allWords.substring(k1, k2),
-            sizeDiff: k2 - k1 - word.length,
+            sizeDiff: k2 - k1 - word1.length,
         });
         ++k;
     }
@@ -230,7 +230,8 @@ function searchTerms(terms: string): SearchResult[] | null {
             k = terms.length;
         }
 
-        const r = searchWord(terms.substring(h, k));
+        const word = terms.substring(h, k);
+        const r = searchWord(word);
         if (r) {
             if (res == null) {
                 res = r;
