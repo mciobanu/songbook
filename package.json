@@ -32,7 +32,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test-old": "react-scripts test",
-    "test": "TS_NODE_PROJECT='./tsconfig.mocha.json' mocha --require ts-node/register --recursive tests/**/*.test.ts",
     "test-jest": "jest",
     "eject": "react-scripts eject"
   },
