@@ -32,7 +32,7 @@ export const SearchPage = ({
 
     const {searchTerms} = useParams<SearchParams>();
 
-    console.log(`search by "${searchTerms}"`);
+    //console.log(`search by "${searchTerms}"`);
 
     const searchResult = React.useMemo(() => {
         return searchTermsAndMerge(searchTerms || '');

@@ -16,8 +16,6 @@ const MAX_WORD_MATCHES = 20;
 const MAX_RESULTS_PER_SONG = 4;
 const EXP_BASE = 4;
 
-//MIN_WORD_SIZE_EXP = MIN_WORD_SIZE;  // ttt2 see how better to deal with these - the issue is that in Node.js putting var or const makes a variable module-specific, while not putting any makes it global
-//DISCARD_LIMIT_EXP = DISCARD_LIMIT;
 
 type SimpleLineMatch = {
     stanzaNo: number,
@@ -35,7 +33,6 @@ type SimpleSearchResultEntry = {
 
 // expects a "prepared" word: lowercase, non-alpha removed ...
 function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
-    //word = prepareForSearch(word); // param expected as this
     const searchIndex = getSearchIndex();
     const entry = searchIndex.get(word);
     if (!entry || !entry.matches /*|| word.length < MIN_WORD_SIZE*/) { //!!! no need to check MIN_WORD_SIZE, because these words don't get indexed anyway
@@ -74,30 +71,6 @@ function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //tt
     return res;
 }
 
-
-/*
-[
-    {
-        "song": 84,
-        "matches": [
-            {
-                "stanza": 0,
-                "verse": 2,
-                "start": 7,
-                "end": 11
-            },
-            {
-                "stanza": 0,
-                "verse": 3,
-                "start": 7,
-                "end": 11
-            }
-        ],
-        "word": "mut",
-        "score": 0.9375
-    }
-]
-*/
 
 type PossibleMatch = {
     word: string,

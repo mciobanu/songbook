@@ -5,7 +5,7 @@
 import {Song} from './Song';
 import {indexAll} from './search/SearchBuilder';
 
-export const TestSongs: Song[] = [
+export const TestSongs: Song[] = [    //ttt1: Make private. All access is supposed to be via function. The problem is that it's in a different file, SongCollections.ts, so we'd need a different module or something
     /*
     //ttt0: Rename, load from lib.
 
