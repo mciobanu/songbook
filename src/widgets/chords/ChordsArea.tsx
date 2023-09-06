@@ -63,17 +63,17 @@ export const ChordsAreaWidget = ({
             setCapoCbBVal={setCapoCbBVal} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal} setCurrentSuggestion={setCurrentSuggestion}/>
         <CapoWidget suggestion={suggestion} additionalClass={rangeFitClass}/>
-        {song.r && <IntervalWidget suggestion={suggestion} range={song.r}
+        {!!song.r && <IntervalWidget suggestion={suggestion} range={song.r}
             additionalClass={rangeFitClass}/>}
         <ChordListWidget suggestion={suggestion} chords={chords}/>
         <FirstNoteWidget suggestion={suggestion} firstNote={song.f} lastInList={!miscConfig.useOriginalSuggestion}/>
         {miscConfig.useOriginalSuggestion && <OriginalSuggestionWidget song={song} chords={chords}/>}
-        {song.r && suggestions.length
+        {!!song.r && !!suggestions.length
             && <SuggestionListWidget suggestions={suggestions} currentSuggestion={currentSuggestion}
                 setCurrentSuggestion={setCurrentSuggestion} chords={chords} range={song.r}
                 debugEnabled={miscConfig.debugEnabled}
             />}
-        {song.n && <NotesWidget notes={song.n}/>}
+        {!!song.n && <NotesWidget notes={song.n}/>}
     </>);
 };
 

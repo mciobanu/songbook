@@ -39,7 +39,7 @@ export const DropdownsWidget = ({
                         <td><CapoDropdown capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal}
                             setCurrentSuggestion={setCurrentSuggestion}/></td>
                     </tr>)}
-                {chords.length && (
+                {!!chords.length && (
                     <tr>
                         <td>Primul acord: </td>
                         <td><FirstChordDropdown chords={chords} useSuggestions={songRenderConfig.useSuggestions}

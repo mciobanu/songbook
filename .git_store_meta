@@ -58,8 +58,8 @@ src/widgets/ChordConfig.tsx	f	2023-09-04T14:46:33Z
 src/widgets/chords/CapoDropdown.tsx	f	2023-09-03T17:56:33Z
 src/widgets/chords/Capo.tsx	f	2023-09-03T15:01:53Z
 src/widgets/chords/ChordList.tsx	f	2023-09-04T13:28:12Z
-src/widgets/chords/ChordsArea.tsx	f	2023-09-03T20:34:59Z
-src/widgets/chords/Dropdowns.tsx	f	2023-09-03T05:57:06Z
+src/widgets/chords/ChordsArea.tsx	f	2023-09-06T19:47:02Z
+src/widgets/chords/Dropdowns.tsx	f	2023-09-06T19:47:02Z
 src/widgets/chords/FirstChordDropdown.tsx	f	2023-09-04T13:28:12Z
 src/widgets/chords/FirstNote.tsx	f	2023-09-03T17:56:33Z
 src/widgets/chords/Interval.tsx	f	2023-09-03T15:01:53Z
