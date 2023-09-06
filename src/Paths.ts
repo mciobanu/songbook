@@ -1,10 +1,12 @@
 import {SortType} from './Common';
 
+const INDEX_BY_POSITION = '/index-by-position';
+
 export const Paths = {
     help: '/help',
     search: '/search',
 
-    indexByPosition: '/index-by-position',
+    indexByPosition: INDEX_BY_POSITION,
     indexByTitle: '/index-by-title',
     indexByPerformer: '/index-by-performer',
     indexByLyricist: '/index-by-lyricist',
@@ -15,6 +17,8 @@ export const Paths = {
     songByPerformer: '/song-by-performer',
     songByLyricist: '/song-by-lyricist',
     songByVerse: '/song-by-verse',
+
+    defaultPath: INDEX_BY_POSITION,
     //songBySearch: '/song-by-search',  //ttt1: Perhaps implement this, but keep in mind that the search string
     // would need to be passed as well in order for the URL to be meaningful. Or, simpler: from Search,
     // pass the /song-by-position URL

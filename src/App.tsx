@@ -9,8 +9,9 @@ import {SongRenderConfig, upgradeSongRenderConfig} from './SongRenderConfig';
 import {initAsciiForAccidentals, AUTO} from './ChordUtils';
 import * as Persistence from './Persistence';
 import {MiscConfig} from './MiscConfig';
+import {Paths} from './Paths';
 
-let ranPathRestoreAtStart = false;
+let ranPathRestoreAtStart = 0;
 
 const defaultSongRenderConfig: SongRenderConfig = {
     fontSize: 10,
@@ -76,22 +77,23 @@ function App() {
     //ttt2: When time allows, a pure React approach should be tried again.
      */
     React.useEffect(() => {
-        if (!ranPathRestoreAtStart) {
-            ranPathRestoreAtStart = true;
+        if (ranPathRestoreAtStart < 2) {  //ttt1: Review this hack with using 2 for what is supposed to be a boolean. A short test seems to indicate useStrict
+            // as the culprit. Well, we're not supposed to use non-react variables ...
+            ranPathRestoreAtStart += 1;
             //console.log('initializing page; will try to go to the last path');
             try {
                 const currentPath = window.location.pathname;
                 //console.log(`currentPath at start: ${currentPath}`);
                 const retrievedLastPath = Persistence.retrieveLastPath();
                 //console.log(`retrievedLastPath at start: ${retrievedLastPath}`);
-                if (currentPath === '/' && retrievedLastPath) {
+                if (currentPath === Paths.defaultPath && retrievedLastPath) {
                     console.log(`navigating to: ${retrievedLastPath}`);
                     navigate(retrievedLastPath);
                 } /*else {
                     console.log('won\'t navigate elsewhere');
                 }*/
             } catch (e) {
-                //!!! Nothing
+                console.log(`Error initializing path: ${e}`);
             }
         } /*else {
             console.log('already initialized, won\'t try to go to the last path');

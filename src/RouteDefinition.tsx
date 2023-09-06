@@ -122,7 +122,7 @@ const RouteDefinition = ({
                     optionallyHideMenu={optionallyHideMenu}/>}/>
 
                 {/* page not found */}
-                <Route path="*" element={<Navigate to={Paths.indexByPosition} />} />
+                <Route path="*" element={<Navigate to={Paths.defaultPath} />} />
             </Routes>
         </React.Suspense>
     );
