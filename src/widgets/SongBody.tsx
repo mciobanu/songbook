@@ -211,6 +211,9 @@ const VerseWidget = ({
     // noinspection UnnecessaryLocalVariableJS
     const res = React.useMemo(() => {
         let v = verse;
+        if (chordRendering === ChordRendering.NONE && isChordNotes(verse)) { //ttt1: Search JS for all the places isChordNotes() was used in
+            return null; // without this we'd render "()" for "Noapte la mare, noapte la munte"
+        }
         if (firstVerse) {
             if (repeat !== undefined && repeat !== 1) {
                 v = `${repeat}x: ${v}`;
