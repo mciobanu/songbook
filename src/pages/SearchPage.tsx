@@ -43,7 +43,7 @@ export const SearchPage = ({
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
             <p className="songTitle genericTitle">Căutare</p>  {/*ttt1: same as edit placeholder */}
-            <SearchControlsWidget/>
+            <SearchControlsWidget initialSearchTerms={searchTerms || ''}/>
             <hr className='searchSeparator'/>
             <SearchResultsWidget searchResult={searchResult} searchTerms={searchTerms || ''}/>
         </div>

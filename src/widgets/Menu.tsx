@@ -28,7 +28,7 @@ const MenuWidget2 = ({
     sortType: SortType | undefined,
 }) => {
     return (<div>
-        <SearchControlsWidget />
+        <SearchControlsWidget initialSearchTerms=''/>
         <hr className="menuHr" />
         <IndexSelectorWidget sortType={sortType}/>
         <hr className="menuHr" />

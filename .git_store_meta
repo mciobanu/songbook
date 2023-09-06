@@ -31,7 +31,7 @@ src/MiscConfig.ts	f	2023-09-03T20:32:55Z
 src/pages/HelpPage.tsx	f	2023-09-04T18:44:23Z
 src/pages/IndexPage.tsx	f	2023-09-04T18:44:23Z
 src/pages/LoaderPage.tsx	f	2023-09-04T18:49:53Z
-src/pages/SearchPage.tsx	f	2023-09-06T12:15:46Z
+src/pages/SearchPage.tsx	f	2023-09-06T14:53:54Z
 src/pages/SongPage.tsx	f	2023-09-05T19:15:13Z
 src/Paths.ts	f	2023-09-03T17:56:33Z
 src/Persistence.ts	f	2023-08-22T05:29:00Z
@@ -74,11 +74,11 @@ src/widgets/Hamburger.tsx	f	2023-08-22T05:35:43Z
 src/widgets/Help.tsx	f	2023-08-20T12:33:35Z
 src/widgets/IndexSelector.tsx	f	2023-09-03T17:56:33Z
 src/widgets/Loader.tsx	f	2023-09-04T18:57:25Z
-src/widgets/Menu.tsx	f	2023-09-05T19:43:41Z
+src/widgets/Menu.tsx	f	2023-09-06T14:50:39Z
 src/widgets/NavigatingRootMenu.tsx	f	2023-09-03T06:04:35Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-09-03T17:43:07Z
-src/widgets/SearchControls.tsx	f	2023-09-05T19:43:41Z
+src/widgets/SearchControls.tsx	f	2023-09-06T15:00:03Z
 src/widgets/SearchResults.tsx	f	2023-09-06T12:14:45Z
 src/widgets/SongBody.tsx	f	2023-09-03T17:56:33Z
 src/widgets/Song.tsx	f	2023-09-03T20:36:02Z
