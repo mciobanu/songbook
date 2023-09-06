@@ -1,4 +1,5 @@
-import {removeChords} from '../Song';
+import {removeChords, Song} from '../Song';
+import {arraysAreEqual} from '../Utils';
 
 export function replaceDiacritics(text: string): string {  //ttt1: Romanian-specific
     let res = text;
@@ -46,4 +47,20 @@ const searchIndex = new Map<string, SearchEntry>();
 
 export function getSearchIndex(): Map<string, SearchEntry> {
     return searchIndex;
+}
+
+export function getTitleSearchInfo(song: Song): string {
+    let res = song.t;
+    const performer = song.p;
+    const lyricist = song.l;
+    if (performer) {
+        if (lyricist && !arraysAreEqual(lyricist, performer)) {
+            res += ` (${performer} / ${lyricist})`;
+        } else {
+            res += ` (${performer})`;
+        }
+    } else if (lyricist) {
+        res += ` (${lyricist})`;
+    }
+    return res;
 }

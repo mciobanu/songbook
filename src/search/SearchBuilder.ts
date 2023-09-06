@@ -1,13 +1,18 @@
 import {removeChords, Song} from '../Song';
 import {
-    DISCARD_LIMIT, getSearchIndex, MIN_WORD_SIZE, prepareForSearch, replaceDiacritics, SearchEntry, setAllWords,
+    DISCARD_LIMIT,
+    getSearchIndex,
+    getTitleSearchInfo,
+    MIN_WORD_SIZE,
+    prepareForSearch,
+    replaceDiacritics,
+    setAllWords,
 } from './SearchUtils';
 
 
 function isLowercaseAsciiLetter(c: string) {
     return c >= 'a' && c <= 'z';
 }
-
 
 
 function indexWord(word: string, songNo: number, stanzaNo: number, verseNo: number, start: number, end: number) {
@@ -38,7 +43,7 @@ function indexWord(word: string, songNo: number, stanzaNo: number, verseNo: numb
         };
     }
     ++entry.count;
-    if (entry.count === DISCARD_LIMIT) {
+    if (entry.count === DISCARD_LIMIT) {   //ttt1: Don't use the total count, but the song count
         //console.log(`discarding ${word1}`);
         entry.matches = null; // word1 is too frequent
     }
@@ -54,7 +59,7 @@ function indexLine(line: string, songNo: number, stanzaNo: number, verseNo: numb
     //console.log(line2);
     let k = 0;
     let i = 0;
-    const line2 = `${removeChords(line)} `; //!!! with " " we assure regular processing for the last word
+    const line2 = `${removeChords(line)} `; //!!! by ending with " ", we assure regular processing for the last word
     let dashPos: number[] | null = null;
     while (i < line2.length) {
         if (line2[i] === '-') {
@@ -84,29 +89,12 @@ function indexLine(line: string, songNo: number, stanzaNo: number, verseNo: numb
 }
 
 
-function getInfoByTitle(song: Song): string {
-    let res = song.t;
-    const performer = song.p;
-    const lyricist = song.l;
-    if (performer) {
-        if (lyricist && lyricist !== performer) {
-            res += ` (${performer} / ${lyricist})`;
-        } else {
-            res += ` (${performer})`;
-        }
-    } else if (lyricist) {
-        res += ` (${lyricist})`;
-    }
-    return res;
-}
-
-
 export function indexAll(songsUnsorted: Song[]) { //ttt0: This should be called at build to generate code and avoid a costly indexing at each start
     let songNo = 0;  //ttt9: Double check that this has the same value as i
     for (let i = 0; i < songsUnsorted.length; ++i) {
         //console.log(getInfoByTitle(songsUnsorted[i]));
         const song = songsUnsorted[i];
-        indexLine(getInfoByTitle(songsUnsorted[i]), songNo, -1, -1);
+        indexLine(getTitleSearchInfo(songsUnsorted[i]), songNo, -1, -1);
         for (let st = 0; st < song.b.length; ++st) {
             const stanza = song.b[st];
             const verses = stanza.v;

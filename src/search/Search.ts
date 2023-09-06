@@ -1,7 +1,15 @@
 import {
-    getAllWords, getSearchIndex, MIN_WORD_SIZE, prepareForSearch,
+    getAllWords,
+    getSearchIndex,
+    getTitleSearchInfo,
+    MIN_WORD_SIZE,
+    prepareForSearch,
 } from './SearchUtils';
+
 import {getLast} from '../Utils';
+import {getSortedSongs} from '../SongCollections';
+import {SortType} from '../Common';
+import {removeChords, Song} from '../Song';
 
 
 const MAX_WORD_MATCHES = 20;
@@ -12,8 +20,8 @@ const EXP_BASE = 4;
 //DISCARD_LIMIT_EXP = DISCARD_LIMIT;
 
 type SimpleLineMatch = {
-    stanza: number,
-    verse: number,
+    stanzaNo: number,
+    verseNo: number,
     start: number,
     end: number,
 }
@@ -44,8 +52,8 @@ function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //tt
         const k4 = match.indexOf('#', k3 + 1);
         const song = parseInt(match.substring(0, k1), 10);
         const lineMatch: SimpleLineMatch = {
-            stanza: parseInt(match.substring(k1 + 1, k2), 10),
-            verse: parseInt(match.substring(k2 + 1, k3), 10),
+            stanzaNo: parseInt(match.substring(k1 + 1, k2), 10),
+            verseNo: parseInt(match.substring(k2 + 1, k3), 10),
             start: parseInt(match.substring(k3 + 1, k4), 10),
             end: parseInt(match.substring(k4 + 1), 10),
         };
@@ -54,7 +62,7 @@ function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //tt
                 song,
                 word, //!!! debug-only
                 matches: [],
-                score: -1,
+                score: -1, // a default that will be recomputed below
             });
         }
         getLast(res).matches.push(lineMatch);
@@ -209,7 +217,7 @@ function searchWord(word: string): SimpleSearchResultEntry[] | null { //ttt9: re
 function overlapExists(matches: SimpleLineMatch[], match: SimpleLineMatch) {
     for (let i = 0; i < matches.length; ++i) {
         const m = matches[i];
-        if (m.stanza === match.stanza && m.verse === match.verse) {
+        if (m.stanzaNo === match.stanzaNo && m.verseNo === match.verseNo) {
             if (m.start <= match.start) {
                 if (m.end >= match.start) {
                     return true;
@@ -280,25 +288,52 @@ function searchTerms(terms: string): SimpleSearchResult {
     return res;
 }
 
-type LineMatch = {
-    stanza: number,
-    verse: number,
+
+export type VerseMatchEntry = {
+    plain: string,
+    highlight: string,
+}
+
+/**
+ * Used for both title and verses. When use for title, the matches array is empty, unless the title itself is a match.
+ *
+ * A verse is made by joining plain, highlight, plain, highlight, ... , plain, highlight, plainEnd.
+ */
+export type SearchMatch = {
+    matches: VerseMatchEntry[],
+    plainEnd: string,
+    dbg: { // just for tests
+        stanzaNo: number,
+        verseNo: number,
+    }
+}
+
+/*export type TitleMatchEntry = {
+    plain: string,
+    highlight: string,
+}*/
+
+export type SearchResultEntry = {
+    songNo: number, // 0-based
+    titleMatch: SearchMatch,
+    //titlePlainEnd: string,
+    word: string, //!!! debug-only
+    score: number,
+    verseMatches: SearchMatch[],
+}
+
+export type SearchResult = {
+    entries: SearchResultEntry[],
+    ignored: string[],
+}
+
+type InternalMatch = {
+    stanzaNo: number,
+    verseNo: number,
     intervals: {
         start: number,
         end: number,
     }[],
-}
-
-type SearchResultEntry = {
-    song: number,
-    word: string, //!!! debug-only
-    score: number,
-    matches: LineMatch[],
-}
-
-type SearchResult = {
-    entries: SearchResultEntry[],
-    ignored: string[],
 }
 
 /**
@@ -319,13 +354,14 @@ export function searchTermsAndMerge(terms: string): SearchResult {
         return res;
     }
     for (let i = 0; i < s.entries.length; ++i) {
-        const song = s.entries[i];
+        const song = s.entries[i];   //ttt0: rename, and song1 below
+        const song1 = getSortedSongs(SortType.position)[song.song].song;
         song.matches.sort((x, y) => {
-            if (x.stanza !== y.stanza) {
-                return x.stanza - y.stanza;
+            if (x.stanzaNo !== y.stanzaNo) {
+                return x.stanzaNo - y.stanzaNo;
             }
-            if (x.verse !== y.verse) {
-                return x.verse - y.verse;
+            if (x.verseNo !== y.verseNo) {
+                return x.verseNo - y.verseNo;
             }
             if (x.start !== y.start) {
                 return x.start - y.start;
@@ -333,51 +369,96 @@ export function searchTermsAndMerge(terms: string): SearchResult {
             return x.end - y.end;
         });
 
-        const r = {
-            song: song.song,
+        const r: SearchResultEntry = {
+            //song: song.song,
+            songNo: (song1.index || 0) - 1, // we want songNo to be 0-based
+            titleMatch: {
+                plainEnd: '',
+                matches: [],
+                dbg: {
+                    stanzaNo: -1,
+                    verseNo: -1,
+                },
+            },
+            //titlePlainEnd: '',
             word: song.word,
             score: song.score,
-            matches: [{
+            verseMatches: [],
+            /*matches: [{
                 stanza: song.matches[0].stanza,
                 verse: song.matches[0].verse,
                 intervals: [{
                     start: song.matches[0].start,
                     end: song.matches[0].end,
                 }],
-            }],
+            }],*/
         };
         res.entries.push(r);
 
-        for (let j = 1; j < song.matches.length; ++j) {
+        const title = getTitleSearchInfo(song1);
+        /*let crtMatch: number = 0;
+        if (song.matches[0].stanzaNo === -1) {
+            // At least 1 match in title
+        } else {
+            r.titlePlainEnd = title;
+        }
+        const firstMatch = song.matches[0];
+        if (firstMatch.stanzaNo === -1) {
+            // the title is a match
+            crtMatch = 1;
+            while (crtMatch < song.matches.length && song.matches[crtMatch].stanzaNo === -1) {
+
+            }
+            r.titleStart = title.substring(0, firstMatch.start);
+            r.titleHighlight = title.substring(firstMatch.start, firstMatch.end);
+            r.titleEnd = title.substring(firstMatch.end);
+        } else {
+            crtMatch = 0;
+
+        }*/
+
+        let internalMatch: InternalMatch = {
+            stanzaNo: -2,
+            verseNo: -2,
+            intervals: [],
+        };
+
+        for (let j = 0; j < song.matches.length; ++j) {
             const m = song.matches[j];
-            const lastMatch = getLast(r.matches);
-            if (m.stanza === lastMatch.stanza && m.verse === lastMatch.verse) {
-                // need to merge
-                const lastInterval = getLast(lastMatch.intervals);
+            //const internalMatch = getLast(r.matches);
+            if (m.stanzaNo === internalMatch.stanzaNo && m.verseNo === internalMatch.verseNo) {
+                // need to merge; keep in mind that we searched for multiple terms
+                const lastInterval = getLast(internalMatch.intervals);
                 if (m.start <= lastInterval.end) {
                     // maybe extend previous
                     if (m.end > lastInterval.end) {
                         lastInterval.end = m.end;
                     } else {
-                        //!!! nothing, m is inside lastInterval
+                        //!!! nothing; m is inside lastInterval
                     }
                 } else {
-                    lastMatch.intervals.push({
+                    internalMatch.intervals.push({
                         start: m.start,
                         end: m.end,
                     });
                 }
             } else {
-                const newMatch = {
-                    stanza: m.stanza,
-                    verse: m.verse,
+                addMatch(r, song1, title, internalMatch); // this gets called with an empty list the first time, which is fine
+                internalMatch = {
+                    stanzaNo: m.stanzaNo,
+                    verseNo: m.verseNo,
                     intervals: [{
                         start: m.start,
                         end: m.end,
                     }],
                 };
-                r.matches.push(newMatch);
             }
+        }
+        addMatch(r, song1, title, internalMatch);
+
+        if (!r.titleMatch.plainEnd) {
+            // There was no match for the title; set it now
+            r.titleMatch.plainEnd = title;
         }
     }
 
@@ -385,4 +466,59 @@ export function searchTermsAndMerge(terms: string): SearchResult {
 
     //console.log("searchTermsAndMerge(" + terms + "): " + JSON.stringify(res, null, 4));
     return res;
+}
+
+
+function addMatch(entry: SearchResultEntry, song: Song, songTitle: string, internalMatch: InternalMatch) {
+    if (internalMatch.stanzaNo === -2) {
+        // The "previous" variable (internalMatch) gets initialized with <-2, -2, []>, and this is what we end up
+        // with here at the first match
+        return;
+    }
+    if (internalMatch.stanzaNo === -1) {
+        addTitleMatch(entry, songTitle, internalMatch);
+    } else {
+        addVerseMatch(entry, song, internalMatch);
+    }
+}
+
+function addTitleMatch(entry: SearchResultEntry, songTitle: string, internalTitleMatch: InternalMatch) {
+    // eslint-disable-next-line no-param-reassign
+    entry.titleMatch = buildSearchMatch(songTitle, internalTitleMatch);
+}
+
+function addVerseMatch(entry: SearchResultEntry, song: Song, internalVerseMatch: InternalMatch) {
+    if (!internalVerseMatch.intervals.length) {
+        return;
+    }
+
+    const stanza = song.b[internalVerseMatch.stanzaNo];
+    if (!stanza.v) {
+        throw Error(`Internal error: Trying to add search results for song with empty stanza ${song.t}`);
+    }
+
+    let verse = stanza.v[internalVerseMatch.verseNo];
+    verse = removeChords(verse);
+
+    entry.verseMatches.push(buildSearchMatch(verse, internalVerseMatch));
+}
+
+function buildSearchMatch(verse: string, internalVerseMatch: InternalMatch): SearchMatch {
+    const verseMatch: SearchMatch = {
+        matches: [],
+        plainEnd: verse.substring(getLast(internalVerseMatch.intervals).end)
+            .replace(/[.,;-]$/, ''), // get rid of ending punctuation marks
+        dbg: {
+            stanzaNo: internalVerseMatch.stanzaNo,
+            verseNo: internalVerseMatch.verseNo,
+        },
+    };
+    verseMatch.matches = internalVerseMatch.intervals.map((interval, index) => {
+        const verseMatchEntry: VerseMatchEntry = {
+            plain: verse.substring(index === 0 ? 0 : internalVerseMatch.intervals[index - 1].end, interval.start),
+            highlight: verse.substring(interval.start, interval.end),
+        };
+        return verseMatchEntry;
+    });
+    return verseMatch;
 }

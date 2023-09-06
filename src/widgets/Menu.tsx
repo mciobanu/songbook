@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../css/Menu.css';
 import {FontConfiguratorWidget} from './FontConfigurator';
-import {SearchWidget} from './Search';
+import {SearchControlsWidget} from './SearchControls';
 import {GoToWidget} from './GoTo';
 import {IndexSelectorWidget} from './IndexSelector';
 import {ChordConfigWidget} from './ChordConfig';
@@ -28,7 +28,7 @@ const MenuWidget2 = ({
     sortType: SortType | undefined,
 }) => {
     return (<div>
-        <SearchWidget />
+        <SearchControlsWidget />
         <hr className="menuHr" />
         <IndexSelectorWidget sortType={sortType}/>
         <hr className="menuHr" />

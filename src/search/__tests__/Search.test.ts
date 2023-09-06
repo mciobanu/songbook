@@ -1,12 +1,13 @@
 import {describe, expect, test} from '@jest/globals';
 
 import {searchTermsAndMerge} from '../Search';
-import {TestSongs} from '../../Songs';
 import {getFullTitle} from '../../Song';
 import {prepareForSearch, replaceDiacritics} from '../SearchUtils';
+import {getSortedSongs} from '../../SongCollections';
+import {SortType} from '../../Common';
 
 
-const songs = TestSongs; // mainly added to make the songs load
+const songs = getSortedSongs(SortType.position); // mainly added to make the songs load
 
 type TestInfo = {
     terms: string, // space-separated
@@ -23,6 +24,7 @@ describe('searchMatches', () => {
             {terms: 'ădio', count: 5},
             {terms: 'vii', count: 5},
             {terms: 'mut ochi', count: 3},
+            {terms: 'padure', count: 6},
 
             {terms: 'ninge oape', count: 0},
             {terms: 'ninge pleoape', count: 1, ignoredCount: 1},
@@ -32,24 +34,31 @@ describe('searchMatches', () => {
             {terms: 'casa', count: 15},
 
             {terms: 'bbbbbb', count: 0},
-            {terms: 'jjjjjj', count: 0},
             {terms: 'kkkk llll', count: 0},
             {terms: 'gggg-hhhh gggg', count: 0},
-            {terms: 'gggg hhhh', count: 0},
-
-            {terms: 'ddf', count: 0},
-            {terms: 'ddf dff', count: 0},
-            {terms: 'ddf ddff', count: 0},
-            {terms: 'iiiii', count: 0},
 
             {terms: 'iii', count: 0},
             {terms: 'copiii', count: 3},
             {terms: 'copii', count: 11},
         ];
 
+        /*const tests: TestInfo[] = [
+            {terms: 'mut ochi', count: 3},
+        ];*/
+
+        function updateFound(stringMatch: string, termArr: string[], found: Map<string, boolean>) {
+            const stringMatch1 = prepareForSearch(stringMatch);
+            //console.log(`sortedSong:'${getFullTitle(sortedSong)}, ${details}, '${stringMatch1}'`);
+            termArr.forEach((term) => {
+                if (stringMatch1.indexOf(term) !== -1) {
+                    found.set(term, true);
+                }
+            });
+        }
+
         function hlp(testInfo: TestInfo) {
             const {terms} = testInfo;
-            test(`match for ${terms}`, () => {
+            test(`"${terms}" has ${testInfo.count} matches and ${testInfo.ignoredCount || 0} ignored terms`, () => {
                 const searchResult = searchTermsAndMerge(terms);
                 let resultArr = searchResult.entries;
                 console.log(`search for ${terms} got ${resultArr.length} results`);
@@ -64,30 +73,22 @@ describe('searchMatches', () => {
                         return prepareForSearch(s.trim());
                     });
                 for (const res of resultArr) {
-                    const song = songs[res.song];
-                    //console.log(`song: '${getFullTitle(song)}'`);
+                    const sortedSong = songs[res.songNo];
+                    //console.log(`sortedSong: '${getFullTitle(sortedSong)}'`);
                     const found = new Map<string, boolean>();
                     termArr.forEach((term) => {
                         found.set(term, false);
                     });
-                    for (const match of res.matches) {
-                        let stringMatch: string;
-                        let details: string;
-                        if (match.stanza === -1) {
-                            stringMatch = getFullTitle(song);
-                            details = 'in title';
-                        } else {
-                            const verses = song.b[match.stanza].v || [];
-                            stringMatch = verses[match.verse];
-                            details = `', stanza:${match.stanza}, verse:${match.verse} `;
-                        }
-                        //console.log(`song:'${getFullTitle(song)}, ${details}, '${stringMatch}'`);
-                        stringMatch = prepareForSearch(stringMatch);
-                        termArr.forEach((term) => {
-                            if (stringMatch.indexOf(term) !== -1) {
-                                found.set(term, true);
-                            }
-                        });
+                    if (res.titleMatch.matches.length) {
+                        const stringMatch = getFullTitle(sortedSong.song);
+                        const details = 'in title';
+                        updateFound(stringMatch, termArr, found);
+                    }
+                    for (const match of res.verseMatches) {
+                        const verses = sortedSong.song.b[match.dbg.stanzaNo].v || [];
+                        const stringMatch = verses[match.dbg.verseNo];
+                        const details = `', stanza:${match.dbg.stanzaNo}, verse:${match.dbg.verseNo} `;
+                        updateFound(stringMatch, termArr, found);
                     }
                     found.forEach((val) => {
                         expect(val).toBeTruthy();

@@ -116,7 +116,7 @@ const RouteDefinition = ({
                     setSongRenderConfig={setSongRenderConfig} setCapoCbBVal={setCapoCbBVal}
                     optionallyHideMenu={optionallyHideMenu} miscConfig={miscConfig}/>}/>
 
-                <Route path={Paths.search} element={<SearchPage
+                <Route path={`${Paths.search}/:searchTerms`} element={<SearchPage
                     expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                     songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
                     optionallyHideMenu={optionallyHideMenu}/>}/>
