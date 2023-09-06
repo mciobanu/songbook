@@ -46,11 +46,12 @@ export const IndexPage = ({
     persistLastPath(window.location.pathname);
     const songs = getSortedSongs(sortType);
     return (
-        <div onClick={optionallyHideMenu}>
+        <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
             <p className="songTitle genericTitle">{getIndexPageTitle(sortType)}</p>
             {render(songs, sortType)}
+            <div className='bottomDiv'/>
         </div>
     );
 };

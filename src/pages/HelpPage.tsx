@@ -20,10 +20,11 @@ export const HelpPage = ({
     optionallyHideMenu: () => void,
 }) => {
     return (
-        <div onClick={optionallyHideMenu}>
+        <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
             <p className="songTitle genericTitle">HelpPage</p>
+            <div className='bottomDiv'/>
         </div>
     );
 };

@@ -39,13 +39,14 @@ export const SearchPage = ({
     }, [searchTerms]);
 
     return (
-        <div onClick={optionallyHideMenu}>
+        <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
             <p className="songTitle genericTitle">Căutare</p>  {/*ttt1: same as edit placeholder */}
             <SearchControlsWidget initialSearchTerms={searchTerms || ''}/>
             <hr className='searchSeparator'/>
             <SearchResultsWidget searchResult={searchResult} searchTerms={searchTerms || ''}/>
+            <div className='bottomDiv'/>
         </div>
     );
 };

@@ -67,13 +67,14 @@ export const SongPage = ({
     };
 
     return (
-        <div onClick={optionallyHideMenu}>
+        <div className='mainDiv' onClick={optionallyHideMenu}>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
             <p className="songTitle">{getTitle()}</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
                 setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig}/>
+            <div className='bottomDiv'/>
         </div>
     );
 };

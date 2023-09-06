@@ -161,6 +161,17 @@ text-indent: 0rem;
     padding-top: 2.7rem;
 }
 
+/* mainDiv and bottomDiv make it possible to click at the bottom of short pages and close the menu; ttt1 test on other / older browsers */
+.mainDiv {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.bottomDiv {
+    flex-grow: 1;  /* makes the second div expand */
+    /*background-color: lightpink;*/
+}
 
 .songTitle {
     font-size: 1.2rem;
