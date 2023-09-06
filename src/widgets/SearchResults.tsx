@@ -16,8 +16,10 @@ export const SearchResultsWidget = ({
 
     const formatMatch = React.useCallback((searchMatch: SearchMatch) => {
         return <>
-            {searchMatch.matches.map((match) => {
-                return <><span>{match.plain}</span><span className='searchMatch'>{match.highlight}</span></>;
+            {searchMatch.matches.map((match, index) => {
+                return <span key={index}>
+                    <span>{match.plain}</span><span className='searchMatch'>{match.highlight}</span>
+                </span>;
             })}
             <span>{searchMatch.plainEnd}</span>
         </>;
@@ -28,7 +30,7 @@ export const SearchResultsWidget = ({
             return <p className='searchResult' key={index}>
                 <a href={`${Paths.songByPosition}/${entry.songNo + 1}`}><i>{formatMatch(entry.titleMatch)}</i></a>
                 {!!entry.verseMatches.length && entry.verseMatches.map((match, index1) => {
-                    return <>{index1 === 0 ? ' - ' : ' [...] '} {formatMatch(match)}</>;
+                    return <span key={index1}>{index1 === 0 ? ' - ' : ' [...] '} {formatMatch(match)}</span>;
                 })}
             </p>;
         });
