@@ -35,19 +35,22 @@ export const SearchResultsWidget = ({
     }, [formatMatch, searchResult.entries]);
 
     function getResultsText() {
-        let res = `Căutarea după “${searchTerms}” a găsit ${searchResult.entries.length}`
-        + ` rezultat${searchResult.entries.length === 1 ? '' : 'e'}.`;
-        if (searchResult.ignored.length) {
-            const ignoredList = searchResult.ignored.map((s) => {
-                return `“${s}”`;
-            }).join(', ');
-            res += ` Cuvinte ignorate deoarece apar prea des: ${ignoredList}.`;
+        return `Căutarea după “${searchTerms}” a găsit ${searchResult.entries.length}`
+                + ` rezultat${searchResult.entries.length === 1 ? '' : 'e'}.`;
+    }
+
+    function getWarningText() {
+        if (!searchResult.ignored.length) {
+            return null;
         }
-        return res;
+        const ignoredList = searchResult.ignored.map((s) => {
+            return `“${s}”`;
+        }).join(', ');
+        return <span className='searchWarning'> Cuvinte ignorate deoarece apar prea des în text: {ignoredList}.</span>;
     }
 
     return (<>
-        <p className='searchSummary'>{getResultsText()}</p>
+        <p className='searchSummary'>{getResultsText()} {getWarningText()}</p>
         {songList}
     </>);
     //ttt0: In JS there was a escapeHtml() around searchTerms. See if needed, probably by searching for "&lt;" or similar and comparing with JS

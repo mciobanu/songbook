@@ -110,6 +110,11 @@ text-indent: 0rem;
     background: #ee7;
 }
 
+.searchWarning {
+    /*background: #ddc;*/
+    background: #ea7;
+}
+
 
 .songNormalVerse, .songNote, .songLastVerse, .searchResult, .searchSummary {
     padding-left: 2.2rem;

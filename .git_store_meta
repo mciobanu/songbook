@@ -25,7 +25,7 @@ src/Common.ts	f	2023-09-04T10:23:06Z
 src/css/Menu.css	f	2023-09-03T17:34:03Z
 src/index.css	f	2023-08-19T07:21:22Z
 src/index.tsx	f	2023-09-03T15:31:20Z
-src/legacy.css	f	2023-09-06T11:49:53Z
+src/legacy.css	f	2023-09-06T15:07:24Z
 src/logo.svg	f	2023-08-19T07:21:22Z
 src/MiscConfig.ts	f	2023-09-03T20:32:55Z
 src/pages/HelpPage.tsx	f	2023-09-04T18:44:23Z
@@ -79,7 +79,7 @@ src/widgets/NavigatingRootMenu.tsx	f	2023-09-03T06:04:35Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-09-03T17:43:07Z
 src/widgets/SearchControls.tsx	f	2023-09-06T15:00:03Z
-src/widgets/SearchResults.tsx	f	2023-09-06T12:14:45Z
+src/widgets/SearchResults.tsx	f	2023-09-06T15:17:37Z
 src/widgets/SongBody.tsx	f	2023-09-03T17:56:33Z
 src/widgets/Song.tsx	f	2023-09-03T20:36:02Z
 tests/Tests.md	f	2023-08-27T20:01:25Z
