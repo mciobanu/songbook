@@ -24,7 +24,10 @@ type SimpleLineMatch = {
     end: number,
 }
 
-type SimpleSearchResultEntry = {
+/**
+ * Whole or partial word
+ */
+type WordSearchResultEntry = {
     song: number,
     word: string, //!!! debug-only
     score: number,
@@ -32,14 +35,14 @@ type SimpleSearchResultEntry = {
 }
 
 // expects a "prepared" word: lowercase, non-alpha removed ...
-function searchWholeWord(word: string): SimpleSearchResultEntry[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
+function searchWholeWord(word: string): WordSearchResultEntry[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
     const searchIndex = getSearchIndex();
     const entry = searchIndex.get(word);
     if (!entry || !entry.matches /*|| word.length < MIN_WORD_SIZE*/) { //!!! no need to check MIN_WORD_SIZE, because these words don't get indexed anyway
         //console.log("searchWholeWord(" + word + "): null");
         return null;
     }
-    const res: SimpleSearchResultEntry[] = [];
+    const res: WordSearchResultEntry[] = [];
     //const prevFmtMatch = null;
     for (let i = 0; i < entry.matches.length; ++i) {
         const match = entry.matches[i];
@@ -95,7 +98,7 @@ type PossibleMatch = {
  * empty array if the word is valid and no matches were found;
  * null if the word is ignored;  //ttt1: Perhaps improve
  */
-function searchWord(word: string): SimpleSearchResultEntry[] | null { //ttt9: rename "SearchWholeWordResult"
+function searchWord(word: string): WordSearchResultEntry[] | null {
     const word1 = prepareForSearch(word);
     const searchIndex = getSearchIndex();
     if (!word1 || word1.length < MIN_WORD_SIZE || (searchIndex.get(word1) && !searchIndex.get(word1)?.matches)) { // !!! don't try to see where a short word might be a substring, and don't try to find unindexed substrings of indexed ones
@@ -132,8 +135,8 @@ function searchWord(word: string): SimpleSearchResultEntry[] | null { //ttt9: re
     let crtWorstScore = 1.0; // with these we make sure all scores for a smaller sizeDiff are better than the ones for a larger sizeDiff
 
     let gotNotIndexed = false;
-    let res: SimpleSearchResultEntry[] | null = [];
-    const resMap = new Map<number, SimpleSearchResultEntry>();
+    let res: WordSearchResultEntry[] | null = [];
+    const resMap = new Map<number, WordSearchResultEntry>();
     for (let i = 0; i < possibleMatches.length; ++i) {
         if (res.length >= MAX_WORD_MATCHES && possibleMatches[i].sizeDiff !== lastDiff) {
             break;
@@ -141,7 +144,7 @@ function searchWord(word: string): SimpleSearchResultEntry[] | null { //ttt9: re
         if (lastDiff !== possibleMatches[i].sizeDiff) {
             //crtWorstScore *= 1 - Math.pow(EXP_BASE, lastDiff - possibleMatches[i].sizeDiff);
             for (let j = 0; j < possibleMatches[i].sizeDiff - lastDiff; ++j) {
-                crtWorstScore *= 1 - EXP_BASE ** -1; //ttt9: see if there's any reason not to use "1/EXP_BASE"
+                crtWorstScore *= 1 - EXP_BASE ** -1; // while "1/EXP_BASE" has the same value, the exponent could be changed later, hence using this more generic form
             }
             lastDiff = possibleMatches[i].sizeDiff;
             //crtWorstScore *= 0.9;
@@ -205,7 +208,7 @@ function overlapExists(matches: SimpleLineMatch[], match: SimpleLineMatch) {
 
 
 type SimpleSearchResult = {
-    entries: SimpleSearchResultEntry[],
+    entries: WordSearchResultEntry[],
     ignored: string[],
 }
 
@@ -216,7 +219,7 @@ function searchTerms(terms: string): SimpleSearchResult {
         ignored: [],
     };
     // eslint-disable-next-line no-undef-init
-    let entries: SimpleSearchResultEntry[] | undefined = undefined; //!!! The previous line ("eslint-disable") is needed. Without
+    let entries: WordSearchResultEntry[] | undefined = undefined; //!!! The previous line ("eslint-disable") is needed. Without
     // this unnecessary "=undefined", there will be many warnings down below about the variable not being initialized
     let k = 0;
     let h = 0;
@@ -233,7 +236,7 @@ function searchTerms(terms: string): SimpleSearchResult {
                 entries = r;
             } else {
                 // combine results
-                const merged: SimpleSearchResultEntry[] = [];
+                const merged: WordSearchResultEntry[] = [];
                 for (let i = 0; i < entries.length; ++i) {
                     let j = 0;
                     for (; j < r.length; ++j) {
@@ -280,11 +283,6 @@ export type SearchMatch = {
         verseNo: number,
     }
 }
-
-/*export type TitleMatchEntry = {
-    plain: string,
-    highlight: string,
-}*/
 
 export type SearchResultEntry = {
     songNo: number, // 0-based
@@ -343,7 +341,6 @@ export function searchTermsAndMerge(terms: string): SearchResult {
         });
 
         const r: SearchResultEntry = {
-            //song: song.song,
             songNo: (song1.index || 0) - 1, // we want songNo to be 0-based
             titleMatch: {
                 plainEnd: '',
@@ -353,42 +350,13 @@ export function searchTermsAndMerge(terms: string): SearchResult {
                     verseNo: -1,
                 },
             },
-            //titlePlainEnd: '',
             word: song.word,
             score: song.score,
             verseMatches: [],
-            /*matches: [{
-                stanza: song.matches[0].stanza,
-                verse: song.matches[0].verse,
-                intervals: [{
-                    start: song.matches[0].start,
-                    end: song.matches[0].end,
-                }],
-            }],*/
         };
         res.entries.push(r);
 
         const title = getTitleSearchInfo(song1);
-        /*let crtMatch: number = 0;
-        if (song.matches[0].stanzaNo === -1) {
-            // At least 1 match in title
-        } else {
-            r.titlePlainEnd = title;
-        }
-        const firstMatch = song.matches[0];
-        if (firstMatch.stanzaNo === -1) {
-            // the title is a match
-            crtMatch = 1;
-            while (crtMatch < song.matches.length && song.matches[crtMatch].stanzaNo === -1) {
-
-            }
-            r.titleStart = title.substring(0, firstMatch.start);
-            r.titleHighlight = title.substring(firstMatch.start, firstMatch.end);
-            r.titleEnd = title.substring(firstMatch.end);
-        } else {
-            crtMatch = 0;
-
-        }*/
 
         let internalMatch: InternalMatch = {
             stanzaNo: -2,

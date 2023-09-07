@@ -50,3 +50,6 @@ export const SearchPage = ({
         </div>
     );
 };
+
+//!!!: When going to "http://suse-main2:3000/search" (no search term), it gets redirected to the home page, most
+// likely because there is a parameter in `${Paths.search}/:searchTerms`

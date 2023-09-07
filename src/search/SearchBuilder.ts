@@ -89,12 +89,11 @@ function indexLine(line: string, songNo: number, stanzaNo: number, verseNo: numb
 }
 
 
-export function indexAll(songsUnsorted: Song[]) { //ttt0: This should be called at build to generate code and avoid a costly indexing at each start
-    let songNo = 0;  //ttt9: Double check that this has the same value as i
-    for (let i = 0; i < songsUnsorted.length; ++i) {
+export function indexAll(songsUnsorted: Song[]) { //ttt3: This could be called at build to generate code and avoid the cost of indexing at each start, but that takes 40ms, so no need
+    for (let songNo = 0; songNo < songsUnsorted.length; ++songNo) {
         //console.log(getInfoByTitle(songsUnsorted[i]));
-        const song = songsUnsorted[i];
-        indexLine(getTitleSearchInfo(songsUnsorted[i]), songNo, -1, -1);
+        const song = songsUnsorted[songNo];
+        indexLine(getTitleSearchInfo(songsUnsorted[songNo]), songNo, -1, -1);
         for (let st = 0; st < song.b.length; ++st) {
             const stanza = song.b[st];
             const verses = stanza.v;
@@ -104,18 +103,8 @@ export function indexAll(songsUnsorted: Song[]) { //ttt0: This should be called 
                 }
             }
         }
-        ++songNo;
     }
     let allWords = ' ';
-    /*for (const word in searchIndex) {
-        if (searchIndex.hasOwnProperty(word)) {
-            if (searchIndex[word].matches) {
-                allWords += `${word} `;
-            } else {
-                //console.log("indexAll(): discarded " + word + ": " + searchIndex[word].count);
-            }
-        }
-    }*/
 
     const searchIndex = getSearchIndex();
     searchIndex.forEach((entry, word) => {
@@ -128,8 +117,4 @@ export function indexAll(songsUnsorted: Song[]) { //ttt0: This should be called 
     setAllWords(allWords);
     //console.log(searchIndex);
     //console.log(allWords);
-
-    /*if (typeof inBrowser !== "undefined" && inBrowser) {
-        alert("indexAll() done; song count: " + songsUnsorted.length);
-    }//*/
 }
