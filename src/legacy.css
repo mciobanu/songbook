@@ -32,6 +32,9 @@ hr { /* ttt2 maybe create a class rather than change things globally */
     font-size: 0.9rem;
     padding-left: 0.5rem;
     border: 0;
+    /*https://stackoverflow.com/questions/28732703/how-to-make-flex-div-take-only-the-needed-space*/
+    display: flex;
+    justify-content: flex-start;
 }
 
 .chordTable {
