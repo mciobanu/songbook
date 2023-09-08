@@ -26,9 +26,10 @@
     retrocycle, set, stringify, test
 */
 
-if (typeof JSON.decycle !== "function") {
-    JSON.decycle = function decycle(object, replacer) {
-        "use strict";
+
+export
+/*if (typeof JSON.decycle !== "function") {
+    JSON.decycle =*/ function decycle(object, replacer) {
 
 // Make a deep copy of an object or array, assuring that there is at most
 // one instance of each object or array in the resulting structure. The
@@ -118,12 +119,13 @@ if (typeof JSON.decycle !== "function") {
             }
             return value;
         }(object, "$"));
-    };
-}
+    }/*;
+}*/
 
 
-if (typeof JSON.retrocycle !== "function") {
-    JSON.retrocycle = function retrocycle($) {
+export
+/*if (typeof JSON.retrocycle !== "function") {
+    JSON.retrocycle =*/ function retrocycle($) {
         "use strict";
 
 // Restore an object that was reduced by decycle. Members whose values are
@@ -182,5 +184,6 @@ if (typeof JSON.retrocycle !== "function") {
             }
         }($));
         return $;
-    };
-}
+    }/*;
+}*/
+
