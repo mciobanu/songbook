@@ -19,7 +19,7 @@ public/robots.txt	f	2023-08-19T07:21:22Z
 README.md	f	2023-09-03T17:23:22Z
 src/App.css	f	2023-08-19T07:21:22Z
 src/App.test.tsx	f	2023-08-27T20:02:31Z
-src/App.tsx	f	2023-09-08T06:17:26Z
+src/App.tsx	f	2023-09-08T08:09:14Z
 src/ChordUtils.ts	f	2023-09-04T13:53:34Z
 src/Common.ts	f	2023-09-08T06:02:48Z
 src/css/Menu.css	f	2023-09-03T17:34:03Z
@@ -35,7 +35,7 @@ src/pages/LoaderPage.tsx	f	2023-09-04T18:49:53Z
 src/pages/SearchPage.tsx	f	2023-09-08T06:17:26Z
 src/pages/SongPage.tsx	f	2023-09-08T06:17:26Z
 src/Paths.ts	f	2023-09-06T21:06:47Z
-src/Persistence.ts	f	2023-08-22T05:29:00Z
+src/Persistence.ts	f	2023-09-08T08:06:50Z
 src/react-app-env.d.ts	f	2023-08-19T07:21:28Z
 src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
 src/RouteDefinition.tsx	f	2023-09-08T06:17:26Z
@@ -69,7 +69,7 @@ src/widgets/chords/OriginalSuggestion.tsx	f	2023-09-03T14:36:07Z
 src/widgets/chords/SuggestionList.tsx	f	2023-09-03T14:49:36Z
 src/widgets/chords/__tests__/FirstChordDropdown.test.ts	f	2023-09-04T10:09:47Z
 src/widgets/chords/__tests__/TestCalc02-jest.test.ts	f	2023-08-27T19:34:18Z
-src/widgets/FontConfigurator.tsx	f	2023-09-08T06:23:18Z
+src/widgets/FontConfigurator.tsx	f	2023-09-08T07:55:02Z
 src/widgets/GoTo.tsx	f	2023-09-04T19:08:26Z
 src/widgets/Hamburger.tsx	f	2023-08-22T05:35:43Z
 src/widgets/Help.tsx	f	2023-08-20T12:33:35Z

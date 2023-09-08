@@ -32,3 +32,24 @@ export function persistLastPath(path: string) {
 export function retrieveLastPath(): string | null {
     return localStorage.getItem(lastPathKey);
 }
+
+const fontSizeKey = 'fontSizeKey';
+export const DEFAULT_FONT_SIZE = 16;
+
+export function persistFontSize(fontSize: number) {
+    //console.log(`persisting font size ${fontSize}`);
+    localStorage.setItem(fontSizeKey, String(fontSize));
+}
+
+export function retrieveFontSize(): number {
+    const str = localStorage.getItem(fontSizeKey);
+    if (str) {
+        const res = parseFloat(str);
+        if (Number.isFinite(res) && res < 100 && res > 5) {
+            //console.log(`retrieved font size ${res}`);
+            return res;
+        }
+    }
+    //console.log(`font size retrieval failed; returning default ${DEFAULT_FONT_SIZE}`);
+    return DEFAULT_FONT_SIZE;
+}

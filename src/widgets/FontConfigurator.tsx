@@ -48,9 +48,9 @@ export const FontConfiguratorWidget = ({
         //console.log(event.currentTarget.value);
         const str = event.currentTarget.value;
         if (isMouseDown) {
-            console.log(`MouseDown; won't set value to ${str}`);
+            //console.log(`MouseDown; won't set value to ${str}`);
         } else {
-            console.log(`setting value to ${str}`);
+            //console.log(`setting value to ${str}`);
             setFontSize(computeZoom(parseFloat(str)));
         }
         //

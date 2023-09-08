@@ -38,7 +38,6 @@ const defaultMiscConfig: MiscConfig = {
 function App() {
     const songRenderConfigKey = 'songRenderConfig';
     const miscConfigKey = 'miscConfig';
-    //const lastPathKey = 'lastPath';
 
     const [songNumber, setSongNumber] = React.useState<number>(20);
     const [songRenderConfig, setSongRenderConfig] = React.useState<SongRenderConfig>(() => {
@@ -66,8 +65,21 @@ function App() {
 
     const [capoCbBVal, setCapoCbBVal] = React.useState<string>(AUTO);
 
+    const [fontSize, setFontSize] = React.useState<number>(-1);  // start with -1 so it won't be persisted
+
     const navigate = useNavigate();
 
+    React.useEffect(() => {
+        if (fontSize > 0) {
+            Persistence.persistFontSize(fontSize);
+        } /*else {
+            console.log('not persisting initial font size of -1');
+        }*/
+    }, [fontSize]);
+
+    React.useEffect(() => {
+        setFontSize(Persistence.retrieveFontSize());
+    }, []);
 
     React.useEffect(() => {
         //let c: Element;
