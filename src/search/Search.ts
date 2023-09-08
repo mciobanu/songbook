@@ -35,7 +35,7 @@ type WordSearchResultEntry = {
 }
 
 // expects a "prepared" word: lowercase, non-alpha removed ...
-function searchWholeWord(word: string): WordSearchResultEntry[] | null {  //ttt0: search the code for "| null" and see if "| undefined" might be better
+function searchWholeWord(word: string): WordSearchResultEntry[] | null {  //ttt1: search the code for "| null" and see if "| undefined" might be better
     const searchIndex = getSearchIndex();
     const entry = searchIndex.get(word);
     if (!entry || !entry.matches /*|| word.length < MIN_WORD_SIZE*/) { //!!! no need to check MIN_WORD_SIZE, because these words don't get indexed anyway

@@ -266,3 +266,6 @@ export function getChordSuggestions(chords: string[], songRange: string, voiceRa
 export function getGoodRangeClass(suggestion: Suggestion) {
     return suggestion.outsideRange ? 'outsideRange' : 'insideRange';
 }
+
+//ttt0: A song without chords throws an exception at reload, but not at normal navigation. And, in general: when chords are above
+// the verses, verses without chords aren't rendered

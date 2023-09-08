@@ -41,7 +41,7 @@ src/reportWebVitals.ts	f	2023-08-20T12:38:08Z
 src/RouteDefinition.tsx	f	2023-09-08T06:17:26Z
 src/ScrollToTop.tsx	f	2023-09-03T15:37:16Z
 src/search/SearchBuilder.ts	f	2023-09-07T06:15:44Z
-src/search/Search.ts	f	2023-09-08T08:19:43Z
+src/search/Search.ts	f	2023-09-08T14:59:04Z
 src/search/SearchUtils.ts	f	2023-09-06T11:35:47Z
 src/search/__tests__/Search.test.ts	f	2023-09-06T11:25:58Z
 src/setupTests.ts	f	2023-08-19T07:21:22Z
@@ -49,7 +49,7 @@ src/SongCollections.ts	f	2023-09-03T16:43:31Z
 src/SongRenderConfig.ts	f	2023-09-04T14:44:39Z
 src/Songs.ts	f	2023-09-06T19:59:22Z
 src/Song.ts	f	2023-09-03T17:56:33Z
-src/Suggestions.ts	f	2023-09-08T08:11:43Z
+src/Suggestions.ts	f	2023-09-08T19:56:26Z
 src/__tests__/ChordUtils.test.ts	f	2023-09-04T09:37:33Z
 src/__tests__/Suggestions.test.ts	f	2023-09-04T09:37:33Z
 src/__tests__/Utils.test.ts	f	2023-09-08T08:16:43Z
@@ -67,14 +67,13 @@ src/widgets/chords/Notes.tsx	f	2023-09-01T06:56:29Z
 src/widgets/chords/OriginalSuggestion.tsx	f	2023-09-03T14:36:07Z
 src/widgets/chords/SuggestionList.tsx	f	2023-09-03T14:49:36Z
 src/widgets/chords/__tests__/FirstChordDropdown.test.ts	f	2023-09-04T10:09:47Z
-src/widgets/chords/__tests__/TestCalc02-jest.test.ts	f	2023-08-27T19:34:18Z
 src/widgets/FontConfigurator.tsx	f	2023-09-08T08:11:43Z
 src/widgets/GoTo.tsx	f	2023-09-04T19:08:26Z
 src/widgets/Hamburger.tsx	f	2023-08-22T05:35:43Z
 src/widgets/Help.tsx	f	2023-08-20T12:33:35Z
 src/widgets/IndexSelector.tsx	f	2023-09-03T17:56:33Z
 src/widgets/Loader.tsx	f	2023-09-04T18:57:25Z
-src/widgets/Menu.tsx	f	2023-09-08T11:57:28Z
+src/widgets/Menu.tsx	f	2023-09-08T15:46:41Z
 src/widgets/NavigatingRootMenu.tsx	f	2023-09-08T06:17:26Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-09-08T11:57:28Z

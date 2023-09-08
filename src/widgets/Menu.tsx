@@ -89,3 +89,5 @@ export const NonNavigatingMenuWidget = ({
             sortType={sortType} setExpandedMenu={setExpandedMenu}/>
     </div>);
 };
+
+//ttt0: When using a large font, the menu has no scrollbar
