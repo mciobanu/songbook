@@ -1,3 +1,6 @@
+import * as JSON5 from 'json5';
+import {decycle} from './decycle';
+
 /**
  * Converts a string to an integer value, making sure it stays within given limits.
  * Shows an error message if appropriate
@@ -59,3 +62,17 @@ export function getLast<T>(arr: T[]): T {
     return arr[arr.length - 1];
 }
 
+
+function debugFmtHlp(x: any, multiLine: boolean = false): string {
+    if (Array.isArray(x)) {
+        return `[${x.map((o) => {
+            return debugFmtHlp(o);
+        }).join(', ')}]`;
+    }
+    const x1: any = (x instanceof Map) ? Object.fromEntries(x) : x;
+    return multiLine ? JSON5.stringify(x1, null, 2) : JSON.stringify(x1);
+}
+
+export function debugFmt(x: any, multiLine: boolean = false): string {
+    return debugFmtHlp(decycle(x), multiLine);
+}

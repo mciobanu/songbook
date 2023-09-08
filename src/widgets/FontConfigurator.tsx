@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../legacy.css';
 
-import {debugFmt, ReactSetter2} from '../Common';
+import {ReactSetter2} from '../Common';
 
 const FONT_RANGE_MIN = 4;
 const FONT_RANGE_MAX = 8;

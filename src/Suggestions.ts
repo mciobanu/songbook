@@ -5,7 +5,7 @@ import {
     substituteChords,
 } from './ChordUtils';
 
-import {debugFmt} from './Common';
+import {debugFmt} from './Utils';
 
 export type SuggestionDebug = {
     rangeDiff: number,

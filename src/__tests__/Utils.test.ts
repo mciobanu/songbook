@@ -1,7 +1,6 @@
 import {describe, expect, test} from '@jest/globals';
 
-import {arraysAreEqual} from '../Utils';
-import {debugFmt} from '../Common';
+import {arraysAreEqual, debugFmt} from '../Utils';
 
 
 describe('arraysAreEqual', () => {
@@ -46,6 +45,20 @@ describe('arraysAreEqual', () => {
             expect(result).toBe(false);
         });
     });
+});
+
+
+
+describe('debugFmt general', () => {
+    function hlp(obj: any, expected: string) {
+        test(`debugFmt('${obj}') should return '${expected}'`, () => {
+            const result = debugFmt(obj);
+            expect(result).toBe(expected);
+        });
+    }
+
+    hlp('Am', '"Am"');
+    hlp([1, 2], '[1, 2]');
 });
 
 
