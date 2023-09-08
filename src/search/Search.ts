@@ -325,9 +325,9 @@ export function searchTermsAndMerge(terms: string): SearchResult {
         return res;
     }
     for (let i = 0; i < s.entries.length; ++i) {
-        const song = s.entries[i];   //ttt0: rename, and song1 below
-        const song1 = getSortedSongs(SortType.position)[song.song].song;
-        song.matches.sort((x, y) => {
+        const wordSearchResultEntry = s.entries[i];
+        const {song} = getSortedSongs(SortType.position)[wordSearchResultEntry.song];
+        wordSearchResultEntry.matches.sort((x, y) => {
             if (x.stanzaNo !== y.stanzaNo) {
                 return x.stanzaNo - y.stanzaNo;
             }
@@ -341,7 +341,7 @@ export function searchTermsAndMerge(terms: string): SearchResult {
         });
 
         const r: SearchResultEntry = {
-            songNo: (song1.index || 0) - 1, // we want songNo to be 0-based
+            songNo: (song.index || 0) - 1, // we want songNo to be 0-based
             titleMatch: {
                 plainEnd: '',
                 matches: [],
@@ -350,13 +350,13 @@ export function searchTermsAndMerge(terms: string): SearchResult {
                     verseNo: -1,
                 },
             },
-            word: song.word,
-            score: song.score,
+            word: wordSearchResultEntry.word,
+            score: wordSearchResultEntry.score,
             verseMatches: [],
         };
         res.entries.push(r);
 
-        const title = getTitleSearchInfo(song1);
+        const title = getTitleSearchInfo(song);
 
         let internalMatch: InternalMatch = {
             stanzaNo: -2,
@@ -364,8 +364,8 @@ export function searchTermsAndMerge(terms: string): SearchResult {
             intervals: [],
         };
 
-        for (let j = 0; j < song.matches.length; ++j) {
-            const m = song.matches[j];
+        for (let j = 0; j < wordSearchResultEntry.matches.length; ++j) {
+            const m = wordSearchResultEntry.matches[j];
             //const internalMatch = getLast(r.matches);
             if (m.stanzaNo === internalMatch.stanzaNo && m.verseNo === internalMatch.verseNo) {
                 // need to merge; keep in mind that we searched for multiple terms
@@ -384,7 +384,7 @@ export function searchTermsAndMerge(terms: string): SearchResult {
                     });
                 }
             } else {
-                addMatch(r, song1, title, internalMatch); // this gets called with an empty list the first time, which is fine
+                addMatch(r, song, title, internalMatch); // this gets called with an empty list the first time, which is fine
                 internalMatch = {
                     stanzaNo: m.stanzaNo,
                     verseNo: m.verseNo,
@@ -395,7 +395,7 @@ export function searchTermsAndMerge(terms: string): SearchResult {
                 };
             }
         }
-        addMatch(r, song1, title, internalMatch);
+        addMatch(r, song, title, internalMatch);
 
         if (!r.titleMatch.plainEnd) {
             // There was no match for the title; set it now
