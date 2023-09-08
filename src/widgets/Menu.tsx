@@ -10,11 +10,17 @@ import {SongRenderConfig} from '../SongRenderConfig';
 import {ReactSetter2, SortType} from '../Common';
 
 
-const MenuWidget1 = () => {
+const MenuWidget1 = ({
+    fontSize,
+    setFontSize,
+} : {
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
+}) => {
     return (<div>
-        <hr className="menuHr" />
-        <FontConfiguratorWidget />
-        <hr className="menuHr" />
+        <hr className="menuHr"/>
+        <FontConfiguratorWidget fontSize={fontSize} setFontSize={setFontSize}/>
+        <hr className="menuHr"/>
     </div>);
 };
 
@@ -41,14 +47,18 @@ export const NavigatingMenuWidget = ({
     setSongRenderConfig,
     sortType,
     setExpandedMenu,
+    fontSize,
+    setFontSize,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType,
     setExpandedMenu: ReactSetter2<boolean>,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
     return (<div>
-        <MenuWidget1/>
+        <MenuWidget1 fontSize={fontSize} setFontSize={setFontSize}/>
         <GoToWidget setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
         <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
@@ -59,13 +69,17 @@ export const NonNavigatingMenuWidget = ({
     songRenderConfig,
     setSongRenderConfig,
     sortType,
+    fontSize,
+    setFontSize,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType | undefined,  //!!! Needed so the menu can match the current index. However, the help and search pages don't need it
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
     return (<div>
-        <MenuWidget1/>
+        <MenuWidget1 fontSize={fontSize} setFontSize={setFontSize}/>
         <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
             sortType={sortType}/>
     </div>);

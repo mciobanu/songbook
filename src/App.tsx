@@ -69,6 +69,16 @@ function App() {
     const navigate = useNavigate();
 
 
+    React.useEffect(() => {
+        //let c: Element;
+        //const a = document.body.parentNode;
+        const domRoot = document.querySelector(':root');
+        if (domRoot) {
+            //domRoot as ElementCSSInlineStyle
+            const domRoot1 = domRoot as HTMLElement;
+            domRoot1.style.fontSize = `${fontSize}px`;
+        }
+    }, [fontSize]);
     /*
     This code, together with calls to persistLastPath() in some pages, achieve this: If you go to the root path,
     you get redirected to whatever you were doing before. Kind of messy, as it mixes React with plain functions and
@@ -118,7 +128,7 @@ function App() {
         <RouteDefinition songNumber={songNumber} setSongNumber={setSongNumber} songRenderConfig={songRenderConfig}
             expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu} setSongRenderConfig={setSongRenderConfig}
             capoCbBVal={capoCbBVal} setCapoCbBVal={setCapoCbBVal} optionallyHideMenu={optionallyHideMenu}
-            miscConfig={miscConfig}
+            miscConfig={miscConfig} fontSize={fontSize} setFontSize={setFontSize}
             /*setLastPath={setLastPath}*/
         />
     );

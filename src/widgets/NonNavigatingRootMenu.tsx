@@ -12,12 +12,16 @@ export const NonNavigatingRootMenuWidget = ({
     songRenderConfig,
     setSongRenderConfig,
     sortType,
+    fontSize,
+    setFontSize,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType | undefined,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
 
     // used to prevent clicking on the menu to close the menu
@@ -30,6 +34,7 @@ export const NonNavigatingRootMenuWidget = ({
             <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
         </div>
         {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
-            setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>}
+            setSongRenderConfig={setSongRenderConfig} sortType={sortType} fontSize={fontSize}
+            setFontSize={setFontSize}/>}
     </div>);
 };

@@ -12,17 +12,22 @@ export const HelpPage = ({
     songRenderConfig,
     setSongRenderConfig,
     optionallyHideMenu,
+    fontSize,
+    setFontSize,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     optionallyHideMenu: () => void,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
     return (
         <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
-                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}
+                fontSize={fontSize} setFontSize={setFontSize}/>
             <p className="songTitle genericTitle">HelpPage</p>
             <div className='bottomDiv'/>
         </div>

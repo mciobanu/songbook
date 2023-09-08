@@ -29,6 +29,8 @@ export const SongPage = ({
     setCapoCbBVal,
     optionallyHideMenu,
     miscConfig,
+    fontSize,
+    setFontSize,
 } : {
     sortType: SortType,
     songNumber: number,
@@ -41,6 +43,8 @@ export const SongPage = ({
     setCapoCbBVal: ReactSetter2<string>,
     optionallyHideMenu: () => void,
     miscConfig: MiscConfig,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
 
     persistLastPath(window.location.pathname);
@@ -70,7 +74,8 @@ export const SongPage = ({
         <div className='mainDiv' onClick={optionallyHideMenu}>
             <NavigatingRootMenuWidget songNumber={songNumber} sortType={sortType}
                 expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
-                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}/>
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} fontSize={fontSize}
+                setFontSize={setFontSize}/>
             <p className="songTitle">{getTitle()}</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
                 setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig}/>

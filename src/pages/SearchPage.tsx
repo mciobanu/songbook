@@ -21,12 +21,16 @@ export const SearchPage = ({
     songRenderConfig,
     setSongRenderConfig,
     optionallyHideMenu,
+    fontSize,
+    setFontSize,
 } : {
     expandedMenu: boolean,
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     optionallyHideMenu: () => void,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
     persistLastPath(window.location.pathname);
 
@@ -41,7 +45,8 @@ export const SearchPage = ({
     return (
         <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
-                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}/>
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}
+                fontSize={fontSize} setFontSize={setFontSize}/>
             <p className="songTitle genericTitle">Căutare</p>  {/*ttt1: same as edit placeholder */}
             <SearchControlsWidget initialSearchTerms={searchTerms || ''}/>
             <hr className='searchSeparator'/>

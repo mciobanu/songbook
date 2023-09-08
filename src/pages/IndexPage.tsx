@@ -33,6 +33,8 @@ export const IndexPage = ({
     setSongRenderConfig,
     //setLastPath,
     optionallyHideMenu,
+    fontSize,
+    setFontSize,
 } : {
     sortType: SortType,
     expandedMenu: boolean,
@@ -41,6 +43,8 @@ export const IndexPage = ({
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     //setLastPath: ReactSetter2<string>,
     optionallyHideMenu: () => void,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
     //setLastPath(window.location.pathname);
     persistLastPath(window.location.pathname);
@@ -48,7 +52,8 @@ export const IndexPage = ({
     return (
         <div className='mainDiv' onClick={optionallyHideMenu}>
             <NonNavigatingRootMenuWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}
-                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
+                songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}
+                fontSize={fontSize} setFontSize={setFontSize}/>
             <p className="songTitle genericTitle">{getIndexPageTitle(sortType)}</p>
             {render(songs, sortType)}
             <div className='bottomDiv'/>

@@ -17,6 +17,8 @@ export const NavigatingRootMenuWidget = ({
     setExpandedMenu,
     songRenderConfig,
     setSongRenderConfig,
+    fontSize,
+    setFontSize,
 } : {
     songNumber: number,
     sortType: SortType,
@@ -24,6 +26,8 @@ export const NavigatingRootMenuWidget = ({
     setExpandedMenu: ReactSetter2<boolean>,
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
+    fontSize: number,
+    setFontSize: ReactSetter2<number>,
 }) => {
 
     // used to prevent clicking on the menu to close the menu
@@ -39,7 +43,8 @@ export const NavigatingRootMenuWidget = ({
                 <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
             </div>
             {expandedMenu && <NavigatingMenuWidget songRenderConfig={songRenderConfig}
-                setSongRenderConfig={setSongRenderConfig} sortType={sortType} setExpandedMenu={setExpandedMenu}/>}
+                setSongRenderConfig={setSongRenderConfig} sortType={sortType} setExpandedMenu={setExpandedMenu}
+                fontSize={fontSize} setFontSize={setFontSize}/>}
         </div>
     </>;
     /* ttt0 review why there are both menuDivRight and menuDivLeft */
