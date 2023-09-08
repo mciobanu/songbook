@@ -28,13 +28,15 @@ const MenuWidget2 = ({
     songRenderConfig,
     setSongRenderConfig,
     sortType,
+    setExpandedMenu,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType | undefined,
+    setExpandedMenu: ReactSetter2<boolean>,
 }) => {
     return (<div>
-        <SearchControlsWidget initialSearchTerms=''/>
+        <SearchControlsWidget initialSearchTerms='' setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
         <IndexSelectorWidget sortType={sortType}/>
         <hr className="menuHr" />
@@ -61,7 +63,8 @@ export const NavigatingMenuWidget = ({
         <MenuWidget1 fontSize={fontSize} setFontSize={setFontSize}/>
         <GoToWidget setExpandedMenu={setExpandedMenu}/>
         <hr className="menuHr" />
-        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}/>
+        <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={sortType}
+            setExpandedMenu={setExpandedMenu}/>
     </div>);
 };
 
@@ -71,16 +74,18 @@ export const NonNavigatingMenuWidget = ({
     sortType,
     fontSize,
     setFontSize,
+    setExpandedMenu,
 } : {
     songRenderConfig: SongRenderConfig,
     setSongRenderConfig: ReactSetter2<SongRenderConfig>,
     sortType: SortType | undefined,  //!!! Needed so the menu can match the current index. However, the help and search pages don't need it
     fontSize: number,
     setFontSize: ReactSetter2<number>,
+    setExpandedMenu: ReactSetter2<boolean>,
 }) => {
     return (<div>
         <MenuWidget1 fontSize={fontSize} setFontSize={setFontSize}/>
         <MenuWidget2 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig}
-            sortType={sortType}/>
+            sortType={sortType} setExpandedMenu={setExpandedMenu}/>
     </div>);
 };

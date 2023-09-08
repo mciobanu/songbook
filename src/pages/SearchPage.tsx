@@ -48,7 +48,7 @@ export const SearchPage = ({
                 songRenderConfig={songRenderConfig} setSongRenderConfig={setSongRenderConfig} sortType={undefined}
                 fontSize={fontSize} setFontSize={setFontSize}/>
             <p className="songTitle genericTitle">Căutare</p>  {/*ttt1: same as edit placeholder */}
-            <SearchControlsWidget initialSearchTerms={searchTerms || ''}/>
+            <SearchControlsWidget initialSearchTerms={searchTerms || ''} setExpandedMenu={setExpandedMenu}/>
             <hr className='searchSeparator'/>
             <SearchResultsWidget searchResult={searchResult} searchTerms={searchTerms || ''}/>
             <div className='bottomDiv'/>

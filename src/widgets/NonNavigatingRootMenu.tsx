@@ -35,6 +35,6 @@ export const NonNavigatingRootMenuWidget = ({
         </div>
         {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
             setSongRenderConfig={setSongRenderConfig} sortType={sortType} fontSize={fontSize}
-            setFontSize={setFontSize}/>}
+            setFontSize={setFontSize} setExpandedMenu={setExpandedMenu}/>}
     </div>);
 };

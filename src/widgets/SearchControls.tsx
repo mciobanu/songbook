@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import {Paths} from '../Paths';
 
 import '../legacy.css';
+import {ReactSetter2} from '../Common';
 
 
 /**
@@ -13,12 +14,11 @@ import '../legacy.css';
  */
 export const SearchControlsWidget = ({
     initialSearchTerms,
+    setExpandedMenu,
 } : {
     initialSearchTerms: string,
+    setExpandedMenu: ReactSetter2<boolean>,
 }) => {
-    // onKeyDown="if (event.keyCode == 13) document.getElementById('searchBtn').click();"   //ttt0: make this work
-    // onClick="search('searchInput');"  //ttt0: make this work
-
     const [searchTerms, setSearchTerms] = React.useState(initialSearchTerms);
     /*
     //ttt2 See if this can be made to work: The idea is that you could skip useState if you only care about getting the
@@ -26,6 +26,10 @@ export const SearchControlsWidget = ({
     const searchInput2 = React.useRef<HTMLInputElement>(null);
      <input id="searchInput2" className="editSearch2" placeholder="Căutare" autoCapitalize="off" ref={searchInput2}/>
     */
+
+    React.useEffect(() => {
+        setSearchTerms(initialSearchTerms);
+    }, [initialSearchTerms]);
 
     function onChange(event: React.FormEvent<HTMLInputElement>) {
         setSearchTerms(event.currentTarget.value);
@@ -35,7 +39,8 @@ export const SearchControlsWidget = ({
 
     const onSearch = React.useCallback(() => {
         navigate(`${Paths.search}/${searchTerms}`);
-    }, [navigate, searchTerms]);
+        setExpandedMenu(false);
+    }, [navigate, searchTerms, setExpandedMenu]);
 
     // https://felixgerschau.com/react-typescript-onkeydown-event-type/
     const onKeyDown = React.useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
