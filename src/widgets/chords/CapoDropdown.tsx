@@ -37,7 +37,7 @@ export const CapoDropdown = ({
         console.log(`click CkB ${s}`);
         event.stopPropagation();
 
-        //ttt3: Code in JS (below) is more complicated; see if needed, perhaps on older browsers
+        //ttt3: Code in JS (below) is more complicated; see if needed, perhaps on older browsers. Note: cancelBubble & Co can be found in a field called nativeEvent
         /*return function(event) {
             event.cancelBubble = true;
             if (event.stopPropagation) {

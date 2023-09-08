@@ -56,7 +56,7 @@ src/__tests__/Suggestions.test.ts	f	2023-09-04T09:37:33Z
 src/__tests__/Utils.test.ts	f	2023-09-08T06:17:03Z
 src/Utils.ts	f	2023-09-04T20:50:25Z
 src/widgets/ChordConfig.tsx	f	2023-09-04T14:46:33Z
-src/widgets/chords/CapoDropdown.tsx	f	2023-09-03T17:56:33Z
+src/widgets/chords/CapoDropdown.tsx	f	2023-09-08T06:17:26Z
 src/widgets/chords/Capo.tsx	f	2023-09-03T15:01:53Z
 src/widgets/chords/ChordList.tsx	f	2023-09-04T13:28:12Z
 src/widgets/chords/ChordsArea.tsx	f	2023-09-06T19:47:02Z

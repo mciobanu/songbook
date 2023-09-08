@@ -192,6 +192,7 @@ if (persistedLastPath) {
     //navigate(persistedLastPath);
 }*/
 
+//ttt1: Review fixOldVersion() in JS
 
 initAsciiForAccidentals();  //ttt1: Review using this approach. We don't want to keep calling this function
 

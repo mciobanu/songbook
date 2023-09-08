@@ -10,7 +10,7 @@ export function persist<T>(key: string, x: T): void {
     localStorage.setItem(key, s);
 }
 
-export function retrieve<T>(key: string): T {
+export function retrieve<T>(key: string): T { //ttt1: Something to validate that all required fields exist
     const s = localStorage.getItem(key);
     if (!s) {
         throw Error(`No valid entry found for key ${key}`);
