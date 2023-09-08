@@ -1,6 +1,7 @@
 import {describe, expect, test} from '@jest/globals';
 
 import {arraysAreEqual} from '../Utils';
+import {debugFmt} from '../Common';
 
 
 describe('arraysAreEqual', () => {
@@ -44,5 +45,33 @@ describe('arraysAreEqual', () => {
             const result = arraysAreEqual(undefined, undefined);
             expect(result).toBe(false);
         });
+    });
+});
+
+
+describe('debugFmt cycle', () => {
+    test('debugFmt should handle cycles', () => {
+        type T1 = {
+            f1: number,
+            f2: string,
+            f3: {
+                g1: number,
+                g2: T1 | undefined,
+            }
+        }
+
+        const a: T1 = {
+            f1: 2,
+            f2: 'v',
+            f3: {
+                g1: 6,
+                g2: undefined,
+            },
+        };
+
+        a.f3.g2 = a;
+
+        const result = debugFmt(a);
+        expect(result).toContain('$');
     });
 });
