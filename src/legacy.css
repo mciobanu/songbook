@@ -363,6 +363,11 @@ padding-top:2rem;
     overflow: hidden;
 }
 
+.italic {
+    font-style: italic;
+    /*font-weight: bolder;*/
+}
+
 /* hide spinner - http://stackoverflow.com/questions/23372903/hide-spinner-in-input-number-firefox-29 */
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {

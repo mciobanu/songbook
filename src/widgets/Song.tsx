@@ -20,12 +20,14 @@ export const SongWidget = ({
     capoCbBVal,
     setCapoCbBVal,
     miscConfig,
+    fontSize,
 } : {
     song: Song,
     songRenderConfig: SongRenderConfig,
     capoCbBVal: string,
     setCapoCbBVal: ReactSetter2<string>,
     miscConfig: MiscConfig,
+    fontSize: number,
 }) => {
     /*const [chords, setChords] = React.useState(getAllChords(song)); //ttt1: Review situations like this,
     // where it probably makes more sense to use a dummy chord list, as this function call will be replaced in the useEffect() below
@@ -60,7 +62,8 @@ export const SongWidget = ({
             setCapoCbBVal={setCapoCbBVal} song={song} firstChordCbBVal={firstChordCbBVal}
             setFirstChordCbBVal={setFirstChordCbBVal} suggestions={suggestions} currentSuggestion={currentSuggestion}
             setCurrentSuggestion={setCurrentSuggestion} miscConfig={miscConfig}/>
-        <SongBodyWidget song={song} songRenderConfig={songRenderConfig} capo={capo} rangeShift={rangeShift}/>
+        <SongBodyWidget song={song} songRenderConfig={songRenderConfig} capo={capo} rangeShift={rangeShift}
+            fontSize={fontSize}/>
     </>;
 };
 

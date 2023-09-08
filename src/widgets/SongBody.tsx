@@ -23,7 +23,7 @@ enum ChordRendering {
 }
 
 
-type WidthCalculator = (s: string) => number;
+type WidthCalculator = (s: string, italic: boolean) => number;
 
 const ChordTableWidget = ({
     text,
@@ -106,7 +106,7 @@ const ChordTableWidget = ({
             return null;
         }
 
-        /*return <tr>
+        return <tr>
             {rowsInfo.row2.map((s, index) => {
                 let t2 = s;
                 if (index < rowsInfo.row2.length - 1 && !s.endsWith('-') && !s.endsWith(' ')) {
@@ -115,41 +115,11 @@ const ChordTableWidget = ({
                     const t1 = rowsInfo.row1[index];
                     //const output = document.createElement('span')
                     //const uiMeasure1 = document.getElementById('uiMeasure');
-                    const uiMeasure1 = uiMeasure;
 
-                    uiMeasure1.textContent = `${t1}|`; // innerHTML for IE < 9
-                    const w1 = uiMeasure.scrollWidth;
-                    uiMeasure1.textContent = `${t2}|`; // innerHTML for IE < 9
-                    const w2 = uiMeasure.scrollWidth;
-                    //const w3 = uiMeasure.style.width;
-                    //console.log(uiMeasure.scrollWidth);
-                    if (w1 > w2) {
-                        t2 += '-'; //!!! This adds a "-" when the chord name is longer than the text part
-                        // Without it: "Și restul e numai Chopin și tăce-e   re."
-                        // With it:    "Și restul e numai Chopin și tăce-e-  re."
-                        //ttt2 perhaps allow to define a "non-printable dash", that is shown only inside chords, to cover cases where this default doesn't quite work
-                    }
-                    //console.log(t1);
-                    //console.log(`uiMeasure1:${uiMeasure1}`);
-                }
+                    const w1 = widthCalculator(`${t1}|`, true) + 1; //!!! "+1" is a hack to account for issues
+                    // described below, in "widthCalculator", when things get measured and the results are not quite OK
+                    const w2 = widthCalculator(`${t2}|`, false);
 
-                return <td className='chordCellText' key={index}>{t2}</td>;
-            })}
-        </tr>;*/
-
-        return <tr>
-            {rowsInfo.row2.map((s, index) => {
-                let t2 = s;
-                if (index < rowsInfo.row2.length - 1 && !s.endsWith('-') && !s.endsWith(' ')) { //ttt0: Make sure this works with zoom
-                    // Check if we should add a dash, for cases when the chord above takes more space than the text
-                    // below
-                    const t1 = rowsInfo.row1[index];
-                    //const output = document.createElement('span')
-                    //const uiMeasure1 = document.getElementById('uiMeasure');
-
-                    const w1 = widthCalculator(`${t1}|`);
-                    //ttt0 Țigăncușa - verse 2 with small fonts and some chords there's no "-" between "ți" and "gani", but there is space
-                    const w2 = widthCalculator(`${t2}|`);
                     //const w3 = uiMeasure.style.width;
                     //console.log(uiMeasure.scrollWidth);
                     if (w1 > w2) {
@@ -290,6 +260,7 @@ export const SongBodyWidget = ({
     setCapoCbBVal,*/
     capo,
     rangeShift,
+    fontSize,
 } : {
     song: Song,
     songRenderConfig: SongRenderConfig,
@@ -298,6 +269,7 @@ export const SongBodyWidget = ({
     setCapoCbBVal: ReactSetter2<string>,*/
     capo: number,
     rangeShift: number,
+    fontSize: number,
 }) => {
 
     const songReady = React.useMemo(() => {
@@ -305,15 +277,32 @@ export const SongBodyWidget = ({
         return true; // This is supposed to make sure that cloneEmptyStanzas() is called once before doing anything about stanzas
     }, [song]);
 
+
+
+    //>>>>>>>>>>>>>>> version 1 >>>>>>>>>>>>>>>>>>
     // Create an invisible DOM element directly, to be used for measurements
     let uiMeasure: HTMLSpanElement;
     const existingUiMeasure = document.getElementById('uiMeasure');
+
     if (existingUiMeasure) {
         uiMeasure = existingUiMeasure;
     } else {
+        //ttt1: Țigăncușa - verse 2 with small fonts and some chords: there's no "-" between "ți" and "gani", but there is space.
+        // The issue is that both the chord ("E") and the syllable ("ți") are measured at 16, but the chord takes more space.
+        // The same happens for the second-smallest size, when they are both measured at 17.
+        //ttt1: Another issue is that the chord should be measured in italics, but that doesn't really fix it ("font-weight: bolder"
+        // does the trick, but it's not right, as it is not what is drawn
+        //ttt1: Also, scrollWidth uses integers, but perhaps the width is not an integer
+
+        // With chords show above the verses, and without the "+1" hack in textRow:
+        // 1. normal font, "-" is visible
+        // 2. small font, "-" is visible
+        // 3. Go to next and back: no "-"
+        // 4. normal fonts; no "-"
+        // 5. Go to next and back: "-" is visible
+
         uiMeasure = document.createElement('span');
         uiMeasure.id = 'uiMeasure';
-        uiMeasure.className = 'measureSpan';
         //existingUiMeasure = document.getElementById('uiMeasure');
         //const rootNode = document.getRootNode();
         const rootNode = document.getElementById('root');
@@ -323,10 +312,45 @@ export const SongBodyWidget = ({
         }
     }
 
-    const widthCalculator = React.useCallback((s: string): number => {
+    const widthCalculator = React.useCallback((s: string, italic: boolean): number => {
         uiMeasure.textContent = s;   // innerHTML for IE < 9
-        return uiMeasure.scrollWidth;
+        uiMeasure.className = `measureSpan${italic ? ' italic' : ''}`;
+        const res = uiMeasure.scrollWidth;
+        console.log(`measure(${s}): ${res}`);
+        return res;
     }, [uiMeasure]);   //ttt1: see if uiMeasure should be Memo, to prevent recomputing at every render
+    //<<<<<<<<<<<<<<<< version 1 <<<<<<<<<<<<<<<< */
+
+
+
+    /*/>>>>>>>>>>>>>>> version 2 >>>>>>>>>>>>>>>>>>
+    const widthCalculator = React.useCallback((s: string, italic: boolean): number => {
+        //ttt1: Perhaps make this work. The idea is to react to font changes, but the way it's done it uses the
+        // previous value: It looks like when the user makes a change, the UI is first rendered, and then this gets updated
+        // The solution for both this approach and the one above is to go to another song after changing the fonts,
+        // but it's not a huge deal, as the only impact is a possible small space inside some words, but even this
+        // happens quite rarely
+        let res: number;
+        const rootNode = document.getElementById('root');
+        if (rootNode) {
+            const uiMeasure: HTMLSpanElement = document.createElement('span');
+            uiMeasure.id = 'uiMeasure';
+            uiMeasure.className = `measureSpan${italic ? ' italic' : ''}`;
+            uiMeasure.textContent = s;   // innerHTML for IE < 9
+            rootNode.appendChild(uiMeasure);
+            res = uiMeasure.scrollWidth;
+            rootNode.removeChild(uiMeasure);
+            console.log(`measure(${s}): ${res}`);
+        } else {
+            console.log(`default measure for ${s}`);
+            res = 10; // just some arbitrary value
+        }
+
+        return res;
+    }, [fontSize]);
+    //<<<<<<<<<<<<<<<< version 2 <<<<<<<<<<<<<<<< */
+
+
 
     //ttt2: See if this can replace uiMeasure. The idea is to use a canvas to measure things, but one issue is getting
     // the attributes from the "measureSpan" class, namely the font, including zoom changes. The other issue is that

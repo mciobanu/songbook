@@ -78,7 +78,7 @@ export const SongPage = ({
                 setFontSize={setFontSize}/>
             <p className="songTitle">{getTitle()}</p>
             <SongWidget song={sortedSong.song} songRenderConfig={songRenderConfig} capoCbBVal={capoCbBVal}
-                setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig}/>
+                setCapoCbBVal={setCapoCbBVal} miscConfig={miscConfig} fontSize={fontSize}/>
             <div className='bottomDiv'/>
         </div>
     );
