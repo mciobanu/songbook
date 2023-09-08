@@ -48,12 +48,13 @@ export const SearchResultsWidget = ({
         const ignoredList = searchResult.ignored.map((s) => {
             return `“${s}”`;
         }).join(', ');
-        return <span className='searchWarning'> Cuvinte ignorate deoarece apar prea des în text: {ignoredList}.</span>;
+        return <span className='searchWarning'>
+            Cuvinte ignorate (deoarece apar prea des în text sau sunt prea scurte): {ignoredList}.
+        </span>;
     }
 
     return (<>
         <p className='searchSummary'>{getResultsText()} {getWarningText()}</p>
         {songList}
     </>);
-    //ttt0: In JS there was a escapeHtml() around searchTerms. See if needed, probably by searching for "&lt;" or similar and comparing with JS
 };

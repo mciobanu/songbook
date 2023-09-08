@@ -79,7 +79,7 @@ src/widgets/NavigatingRootMenu.tsx	f	2023-09-08T06:17:26Z
 src/widgets/Navigation.tsx	f	2023-08-21T21:01:21Z
 src/widgets/NonNavigatingRootMenu.tsx	f	2023-09-08T11:57:28Z
 src/widgets/SearchControls.tsx	f	2023-09-08T12:00:23Z
-src/widgets/SearchResults.tsx	f	2023-09-06T15:46:32Z
+src/widgets/SearchResults.tsx	f	2023-09-08T08:23:54Z
 src/widgets/SongBody.tsx	f	2023-09-06T16:57:44Z
 src/widgets/Song.tsx	f	2023-09-03T20:36:02Z
 tests/Tests.md	f	2023-08-27T20:01:25Z
