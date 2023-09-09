@@ -66,6 +66,22 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
     const suggestion1 = suggestion; // this is to avoid ESLint's no-param-reassign, as the whole purpose
     // of this function is to change its argument
     suggestion1.outsideRange = false;
+    suggestion1.voiceOut = 0;
+    suggestion1.score = 0;
+
+    if (!chords.length) {  // needed when songs have no chords
+        suggestion1.dbg = { //ttt3 debug only
+            rangeDiff: 0,
+            songNumRange: '',
+            adjSongRange: '',
+            voiceNumRange: '',
+            midSong: 0,
+            midVoice: 0,
+            shiftedChords: '',
+        };
+        return;
+    }
+
     let score = 0;
     if ((capo === CAPO_AUTO && suggestion.capo > maxCapo) || (capo !== CAPO_AUTO && suggestion.capo !== capo)) {
         score = 1000000;
@@ -98,7 +114,6 @@ function computeScore(suggestion: Suggestion, chords: string[], capo: number, ma
             midSong += 12; //!!! debug only
         }
         score = Math.abs(rangeDiff);
-        suggestion1.voiceOut = 0;
         if (adjSongRange[0] < voiceNumRange[0]) {
             const d = voiceNumRange[0] - adjSongRange[0];
             suggestion1.voiceOut = d;
@@ -266,6 +281,3 @@ export function getChordSuggestions(chords: string[], songRange: string, voiceRa
 export function getGoodRangeClass(suggestion: Suggestion) {
     return suggestion.outsideRange ? 'outsideRange' : 'insideRange';
 }
-
-//ttt0: A song without chords throws an exception at reload, but not at normal navigation. And, in general: when chords are above
-// the verses, verses without chords aren't rendered
