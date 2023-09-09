@@ -12,6 +12,7 @@ import {
     Stanza,
 } from '../Song';
 import {accidentalsToDisplay} from '../ChordUtils';
+import {debugFmt} from '../Utils';
 
 
 // sort of ESLint bug - //!!! https://stackoverflow.com/questions/63961803/eslint-says-all-enums-in-typescript-app-are-already-declared-in-the-upper-scope
@@ -85,7 +86,9 @@ const ChordTableWidget = ({
         if (g < n) {
             tr2Elems.push(text.substring(g, n));
         }
-        return {row1: tr1Elems, row2: tr2Elems, chordsFound};
+        const res = {row1: tr1Elems, row2: tr2Elems, chordsFound};
+        //console.log(`for ${text}: return ${debugFmt(res)}`);
+        return res;
     }, [text]);
 
     const chordNotes = React.useMemo(() => {
@@ -140,7 +143,7 @@ const ChordTableWidget = ({
 
 
     if (!rowsInfo.chordsFound) {
-        return <p className={last ? 'songLastVerse' : 'songNormalVerse'}></p>;
+        return <p className={last ? 'songLastVerse' : 'songNormalVerse'}>{text}</p>;
     }
 
     // In JS the div below is a p, but changed to div due to warnings in the console ("<table> cannot appear as a descendant of <p>")
@@ -181,6 +184,7 @@ const VerseWidget = ({
     // noinspection UnnecessaryLocalVariableJS
     const res = React.useMemo(() => {
         let v = verse;
+        //console.log(`rendering: ${verse}`);
         if (chordRendering === ChordRendering.NONE && isChordNotes(verse)) { //ttt1: Search JS for all the places isChordNotes() was used in
             return null; // without this we'd render "()" for "Noapte la mare, noapte la munte"
         }
