@@ -29,12 +29,15 @@ export const NonNavigatingRootMenuWidget = ({
         event.stopPropagation();
     }, []);
 
-    return (<div className="menuDiv menuDivRight menuP" onClick={onClick}>
-        <div className="nonNavRootMenuContainer">
-            <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
-        </div>
-        {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
-            setSongRenderConfig={setSongRenderConfig} sortType={sortType} fontSize={fontSize}
-            setFontSize={setFontSize} setExpandedMenu={setExpandedMenu}/>}
-    </div>);
+    return (
+        <div id='rootMenuNonNav' className="menuDiv menuDivExtended menuDivRight">
+            <div className='menuP' onClick={onClick}>
+                <div className="nonNavRootMenuContainer">
+                    <HamburgerWidget expandedMenu={expandedMenu} setExpandedMenu={setExpandedMenu}/>
+                </div>
+                {expandedMenu && <NonNavigatingMenuWidget songRenderConfig={songRenderConfig}
+                    setSongRenderConfig={setSongRenderConfig} sortType={sortType} fontSize={fontSize}
+                    setFontSize={setFontSize} setExpandedMenu={setExpandedMenu}/>}
+            </div>
+        </div>);
 };
